@@ -3,6 +3,7 @@ import { DateContext } from "@/context/date-provider";
 import { TransactionContext } from "@/context/transaction-provider";
 import { Transaction } from "@/types/transaction";
 import React, { useContext, useMemo } from "react";
+import { Card } from "@/components/ui/card";
 
 export default function TransactionList() {
   const { transactions, deleteTransaction } = useContext(TransactionContext);
@@ -17,8 +18,8 @@ export default function TransactionList() {
   return (
     <div className="flex flex-col gap-3 my-3">
       {Boolean(filteredList.length) &&
-        filteredList.map((i) => (
-          <div
+        filteredList.map((i:any) => (
+          <Card
             key={i.id}
             className="grid grid-cols-[40px_2fr_1fr] gap-2 grid-rows-2 bg-white p-5"
           >
@@ -46,7 +47,7 @@ export default function TransactionList() {
                 delete
               </button>
             </div>
-          </div>
+          </Card>
         ))}
     </div>
   );

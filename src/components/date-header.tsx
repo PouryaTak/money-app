@@ -2,6 +2,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment-jalaali";
 import { DateContext } from "@/context/date-provider";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function DateHeader() {
     moment.loadPersian({dialect: 'persian-modern'})
@@ -26,10 +28,10 @@ const {setSelectedDate} = useContext(DateContext)
     })
   },[date])
   return (
-    <div className="w-full flex justify-between">
-      <button onClick={goPrev}>Prev</button>
-      <h1>{date.format("jMMMM")}</h1>
-      <button onClick={goNext}>Next</button>
-    </div>
+    <Card className="w-full flex justify-between p-5">
+      <Button variant="secondary" onClick={goPrev}>Prev</Button>
+      <h2 className="text-xl font-bold mt-2">{date.format("jMMMM")}</h2>
+      <Button variant="secondary" onClick={goNext}>Next</Button>
+    </Card>
   );
 }
