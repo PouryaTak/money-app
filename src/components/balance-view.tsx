@@ -30,7 +30,7 @@ export default function Balance() {
           <div>
             <h2 className="font-bold text-2xl">Expenses</h2>
             <span className="text-red-400 text-xl font-bold block">
-              {numberSeparator(calcExpenses)}
+             - {numberSeparator(calcExpenses)}
             </span>
           </div>
           <ArrowUpFromLine className="text-red-400" size={40} />
@@ -52,7 +52,7 @@ export default function Balance() {
           <div>
             <h2 className="font-bold text-2xl">Incomes</h2>
             <span className="text-green-400 text-xl font-bold block">
-              {numberSeparator(calcIncomes)}
+             + {numberSeparator(calcIncomes)}
             </span>
           </div>
           <ArrowDownToLine className="text-green-400" size={40} />  

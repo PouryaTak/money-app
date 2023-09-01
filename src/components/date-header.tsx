@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment-jalaali";
 import { DateContext } from "@/context/date-provider";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export default function DateHeader() {
@@ -28,10 +27,10 @@ const {setSelectedDate} = useContext(DateContext)
     })
   },[date])
   return (
-    <Card className="w-full flex justify-between p-5">
+    <div className="w-full flex justify-between p-5">
       <Button variant="secondary" onClick={goPrev}>Prev</Button>
       <h2 className="text-xl font-bold mt-2">{date.format("jMMMM")}</h2>
       <Button variant="secondary" onClick={goNext}>Next</Button>
-    </Card>
+    </div>
   );
 }
