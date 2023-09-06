@@ -26,7 +26,7 @@ export default function TransactionList() {
   }
 
   return (
-    <div className="flex flex-col gap-3 my-3 h-full overflow-y-auto">
+    <div className="flex flex-col gap-3 my-3 h-full overflow-y-auto border rounded-lg p-3">
       {Boolean(filteredList.length) &&
         filteredList.sort((a:any,b:any)=> a.date > b.date ? -1 : 1).map((i: any) => {
           const date = moment(i.date);

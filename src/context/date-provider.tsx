@@ -11,14 +11,20 @@ interface DateContext {
   currentDate: Date;
   setCurrentDate: React.Dispatch<React.SetStateAction<any>>;
 }
-export const DateContext = createContext<DateContext>({});
+
+export const DateContext = createContext<DateContext>({
+  selectedDate: { startDate: null, endDate: null },
+  setSelectedDate: () => {},
+  currentDate: { startDate: null, endDate: null },
+  setCurrentDate: () => {},
+});
 
 export default function DateProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const current = useRef(moment(Date.now()))
+  const current = useRef(moment(Date.now()));
   const [selectedDate, setSelectedDate] = useState<Date>({
     startDate: null,
     endDate: null,
