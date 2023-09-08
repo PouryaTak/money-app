@@ -11,7 +11,7 @@ export const saveStorageTransaction = (transaction: Transaction) => {
 
 export const deleteStorageTransaction = (id: string) => {
   const list = getTransactions();
-  const index = list.findIndex((i) => i.id === id);
+  const index = list.findIndex((i:Transaction) => i.id === id);
   list.splice(index, 1);
 
   localStorage.setItem("transactionList", JSON.stringify(list));

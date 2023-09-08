@@ -59,7 +59,8 @@ export default function TransactionForm() {
       </Tabs>
       <div className="flex flex-wrap items-start content-start gap-3 flex-1 p-2 bg-gray-100 rounded-xl" key={transaction.type}>
         {categories[transaction.type].map((i:any) => (
-          <label htmlFor={i.key} key={i.key} className={`flex self-start gap-2 items-center relative p-2 border border-slate-300 rounded-lg ${i.key == transaction.category && 'bg-white !border-slate-500' }`}>
+          <label htmlFor={i.key} key={i.key} className={`flex self-start gap-2 items-center relative p-2 border rounded-lg ${i.key == transaction.category && 'bg-white' }`}
+          style={{borderColor:i.color}}>
             <input
               type="radio"
               name="category"
