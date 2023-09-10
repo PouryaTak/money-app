@@ -19,3 +19,12 @@ export const categories:any = {
     { key: "income", value: "Income" },
   ];
   
+  export const initialForm = {
+    type: "expense",
+    category: "item01",
+    title: "",
+    date: "",
+    amount: "",
+    desc: "",
+    id: "",
+  };

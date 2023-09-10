@@ -1,10 +1,12 @@
 import { deleteStorageTransaction, getTransactions, saveStorageTransaction } from "@/functions/handle-transactions";
+import { initialForm } from "@/helpers/static-data";
 import { Transaction } from "@/types/transaction";
 import { createContext, useEffect, useState } from "react";
 
 export const TransactionContext = createContext<any>({});
 export default function TransactionProvider({ children }: any) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [currentTransaction, setCurrentTransaction] = useState<Transaction>(initialForm);
 
   const saveTransaction = (transaction:Transaction) => {
     setTransactions(current => [...current, transaction])
@@ -25,7 +27,7 @@ export default function TransactionProvider({ children }: any) {
     setTransactions(list);
   }, []);
   return (
-    <TransactionContext.Provider value={{ transactions, setTransactions, saveTransaction, deleteTransaction }}>
+    <TransactionContext.Provider value={{ transactions, setTransactions, saveTransaction, deleteTransaction, currentTransaction, setCurrentTransaction }}>
       {children}
     </TransactionContext.Provider>
   );

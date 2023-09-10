@@ -1,52 +1,57 @@
 "use client";
 import { TransactionContext } from "@/context/transaction-provider";
-import { categories, types } from "@/helpers/static-data";
-import { Transaction } from "@/types/transaction";
-import React, { useContext, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { categories, initialForm } from "@/helpers/static-data";
+import React, { useContext } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import Icon from "./ui/icons";
+import { Calendar } from "./ui/calender";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { addCommas, removeNonNumeric } from "@/functions/handle-transactions";
 
-const initialForm = {
-  type: "expense",
-  category: "item01",
-  title: "",
-  date: "",
-  amount: "",
-  desc: "",
-  id: "",
-}
 
 export default function TransactionForm() {
-  const { saveTransaction } = useContext(TransactionContext);
-  const [transaction, setTransaction] = useState<Transaction>(initialForm);
+  const { saveTransaction, currentTransaction, setCurrentTransaction } = useContext(TransactionContext);
+
 
   const saveTransactionHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    transaction.id = crypto.randomUUID();
-    transaction.amount = removeNonNumeric(transaction.amount)
-    saveTransaction(transaction);
-    setTransaction(initialForm)
+    currentTransaction.amount = removeNonNumeric(currentTransaction.amount);
+    if(currentTransaction.id){
+
+    } else {
+      currentTransaction.id = crypto.randomUUID();
+      saveTransaction(currentTransaction);
+    }
+    setCurrentTransaction(initialForm);
   };
 
-    const addCommas = (num:any) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const removeNonNumeric = (num:any) => num.toString().replace(/[^0-9]/g, "");
-  
-  const onOptionChange = (e: any, key: keyof typeof transaction) => {
-    setTransaction((current) => {
-      current[key] = key == "amount" ? addCommas(removeNonNumeric(e.target.value)) : e.target.value;
+
+  const onOptionChange = (value: any, key: keyof typeof currentTransaction) => {
+    setCurrentTransaction((current:any) => {  
+      current[key] =
+        key == "amount" ? addCommas(removeNonNumeric(value)) : value;
       return JSON.parse(JSON.stringify(current));
     });
-    console.log(transaction);
   };
   return (
-    <form className="flex flex-col gap-3 h-[calc(100%-24px)]" onSubmit={saveTransactionHandler}>
+    <form
+      className="flex flex-col gap-3 h-[calc(100%-24px)]"
+      onSubmit={saveTransactionHandler}
+    >
       <Tabs
         defaultValue="expense"
+        value={currentTransaction.type}
         className="w-full"
-        onValueChange={(e) => onOptionChange({ target: { value: e } }, "type")}
+        onValueChange={(e) => onOptionChange(e, "type")}
       >
         <TabsList className="w-full">
           <TabsTrigger value="expense" className="w-full">
@@ -57,48 +62,80 @@ export default function TransactionForm() {
           </TabsTrigger>
         </TabsList>
       </Tabs>
-      <div className="flex flex-wrap items-start content-start gap-3 flex-1 p-2 bg-gray-100 rounded-xl" key={transaction.type}>
-        {categories[transaction.type].map((i:any) => (
-          <label htmlFor={i.key} key={i.key} className={`flex self-start gap-2 items-center relative p-2 border rounded-lg ${i.key == transaction.category && 'bg-white' }`}
-          style={{borderColor:i.color}}>
+      <div
+        className="flex flex-wrap items-start content-start gap-3 flex-1 p-2 bg-gray-100 rounded-xl"
+        key={currentTransaction.type}
+      >
+        {categories[currentTransaction.type].map((i: any) => (
+          <label
+            htmlFor={i.key}
+            key={i.key}
+            className={`flex self-start gap-2 items-center relative p-2 border border-slate-300 rounded-lg ${
+              i.key == currentTransaction.category && "bg-white border-slate-500"
+            }`}
+          >
             <input
               type="radio"
               name="category"
               value={i.key}
               id={i.key}
-              checked={i.key === transaction.category}
-              onChange={(e) => onOptionChange(e, "category")}
+              checked={i.key === currentTransaction.category}
+              onChange={(e) => onOptionChange(e.target.value, "category")}
               className="absolute inset-0 opacity-0 !cursor-pointer"
             />
-            <Icon name={i.icon}/>
-            {i.value}
+            <Icon name={i.icon} />
+            <span className="mt-1">
+              {i.value}
+              </span>
           </label>
         ))}
       </div>
-      <input
-        type="datetime-local"
-        required
-        onChange={(e) => onOptionChange(e, "date")}
-      />
-      <Input placeholder="title" onChange={(e) => onOptionChange(e, "title")} />
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant={"outline"}
+            className={cn(
+              "w-full pl-3 text-left font-normal",
+              !currentTransaction.date && "text-muted-foreground"
+            )}
+          >
+            {currentTransaction.date ? (
+              currentTransaction.date.slice(0,10)
+            ) : (
+              <span>date</span>
+            )}
+            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <Calendar
+            mode="single"
+            selected={currentTransaction.date as any}
+            onSelect={(e) => onOptionChange(e, "date")}
+            initialFocus
+          />
+        </PopoverContent>
+      </Popover>
+      <Input placeholder="title" value={currentTransaction.title} onChange={(e) => onOptionChange(e.target.value, "title")} />
       <Input
         type="text"
         placeholder="amount"
-        value={transaction.amount}
+        value={currentTransaction.amount}
         required
-        onChange={(e) => onOptionChange(e, "amount")}
+        onChange={(e) => onOptionChange(e.target.value, "amount")}
       />
-      <Textarea 
+      <Textarea
         rows={5}
         placeholder="description"
-        onChange={(e) => onOptionChange(e, "desc")}
+        value={currentTransaction.desc}
+        onChange={(e) => onOptionChange(e.target.value, "desc")}
       ></Textarea>
       <Button
         className={`text-white p-2 capitalize ${
-          transaction.type == "income" ? "bg-green-600" : "bg-orange-600"
+          currentTransaction.type == "income" ? "bg-green-600" : "bg-orange-600"
         }`}
       >
-        add {transaction.type}
+        add {currentTransaction.type}
       </Button>
     </form>
   );

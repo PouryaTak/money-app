@@ -17,7 +17,7 @@ export default function Drawer({
     <div
       className={`${
         isOpen ? "bg-black/10" : "bg-black/0 pointer-events-none"
-      } transition-all absolute inset-0 duration-500`}
+      } transition-all absolute inset-0 duration-500 z-30`}
       onClick={() => setIsOpen(false)}
     >
       <div

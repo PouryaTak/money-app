@@ -4,7 +4,7 @@ import { TransactionContext } from "@/context/transaction-provider";
 import { calculateAmountByType } from "@/functions/statistics";
 import React, { useContext } from "react";
 import { Card } from "@/components/ui/card";
-import { numberSeparator } from "@/functions/number-separator";
+import { numberSeparator } from "@/functions/handle-numbers";
 import { ArrowDownToLine, ArrowDownUp, ArrowUpFromLine } from "lucide-react";
 
 export default function Balance() {

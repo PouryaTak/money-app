@@ -16,3 +16,6 @@ export const deleteStorageTransaction = (id: string) => {
 
   localStorage.setItem("transactionList", JSON.stringify(list));
 };
+
+export const addCommas = (num: any) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const removeNonNumeric = (num: any) => num.toString().replace(/[^0-9]/g, "");
