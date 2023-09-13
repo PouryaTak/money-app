@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import Balance from "@/components/balance-view";
 import Drawer from "@/components/drawer";
 import TransactionForm from "@/components/transaction-form";
@@ -7,8 +7,7 @@ import TransactionList from "@/components/transaction-list";
 import TransactionProvider from "@/context/transaction-provider";
 import DateHeader from "@/components/date-header";
 import DateProvider from "@/context/date-provider";
-import { Button } from "@/components/ui/button";
-import { Plus, XSquare } from "lucide-react";
+import { XSquare } from "lucide-react";
 
 export default function Home() {
   const drawer = useRef<any>();
@@ -25,9 +24,6 @@ export default function Home() {
           <DateHeader />
           <Balance />
           <TransactionList openDrawer={() => drawer.current(true)} />
-          <Button onClick={() => drawer.current(true)} size={'icon'} className="flex items-center gap-2 ml-auto shadow-lg shadow-slate-300">
-            <Plus width={32} height={32} />     
-          </Button>
         </main>
       </TransactionProvider>
     </DateProvider>

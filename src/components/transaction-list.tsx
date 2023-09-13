@@ -4,10 +4,10 @@ import { TransactionContext } from "@/context/transaction-provider";
 import { Transaction } from "@/types/transaction";
 import React, { useContext, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { MoreHorizontal, PencilLine, Trash2 } from "lucide-react";
+import { MoreHorizontal, PencilLine, Plus, Trash2 } from "lucide-react";
 import { numberSeparator } from "@/functions/handle-numbers";
 import moment from "moment-jalaali";
-import { categories } from "@/helpers/static-data";
+import { categories, initialForm } from "@/helpers/static-data";
 import Icon from "./ui/icons";
 import {
   Popover,
@@ -16,8 +16,13 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "./ui/button";
 
-export default function TransactionList({openDrawer}:{openDrawer:()=>void}) {
-  const { transactions, deleteTransaction, setCurrentTransaction } = useContext(TransactionContext);
+export default function TransactionList({
+  openDrawer,
+}: {
+  openDrawer: () => void;
+}) {
+  const { transactions, deleteTransaction, setCurrentTransaction } =
+    useContext(TransactionContext);
   const { selectedDate } = useContext(DateContext);
 
   const filteredList = useMemo(() => {
@@ -31,10 +36,14 @@ export default function TransactionList({openDrawer}:{openDrawer:()=>void}) {
     return categories[i.type].find((item: any) => item.key === i.category);
   };
 
-  const handleEditTransaction = (transaction:Transaction) => {
-    setCurrentTransaction(transaction)
-    openDrawer()
-  }
+  const handleEditTransaction = (transaction: Transaction) => {
+    setCurrentTransaction(transaction);
+    openDrawer();
+  };
+  const addNewTransaction = () => {
+    setCurrentTransaction(initialForm);
+    openDrawer();
+  };
 
   return (
     <div className="flex flex-col gap-3 my-3 h-full overflow-y-auto border rounded-lg p-3">
@@ -76,14 +85,14 @@ export default function TransactionList({openDrawer}:{openDrawer:()=>void}) {
                     </PopoverTrigger>
                     <PopoverContent className="w-max p-1">
                       <Button
-                      variant={"ghost"}
+                        variant={"ghost"}
                         onClick={() => handleEditTransaction(i)}
                         className="text-gray-500 "
                       >
                         <PencilLine size={16} />
                       </Button>
                       <Button
-                      variant={"ghost"}
+                        variant={"ghost"}
                         onClick={() => deleteTransaction(i.id)}
                         className="text-red-500 "
                       >
@@ -95,6 +104,13 @@ export default function TransactionList({openDrawer}:{openDrawer:()=>void}) {
               </Card>
             );
           })}
+      <Button
+        onClick={addNewTransaction}
+        size={"icon"}
+        className="flex items-center gap-2 ml-auto shadow-lg shadow-slate-300 absolute bottom-5 right-8"
+      >
+        <Plus width={32} height={32} />
+      </Button>
     </div>
   );
 }

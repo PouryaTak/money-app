@@ -13,20 +13,18 @@ import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import Icon from "./ui/icons";
 import { Calendar } from "./ui/calender";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Check, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { addCommas, removeNonNumeric } from "@/functions/handle-transactions";
 
-
 export default function TransactionForm() {
-  const { saveTransaction, currentTransaction, setCurrentTransaction } = useContext(TransactionContext);
-
+  const { saveTransaction, currentTransaction, setCurrentTransaction } =
+    useContext(TransactionContext);
 
   const saveTransactionHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     currentTransaction.amount = removeNonNumeric(currentTransaction.amount);
-    if(currentTransaction.id){
-
+    if (currentTransaction.id) {
     } else {
       currentTransaction.id = crypto.randomUUID();
       saveTransaction(currentTransaction);
@@ -34,9 +32,8 @@ export default function TransactionForm() {
     setCurrentTransaction(initialForm);
   };
 
-
   const onOptionChange = (value: any, key: keyof typeof currentTransaction) => {
-    setCurrentTransaction((current:any) => {  
+    setCurrentTransaction((current: any) => {
       current[key] =
         key == "amount" ? addCommas(removeNonNumeric(value)) : value;
       return JSON.parse(JSON.stringify(current));
@@ -71,9 +68,15 @@ export default function TransactionForm() {
             htmlFor={i.key}
             key={i.key}
             className={`flex self-start gap-2 items-center relative p-2 border border-slate-300 rounded-lg ${
-              i.key == currentTransaction.category && "bg-white border-slate-500"
+              i.key == currentTransaction.category &&
+              "bg-white border-slate-500"
             }`}
           >
+            {i.key == currentTransaction.category && (
+              <span className="w-4 h-4 rounded-full bg-slate-800 grid place-content-center absolute top-1/2 -translate-y-1/2 -left-2">
+                <Check width={12} height={12} className="text-white" />
+              </span>
+            )}
             <input
               type="radio"
               name="category"
@@ -84,9 +87,7 @@ export default function TransactionForm() {
               className="absolute inset-0 opacity-0 !cursor-pointer"
             />
             <Icon name={i.icon} />
-            <span className="mt-1">
-              {i.value}
-              </span>
+            <span className="mt-1">{i.value}</span>
           </label>
         ))}
       </div>
@@ -100,14 +101,14 @@ export default function TransactionForm() {
             )}
           >
             {currentTransaction.date ? (
-              currentTransaction.date.slice(0,10)
+              currentTransaction.date.slice(0, 10)
             ) : (
               <span>date</span>
             )}
             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent className="z-50">
           <Calendar
             mode="single"
             selected={currentTransaction.date as any}
@@ -116,7 +117,11 @@ export default function TransactionForm() {
           />
         </PopoverContent>
       </Popover>
-      <Input placeholder="title" value={currentTransaction.title} onChange={(e) => onOptionChange(e.target.value, "title")} />
+      <Input
+        placeholder="title"
+        value={currentTransaction.title}
+        onChange={(e) => onOptionChange(e.target.value, "title")}
+      />
       <Input
         type="text"
         placeholder="amount"
