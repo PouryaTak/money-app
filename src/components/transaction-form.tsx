@@ -13,7 +13,7 @@ import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import Icon from "./ui/icons";
 import { Calendar } from "./ui/calender";
-import { CalendarIcon, Check, CheckCircle2 } from "lucide-react";
+import { CalendarIcon, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { addCommas, removeNonNumeric } from "@/functions/handle-transactions";
 

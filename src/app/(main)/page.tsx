@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <DateProvider>
       <TransactionProvider>
-        <main className="relative max-w-5xl h-screen grid grid-rows-[80px_100px_1fr] p-5 pt-0 mx-auto overflow-hidden bg-white">
+        <main className="relative max-w-5xl h-full grid grid-rows-[80px_100px_1fr] p-5 pt-0 mx-auto overflow-hidden bg-white">
           <Drawer toggler={drawer}>
             <>
               <button onClick={() => drawer.current(false)}><XSquare size={24} className="text-slate-500" /></button>

@@ -26,7 +26,7 @@ export default function Drawer({
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        {children}
+        { children}
       </div>
     </div>
   );
