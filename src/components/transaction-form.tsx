@@ -3,11 +3,7 @@ import { TransactionContext } from "@/context/transaction-provider";
 import { categories, initialForm } from "@/helpers/static-data";
 import React, { useContext } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
@@ -18,8 +14,7 @@ import { cn } from "@/lib/utils";
 import { addCommas, removeNonNumeric } from "@/functions/handle-transactions";
 
 export default function TransactionForm() {
-  const { saveTransaction, currentTransaction, setCurrentTransaction } =
-    useContext(TransactionContext);
+  const { saveTransaction, currentTransaction, setCurrentTransaction } = useContext(TransactionContext);
 
   const saveTransactionHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,16 +29,12 @@ export default function TransactionForm() {
 
   const onOptionChange = (value: any, key: keyof typeof currentTransaction) => {
     setCurrentTransaction((current: any) => {
-      current[key] =
-        key == "amount" ? addCommas(removeNonNumeric(value)) : value;
+      current[key] = key == "amount" ? addCommas(removeNonNumeric(value)) : value;
       return JSON.parse(JSON.stringify(current));
     });
   };
   return (
-    <form
-      className="flex flex-col gap-3 h-[calc(100%-24px)]"
-      onSubmit={saveTransactionHandler}
-    >
+    <form className="flex flex-col gap-3 h-[calc(100%-24px)]" onSubmit={saveTransactionHandler}>
       <Tabs
         defaultValue="expense"
         value={currentTransaction.type}
@@ -68,8 +59,7 @@ export default function TransactionForm() {
             htmlFor={i.key}
             key={i.key}
             className={`flex self-start gap-2 items-center relative p-2 border border-slate-300 rounded-lg ${
-              i.key == currentTransaction.category &&
-              "bg-white border-slate-500"
+              i.key == currentTransaction.category && "bg-white border-slate-500"
             }`}
           >
             {i.key == currentTransaction.category && (
@@ -95,16 +85,9 @@ export default function TransactionForm() {
         <PopoverTrigger asChild>
           <Button
             variant={"outline"}
-            className={cn(
-              "w-full pl-3 text-left font-normal",
-              !currentTransaction.date && "text-muted-foreground"
-            )}
+            className={cn("w-full pl-3 text-left font-normal", !currentTransaction.date && "text-muted-foreground")}
           >
-            {currentTransaction.date ? (
-              currentTransaction.date.slice(0, 10)
-            ) : (
-              <span>date</span>
-            )}
+            {currentTransaction.date ? currentTransaction.date.slice(0, 10) : <span>date</span>}
             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -117,11 +100,7 @@ export default function TransactionForm() {
           />
         </PopoverContent>
       </Popover>
-      <Input
-        placeholder="title"
-        value={currentTransaction.title}
-        onChange={(e) => onOptionChange(e.target.value, "title")}
-      />
+      <Input placeholder="title" value={currentTransaction.title} onChange={(e) => onOptionChange(e.target.value, "title")} />
       <Input
         type="text"
         placeholder="amount"
@@ -135,11 +114,7 @@ export default function TransactionForm() {
         value={currentTransaction.desc}
         onChange={(e) => onOptionChange(e.target.value, "desc")}
       ></Textarea>
-      <Button
-        className={`text-white p-2 capitalize ${
-          currentTransaction.type == "income" ? "bg-green-600" : "bg-orange-600"
-        }`}
-      >
+      <Button className={`text-white p-2 capitalize ${currentTransaction.type == "income" ? "bg-green-600" : "bg-orange-600"}`}>
         add {currentTransaction.type}
       </Button>
     </form>

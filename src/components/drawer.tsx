@@ -1,23 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { DrawerContext } from "@/context/drawer-provider";
+import React, { useContext } from "react";
+import { XSquare } from "lucide-react";
 
-export default function Drawer({
-  children,
-  toggler,
-}: {
-  children: React.ReactNode;
-  toggler: any;
-}) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    toggler.current = setIsOpen;
-  }, []);
+export default function Drawer({ children }: { children: React.ReactNode }) {
+  const { isOpen, setIsOpen } = useContext(DrawerContext);
   return (
     <div
-      className={`${
-        isOpen ? "bg-black/10" : "bg-black/0 pointer-events-none"
-      } transition-all absolute inset-0 duration-500 z-30`}
+      className={`${isOpen ? "bg-black/10" : "bg-black/0 pointer-events-none"} transition-all absolute inset-0 duration-500 z-30`}
       onClick={() => setIsOpen(false)}
     >
       <div
@@ -26,7 +16,10 @@ export default function Drawer({
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        { children}
+        <button onClick={() => setIsOpen(false)}>
+          <XSquare size={24} className="text-slate-500" />
+        </button>
+        {children}
       </div>
     </div>
   );
