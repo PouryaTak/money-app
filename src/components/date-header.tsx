@@ -27,7 +27,7 @@ const {setSelectedDate} = useContext(DateContext)
     })
   },[date])
   return (
-    <div className="w-full flex justify-between p-5">
+    <div className="w-full flex justify-between py-5">
       <Button variant="secondary" onClick={goPrev}>Prev</Button>
       <h2 className="text-xl font-bold mt-2">{date.format("jMMMM")}</h2>
       <Button variant="secondary" onClick={goNext}>Next</Button>

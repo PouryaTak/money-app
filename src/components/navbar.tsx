@@ -32,7 +32,7 @@ export default function Navbar() {
     setIsOpen(true);
   };
   return (
-    <ul className="w-full p-3 grid grid-flow-col relative bg-white border-t">
+    <ul className="w-full p-3 grid grid-flow-col gap-6 relative bg-white border-t">
       <Button
         onClick={addNewTransaction}
         size={"icon"}

@@ -34,7 +34,7 @@ export default function TransactionForm() {
     });
   };
   return (
-    <form className="flex flex-col gap-3 h-[calc(100%-24px)]" onSubmit={saveTransactionHandler}>
+    <form className="flex flex-col gap-3 h-[calc(100%-24px)] bg-white" onSubmit={saveTransactionHandler}>
       <Tabs
         defaultValue="expense"
         value={currentTransaction.type}
@@ -63,7 +63,7 @@ export default function TransactionForm() {
             }`}
           >
             {i.key == currentTransaction.category && (
-              <span className="w-4 h-4 rounded-full bg-slate-800 grid place-content-center absolute top-1/2 -translate-y-1/2 -left-2">
+              <span className="w-4 h-4 rounded-full bg-slate-800 grid place-content-center absolute -right-2 -top-2">
                 <Check width={12} height={12} className="text-white" />
               </span>
             )}
@@ -87,7 +87,7 @@ export default function TransactionForm() {
             variant={"outline"}
             className={cn("w-full pl-3 text-left font-normal", !currentTransaction.date && "text-muted-foreground")}
           >
-            {currentTransaction.date ? currentTransaction.date.slice(0, 10) : <span>date</span>}
+            {currentTransaction?.date ? currentTransaction.date.slice(0, 10) : <span>date</span>}
             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>

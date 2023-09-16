@@ -1,16 +1,38 @@
-import { Transaction } from "@/types/transaction";
+import { CategorizedTransaction, Transaction } from "@/types/transaction";
 
 export const calculateAmountByType = (
   startDate: any,
   endDate: any,
+  transactions: Array<Transaction>,
+  type: "expense" | "income"
+): number => {
+  return transactions.reduce((totalAmount: number, transaction: Transaction) => {
+    if (transaction.type === type && transaction.date >= startDate && transaction.date <= endDate) {
+      totalAmount += Number(transaction.amount);
+    }
+    return totalAmount;
+  }, 0);
+};
+
+export const groupTransactionsByTypeCategory = (
+  startDate: any,
+  endDate: any,
   transactions: Transaction[],
   type: "expense" | "income"
-) => {
-  let transaction = 0;
-  transactions.forEach((i) => {
-    if (i.date <= endDate && i.date >= startDate) {
-      i.type === type && (transaction += +i.amount);
+): Array<CategorizedTransaction> => {
+  const transactionObj: { [key: string]: number } = {};
+  transactions.forEach((item) => {
+    if (item.type === type && item.date >= startDate && item.date <= endDate) {
+      const amount: number = Number(item.amount);
+      item.category in transactionObj ? (transactionObj[item.category] += amount) : (transactionObj[item.category] = amount);
     }
   });
-  return transaction;
+
+  return Object.entries(transactionObj).map((item: [string, number]) => {
+    return {
+      type,
+      category: item[0],
+      amount: item[1],
+    };
+  });
 };
