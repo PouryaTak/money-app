@@ -11,7 +11,7 @@ import TransactionListItemPopover from "./item-popover";
 
 export default function TransactionListItem({ transaction }: { transaction: Transaction }) {
   const { deleteTransaction, setCurrentTransaction } = useContext(TransactionContext);
-  const {setIsOpen} = useContext(DrawerContext)
+  const {setIsDrawerOpen} = useContext(DrawerContext)
 
   const getCategory = (i: Transaction) => {
     return categories[i.type].find((item: any) => item.key === i.category);
@@ -19,7 +19,7 @@ export default function TransactionListItem({ transaction }: { transaction: Tran
 
   const handleEditTransaction = (transaction: Transaction) => {
     setCurrentTransaction(transaction);
-    setIsOpen(true);
+    setIsDrawerOpen(true);
   };
 
   const handleDeleteTransaction = (id: string) => {

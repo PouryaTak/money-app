@@ -17,7 +17,7 @@ export default function TransactionListItemPopover({
           <MoreHorizontal className="text-gray-500" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-max p-1">
+      <PopoverContent align="end" className="w-max p-1">
         <Button variant={"ghost"} onClick={handleEditTransaction} className="text-gray-500 ">
           <PencilLine size={16} />
         </Button>

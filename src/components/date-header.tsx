@@ -25,7 +25,7 @@ const {setSelectedDate} = useContext(DateContext)
         current.endDate = date.endOf("jMonth").format()
         return JSON.parse(JSON.stringify(current))
     })
-  },[date])
+  },[date, setSelectedDate])
   return (
     <div className="w-full flex justify-between py-5">
       <Button variant="secondary" onClick={goPrev}>Prev</Button>

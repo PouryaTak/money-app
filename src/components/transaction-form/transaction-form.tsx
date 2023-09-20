@@ -1,38 +1,17 @@
-"use client";
-import { TransactionContext } from "@/context/transaction-provider";
-import { categories, initialForm } from "@/helpers/static-data";
-import React, { useContext } from "react";
+import { categories } from "@/helpers/static-data";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
-import Icon from "./ui/icons";
-import { Calendar } from "./ui/calender";
-import { CalendarIcon, Check } from "lucide-react";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
+import { Calendar } from "../ui/calender";
+import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { addCommas, removeNonNumeric } from "@/functions/handle-transactions";
+import CategoryItem from "./category-item";
+import React from "react";
+import { Transaction } from "@/types/transaction";
 
-export default function TransactionForm() {
-  const { saveTransaction, currentTransaction, setCurrentTransaction } = useContext(TransactionContext);
-
-  const saveTransactionHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    currentTransaction.amount = removeNonNumeric(currentTransaction.amount);
-    if (currentTransaction.id) {
-    } else {
-      currentTransaction.id = crypto.randomUUID();
-      saveTransaction(currentTransaction);
-    }
-    setCurrentTransaction(initialForm);
-  };
-
-  const onOptionChange = (value: any, key: keyof typeof currentTransaction) => {
-    setCurrentTransaction((current: any) => {
-      current[key] = key == "amount" ? addCommas(removeNonNumeric(value)) : value;
-      return JSON.parse(JSON.stringify(current));
-    });
-  };
+export default function TransactionForm({ currentTransaction, onOptionChange, saveTransactionHandler }:{ currentTransaction:Transaction, onOptionChange:Function, saveTransactionHandler:React.FormEventHandler<HTMLFormElement> }) {
   return (
     <form className="flex flex-col gap-3 h-[calc(100%-24px)] bg-white" onSubmit={saveTransactionHandler}>
       <Tabs
@@ -55,30 +34,7 @@ export default function TransactionForm() {
         key={currentTransaction.type}
       >
         {categories[currentTransaction.type].map((i: any) => (
-          <label
-            htmlFor={i.key}
-            key={i.key}
-            className={`flex self-start gap-2 items-center relative p-2 border border-slate-300 rounded-lg ${
-              i.key == currentTransaction.category && "bg-white border-slate-500"
-            }`}
-          >
-            {i.key == currentTransaction.category && (
-              <span className="w-4 h-4 rounded-full bg-slate-800 grid place-content-center absolute -right-2 -top-2">
-                <Check width={12} height={12} className="text-white" />
-              </span>
-            )}
-            <input
-              type="radio"
-              name="category"
-              value={i.key}
-              id={i.key}
-              checked={i.key === currentTransaction.category}
-              onChange={(e) => onOptionChange(e.target.value, "category")}
-              className="absolute inset-0 opacity-0 !cursor-pointer"
-            />
-            <Icon name={i.icon} />
-            <span className="mt-1">{i.value}</span>
-          </label>
+          <CategoryItem currentTransaction={currentTransaction} data={i} onOptionChange={onOptionChange} key={i.key} />
         ))}
       </div>
       <Popover>

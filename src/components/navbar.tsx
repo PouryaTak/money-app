@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useContext } from "react";
@@ -26,10 +25,10 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const { setCurrentTransaction } = useContext(TransactionContext);
-  const { setIsOpen } = useContext(DrawerContext);
+  const { setIsDrawerOpen } = useContext(DrawerContext);
   const addNewTransaction = () => {
     setCurrentTransaction(initialForm);
-    setIsOpen(true);
+    setIsDrawerOpen(true);
   };
   return (
     <ul className="w-full p-3 grid grid-flow-col gap-6 relative bg-white border-t">

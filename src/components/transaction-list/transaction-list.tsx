@@ -3,7 +3,7 @@ import { DateContext } from "@/context/date-provider";
 import { TransactionContext } from "@/context/transaction-provider";
 import { Transaction } from "@/types/transaction";
 import React, { useContext, useMemo } from "react";
-import TransactionListItem from "./transaction-list-item";
+import TransactionListItem from "./transaction-item";
 
 
 export default function TransactionList() {
