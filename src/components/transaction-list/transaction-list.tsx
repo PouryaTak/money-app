@@ -5,15 +5,16 @@ import { Transaction } from "@/types/transaction";
 import React, { useContext, useMemo } from "react";
 import TransactionListItem from "./transaction-item";
 
-
 export default function TransactionList() {
   const { transactions } = useContext(TransactionContext);
   const { selectedDate } = useContext(DateContext);
 
   const filteredList = useMemo(() => {
-    return transactions.filter((i: Transaction) => i.date <= selectedDate.endDate && i.date >= selectedDate.startDate);
+    return transactions.filter(
+      (i: Transaction) =>
+        i.date <= selectedDate.endDate && i.date >= selectedDate.startDate,
+    );
   }, [selectedDate, transactions]);
-
 
   return (
     <div className="flex flex-col gap-3 my-3 h-full overflow-y-auto">

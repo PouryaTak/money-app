@@ -8,9 +8,8 @@
     "start": "next start",
     "lint": "eslint --ext .ts,.tsx ./src --no-error-on-unmatched-pattern",
     "lint:fix": "eslint --ext .ts,.tsx ./src --no-error-on-unmatched-pattern --fix",
-    "prettier": "prettier \"**/*.+(json|ts|tsx)\"",
-    "format:check": "npm run prettier -- --check",
-    "format:fix": "npm run prettier -- --write",
+    "format:check": "prettier prettier --check \"**/*.+(json|ts|tsx)\"",
+    "format:fix": "prettier --write \"**/*.+(json|ts|tsx)\"",
     "types:check": "tsc --noEmit --pretty"
   },
   "dependencies": {

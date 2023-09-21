@@ -43,7 +43,10 @@ export default function Navbar() {
         const isActive = pathname === i.href;
         return (
           <li key={i.title} className={isActive ? "text-orange-500" : ""}>
-            <Link href={i.href} className="flex flex-col items-center justify-center gap-1">
+            <Link
+              href={i.href}
+              className="flex flex-col items-center justify-center gap-1"
+            >
               <Icon name={i.icon} />
               <span className="text-xs md:text-sm">{i.title}</span>
             </Link>

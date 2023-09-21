@@ -14,13 +14,13 @@ export default function Balance() {
     selectedDate.startDate,
     selectedDate.endDate,
     transactions,
-    "expense"
+    "expense",
   );
   const calcIncomes = calculateAmountByType(
     selectedDate.startDate,
     selectedDate.endDate,
     transactions,
-    "income"
+    "income",
   );
 
   return (
@@ -35,10 +35,10 @@ export default function Balance() {
       </Card>
       <Card className="p-5 flex-1">
         <div className="h-full">
-            <h2 className="font-bold text-xl">Incomes</h2>
-            <span className="text-green-400 text-xl font-bold block">
-              + {numberSeparator(calcIncomes)}
-            </span>
+          <h2 className="font-bold text-xl">Incomes</h2>
+          <span className="text-green-400 text-xl font-bold block">
+            + {numberSeparator(calcIncomes)}
+          </span>
         </div>
       </Card>
     </div>

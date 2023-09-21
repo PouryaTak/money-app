@@ -7,7 +7,9 @@ export default function Drawer({ children }: { children: React.ReactNode }) {
   const { isDrawerOpen, setIsDrawerOpen } = useContext(DrawerContext);
   return (
     <div
-      className={`${isDrawerOpen ? "bg-black/10" : "bg-black/0 pointer-events-none"} transition-all absolute inset-0 duration-500 z-30`}
+      className={`${
+        isDrawerOpen ? "bg-black/10" : "bg-black/0 pointer-events-none"
+      } transition-all absolute inset-0 duration-500 z-30`}
       onClick={() => setIsDrawerOpen(false)}
     >
       <div

@@ -6,9 +6,9 @@ interface Props {
   size?: number;
 }
 const Icon = ({ name, color, size }: Props) => {
-    if(!name) {
-        name = 'CircleDollarSign'
-    }
+  if (!name) {
+    name = "CircleDollarSign";
+  }
   const LucideIcon = icons[name as keyof typeof icons];
   return <LucideIcon color={color} size={size} />;
 };

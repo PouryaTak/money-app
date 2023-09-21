@@ -9,7 +9,6 @@ import DrawerProvider from "@/context/drawer-provider";
 import DateHeader from "@/components/date-header";
 
 export default function Layout({ children }: { children: React.ReactElement }) {
-
   return (
     <DateProvider>
       <TransactionProvider>

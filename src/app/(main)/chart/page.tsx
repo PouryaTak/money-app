@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function Chart() {
-  return (
-    <div>Chart</div>
-  )
+  return <div>Chart</div>;
 }
