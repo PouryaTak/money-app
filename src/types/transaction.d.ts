@@ -11,5 +11,7 @@ export interface Transaction {
 export type CategorizedTransaction = {
   type: "expense" | "income";
   category: string;
-  amount: number;
+  id: string;
+  value: number;
+  color: string;
 };

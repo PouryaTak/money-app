@@ -1,3 +1,4 @@
+import { categories } from "@/helpers/static-data";
 import { CategorizedTransaction, Transaction } from "@/types/transaction";
 
 export const calculateAmountByType = (
@@ -27,6 +28,8 @@ export const groupTransactionsByTypeCategory = (
   transactions: Transaction[],
   type: "expense" | "income",
 ): Array<CategorizedTransaction> => {
+  const findCategory = (category: string) =>
+    categories[type].find((i: any) => i.category == category);
   const transactionObj: { [key: string]: number } = {};
   transactions.forEach((item) => {
     if (item.type === type && item.date >= startDate && item.date <= endDate) {
@@ -41,7 +44,9 @@ export const groupTransactionsByTypeCategory = (
     return {
       type,
       category: item[0],
-      amount: item[1],
+      id: item[0],
+      color: findCategory(item[0])?.color || "#eee",
+      value: item[1],
     };
   });
 };

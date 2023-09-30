@@ -6,7 +6,12 @@ export const categories: any = {
       icon: "ShoppingCart",
       color: "#9b5de5",
     },
-    { key: "item02", value: "Food", icon: "Utensils", color: "#f15bb5" },
+    {
+      key: "item02",
+      value: "Food",
+      icon: "Utensils",
+      color: "hsl(358, 70%, 50%)",
+    },
     { key: "item03", value: "Bills", icon: "Receipt", color: "#fe7f2d" },
     { key: "item04", value: "Relations", icon: "Users", color: "#00bbf9" },
     { key: "item05", value: "Maintenance", icon: "Wrench", color: "#5fa8d3" },
