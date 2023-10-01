@@ -6,44 +6,46 @@ import {
 } from "@/functions/handle-transactions";
 import { initialForm } from "@/helpers/static-data";
 import { Transaction } from "@/types/transaction";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { DateContext } from "./date-provider";
 
 export const TransactionContext = createContext<any>({});
 export default function TransactionProvider({ children }: any) {
+  const [transactionsStatus, setTransactionsStatus] = useState<"loading" | "error" | "success">("loading");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [currentTransaction, setCurrentTransaction] =
-    useState<Transaction>(initialForm);
+  const [currentTransaction, setCurrentTransaction] = useState<Transaction>(initialForm);
+  const { selectedDate } = useContext(DateContext);
 
   const saveTransaction = (transaction: Transaction) => {
     setTransactions((current) => [...current, transaction]);
-    saveStorageTransaction(transaction);
+    // implement add api
   };
 
   const updateTransaction = (editedTransaction: Transaction) => {
-    const transactionIndex = transactions.findIndex(
-      (i) => i.id === editedTransaction.id,
-    );
+    const transactionIndex = transactions.findIndex((i) => i.id === editedTransaction.id);
     setTransactions((current) => {
       const currentClone = JSON.parse(JSON.stringify(current));
       currentClone.splice(transactionIndex, 1, editedTransaction);
       return currentClone;
     });
-    updateStorageTransaction(editedTransaction);
+    // implement update api
   };
 
   const deleteTransaction = (id: string) => {
     const index = transactions.findIndex((i) => i.id === id);
-    setTransactions((current) => [
-      ...current.slice(0, index),
-      ...current.slice(index + 1),
-    ]);
-    deleteStorageTransaction(id);
+    setTransactions((current) => transactions.filter((i) => i.id !== id));
+    // implement delete api
   };
 
   useEffect(() => {
-    const list = getTransactions();
-    setTransactions(list);
-  }, []);
+    getTransactions(selectedDate.startDate, selectedDate.endDate)
+      .then((response: any) => {
+        setTransactions(response);
+        setTransactionsStatus("success");
+      })
+      .catch((err: any) => setTransactionsStatus("error"));
+  }, [selectedDate]);
+
   return (
     <TransactionContext.Provider
       value={{
@@ -54,6 +56,7 @@ export default function TransactionProvider({ children }: any) {
         currentTransaction,
         setCurrentTransaction,
         updateTransaction,
+        transactionsStatus,
       }}
     >
       {children}

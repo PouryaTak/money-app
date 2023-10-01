@@ -1,7 +1,16 @@
 import { Transaction } from "@/types/transaction";
 
-export const getTransactions = () =>
-  JSON.parse(localStorage.getItem("transactionList") || "[]");
+export const getTransactions: any = async (
+  startDate: string,
+  endDate: string,
+) => {
+  const baseApi = process.env.NEXT_PUBLIC_BASE_API;
+  const response = await fetch(
+    `${baseApi}api/transactions?startDate=${startDate}&endDate=${endDate}`,
+  );
+  const data = await response.json();
+  return data.data;
+};
 
 export const saveStorageTransaction = (transaction: Transaction) => {
   const list = getTransactions();

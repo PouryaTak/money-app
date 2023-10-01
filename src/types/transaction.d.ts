@@ -1,4 +1,4 @@
-export interface Transaction {
+export type Transaction = {
   type: string;
   category: string;
   title: string;
@@ -6,7 +6,7 @@ export interface Transaction {
   amount: string;
   desc: string;
   id: string;
-}
+};
 
 export type CategorizedTransaction = {
   type: "expense" | "income";

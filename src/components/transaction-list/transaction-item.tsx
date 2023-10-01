@@ -43,9 +43,9 @@ export default function TransactionListItem({
       >
         <Icon name={getCategory(transaction).icon} size={16} />
       </div>
-      <div className="col-start-2 col-end-3 row-start-1 row-end-2 font-bold">
+      <h4 className="col-start-2 col-end-3 row-start-1 row-end-2 font-bold truncate">
         {transaction.title || "0"}
-      </div>
+      </h4>
       <div className="col-start-2 col-end-3 row-start-2 row-end-3 truncate flex gap-2 text-slate-500">
         <span className="text-slate-300 text-sm leading-6">IRR </span>
         {numberSeparator(Number(transaction.amount)) || "0"}
