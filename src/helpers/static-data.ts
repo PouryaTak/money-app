@@ -15,6 +15,7 @@ export const categories: any = {
     { key: "item03", value: "Bills", icon: "Receipt", color: "#fe7f2d" },
     { key: "item04", value: "Relations", icon: "Users", color: "#00bbf9" },
     { key: "item05", value: "Maintenance", icon: "Wrench", color: "#5fa8d3" },
+    { key: "item06", value: "Rent", icon: "Home", color: "#ff88d3" },
   ],
   income: [
     { key: "item01", value: "Salary", icon: "Banknote", color: "#ffbc42" },
@@ -22,9 +23,15 @@ export const categories: any = {
     { key: "item03", value: "Sell", icon: "Tags", color: "#218380" },
     {
       key: "item04",
-      value: "ّInterest",
+      value: "ّInvestment",
       icon: "BadgePercent",
       color: "#a1c181",
+    },
+    {
+      key: "item05",
+      value: "ّBonus",
+      icon: "BadgePlus",
+      color: "#6185f1",
     },
   ],
 };

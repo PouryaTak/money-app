@@ -31,6 +31,7 @@ export const groupTransactionsByTypeCategory = (
   const findCategory = (category: string) =>
     categories[type].find((i: any) => i.category == category);
   const transactionObj: { [key: string]: number } = {};
+
   transactions.forEach((item) => {
     if (item.type === type && item.date >= startDate && item.date <= endDate) {
       const amount: number = Number(item.amount);
