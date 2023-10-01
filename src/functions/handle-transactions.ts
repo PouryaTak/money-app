@@ -6,7 +6,7 @@ export const getTransactions: any = async (
 ) => {
   const baseApi = process.env.NEXT_PUBLIC_BASE_API;
   const response = await fetch(
-    `${baseApi}api/getTransactions?startDate=${startDate}&endDate=${endDate}`,
+    `${baseApi}api/transactions?startDate=${startDate}&endDate=${endDate}`,
   );
   const data = await response.json();
   return data.data;
