@@ -6,6 +6,11 @@ export async function GET(request: any) {
   const startDate = request.nextUrl.searchParams.get("startDate");
   const endDate = request.nextUrl.searchParams.get("endDate");
   await connectMongoDB();
-  const filteredTransactions = await TransactionModel.find();
+  const filteredTransactions = await TransactionModel.find({
+    date: {
+      $gte: startDate,
+      $lte: endDate,
+    },
+  });
   return NextResponse.json({ data: filteredTransactions });
 }

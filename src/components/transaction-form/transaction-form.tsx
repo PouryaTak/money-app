@@ -19,10 +19,12 @@ export default function TransactionForm({
   currentTransaction,
   onOptionChange,
   saveTransactionHandler,
+  isLoading,
 }: {
   currentTransaction: Transaction;
   onOptionChange: Function;
   saveTransactionHandler: React.FormEventHandler<HTMLFormElement>;
+  isLoading: boolean;
 }) {
   return (
     <form
@@ -36,16 +38,18 @@ export default function TransactionForm({
         onValueChange={(e) => onOptionChange(e, "type")}
       >
         <TabsList className="w-full">
-          <TabsTrigger value="expense" className="w-full">
+          <TabsTrigger value="expense" className="w-full" disabled={isLoading}>
             Expense
           </TabsTrigger>
-          <TabsTrigger value="income" className="w-full">
+          <TabsTrigger value="income" className="w-full" disabled={isLoading}>
             Income
           </TabsTrigger>
         </TabsList>
       </Tabs>
       <div
-        className="flex flex-wrap items-start content-start gap-3 flex-1 p-2 bg-gray-100 rounded-xl"
+        className={`flex flex-wrap items-start content-start gap-3 flex-1 p-2 bg-gray-100 rounded-xl ${
+          isLoading ? "pointer-events-none opacity-50" : ""
+        }`}
         key={currentTransaction.type}
       >
         {categories[currentTransaction.type].map((i: any) => (
@@ -60,6 +64,7 @@ export default function TransactionForm({
       <Popover>
         <PopoverTrigger asChild>
           <Button
+            disabled={isLoading}
             variant={"outline"}
             className={cn(
               "w-full pl-3 text-left font-normal",
@@ -85,6 +90,7 @@ export default function TransactionForm({
       </Popover>
       <Input
         placeholder="title"
+        disabled={isLoading}
         value={currentTransaction.title}
         onChange={(e) => onOptionChange(e.target.value, "title")}
       />
@@ -94,16 +100,21 @@ export default function TransactionForm({
         value={currentTransaction.amount}
         required
         onChange={(e) => onOptionChange(e.target.value, "amount")}
+        disabled={isLoading}
       />
       <Textarea
         rows={5}
         placeholder="description"
         value={currentTransaction.desc}
         onChange={(e) => onOptionChange(e.target.value, "desc")}
+        disabled={isLoading}
       ></Textarea>
       <Button
+        disabled={isLoading}
         className={`text-white p-2 capitalize ${
-          currentTransaction.type == "income" ? "bg-green-600" : "bg-orange-600"
+          currentTransaction.type == "income"
+            ? "bg-green-600 hover:bg-green-500"
+            : "bg-orange-600"
         }`}
       >
         add {currentTransaction.type}

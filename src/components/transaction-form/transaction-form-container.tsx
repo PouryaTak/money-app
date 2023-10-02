@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { TransactionContext } from "@/context/transaction-provider";
 import { initialForm } from "@/helpers/static-data";
 import { addCommas, removeNonNumeric } from "@/lib/utils";
@@ -18,21 +18,24 @@ export default function TransactionFormContainer() {
     updateStoreTransaction,
   } = useContext(TransactionContext);
   const { setIsDrawerOpen } = useContext(DrawerContext);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const saveTransactionHandler = async (
-    e: React.FormEvent<HTMLFormElement>,
-  ) => {
+  const saveTransactionHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     currentTransaction.amount = removeNonNumeric(currentTransaction.amount);
     if (currentTransaction.id) {
-      await updateTransaction(currentTransaction._id, currentTransaction)
+      updateTransaction(currentTransaction._id, currentTransaction)
         .then((res: any) => updateStoreTransaction(currentTransaction))
-        .finally(setIsDrawerOpen(false));
+        .finally(() => {
+          setIsDrawerOpen(false);
+          setIsLoading(false);
+        });
     } else {
       currentTransaction.id = crypto.randomUUID();
-      await addTransaction(currentTransaction).then((res: any) =>
-        saveStoreTransaction(currentTransaction),
-      );
+      addTransaction(currentTransaction)
+        .then((res: any) => saveStoreTransaction(currentTransaction))
+        .finally(() => setIsLoading(false));
     }
     setCurrentTransaction(initialForm);
   };
@@ -51,6 +54,7 @@ export default function TransactionFormContainer() {
         currentTransaction={currentTransaction}
         onOptionChange={onOptionChange}
         saveTransactionHandler={saveTransactionHandler}
+        isLoading={isLoading}
       />
     </>
   );
