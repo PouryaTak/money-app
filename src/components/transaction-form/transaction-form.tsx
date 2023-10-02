@@ -67,7 +67,7 @@ export default function TransactionForm({
             )}
           >
             {currentTransaction?.date ? (
-              currentTransaction.date.slice(0, 10)
+              JSON.stringify(currentTransaction.date).slice(1, 11)
             ) : (
               <span>date</span>
             )}

@@ -1,9 +1,4 @@
-import {
-  deleteStorageTransaction,
-  getTransactions,
-  saveStorageTransaction,
-  updateStorageTransaction,
-} from "@/functions/handle-transactions";
+import { getTransactions } from "@/functions/handle-transactions";
 import { initialForm } from "@/helpers/static-data";
 import { Transaction } from "@/types/transaction";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -11,30 +6,31 @@ import { DateContext } from "./date-provider";
 
 export const TransactionContext = createContext<any>({});
 export default function TransactionProvider({ children }: any) {
-  const [transactionsStatus, setTransactionsStatus] = useState<"loading" | "error" | "success">("loading");
+  const [transactionsStatus, setTransactionsStatus] = useState<
+    "loading" | "error" | "success"
+  >("loading");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [currentTransaction, setCurrentTransaction] = useState<Transaction>(initialForm);
+  const [currentTransaction, setCurrentTransaction] =
+    useState<Transaction>(initialForm);
   const { selectedDate } = useContext(DateContext);
 
-  const saveTransaction = (transaction: Transaction) => {
+  const saveStoreTransaction = (transaction: Transaction) => {
     setTransactions((current) => [...current, transaction]);
-    // implement add api
   };
 
-  const updateTransaction = (editedTransaction: Transaction) => {
-    const transactionIndex = transactions.findIndex((i) => i.id === editedTransaction.id);
+  const updateStoreTransaction = (editedTransaction: Transaction) => {
+    const transactionIndex = transactions.findIndex(
+      (i) => i.id === editedTransaction.id,
+    );
     setTransactions((current) => {
       const currentClone = JSON.parse(JSON.stringify(current));
       currentClone.splice(transactionIndex, 1, editedTransaction);
       return currentClone;
     });
-    // implement update api
   };
 
-  const deleteTransaction = (id: string) => {
-    const index = transactions.findIndex((i) => i.id === id);
+  const deleteStoreTransaction = (id: string) => {
     setTransactions((current) => transactions.filter((i) => i.id !== id));
-    // implement delete api
   };
 
   useEffect(() => {
@@ -51,11 +47,11 @@ export default function TransactionProvider({ children }: any) {
       value={{
         transactions,
         setTransactions,
-        saveTransaction,
-        deleteTransaction,
+        saveStoreTransaction,
+        deleteStoreTransaction,
         currentTransaction,
         setCurrentTransaction,
-        updateTransaction,
+        updateStoreTransaction,
         transactionsStatus,
       }}
     >
