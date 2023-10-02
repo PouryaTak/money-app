@@ -2,28 +2,37 @@
 import React, { useContext } from "react";
 import { TransactionContext } from "@/context/transaction-provider";
 import { initialForm } from "@/helpers/static-data";
-import { addCommas, removeNonNumeric } from "@/functions/handle-transactions";
+import { addCommas, removeNonNumeric } from "@/lib/utils";
 import TransactionForm from "./transaction-form";
 import { DrawerContext } from "@/context/drawer-provider";
+import {
+  addTransaction,
+  updateTransaction,
+} from "@/functions/handle-transactions";
 
 export default function TransactionFormContainer() {
   const {
-    saveTransaction,
+    saveStoreTransaction,
     currentTransaction,
     setCurrentTransaction,
-    updateTransaction,
+    updateStoreTransaction,
   } = useContext(TransactionContext);
   const { setIsDrawerOpen } = useContext(DrawerContext);
 
-  const saveTransactionHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const saveTransactionHandler = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
     e.preventDefault();
     currentTransaction.amount = removeNonNumeric(currentTransaction.amount);
     if (currentTransaction.id) {
-      updateTransaction(currentTransaction);
-      setIsDrawerOpen(false);
+      await updateTransaction(currentTransaction._id, currentTransaction)
+        .then((res: any) => updateStoreTransaction(currentTransaction))
+        .finally(setIsDrawerOpen(false));
     } else {
       currentTransaction.id = crypto.randomUUID();
-      saveTransaction(currentTransaction);
+      await addTransaction(currentTransaction).then((res: any) =>
+        saveStoreTransaction(currentTransaction),
+      );
     }
     setCurrentTransaction(initialForm);
   };

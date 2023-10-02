@@ -8,18 +8,23 @@ import { Transaction } from "@/types/transaction";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icons";
 import TransactionListItemPopover from "./item-popover";
+import { deleteTransaction } from "@/functions/handle-transactions";
 
 export default function TransactionListItem({
   transaction,
 }: {
   transaction: Transaction;
 }) {
-  const { deleteTransaction, setCurrentTransaction } =
+  const { deleteStoreTransaction, setCurrentTransaction } =
     useContext(TransactionContext);
   const { setIsDrawerOpen } = useContext(DrawerContext);
 
-  const getCategory = (i: Transaction) => {
-    return categories[i.type].find((item: any) => item.key === i.category);
+  const getCategory = (transaction: Transaction) => {
+    if (!transaction.category) return "Home";
+
+    return categories[transaction.type].find(
+      (item: any) => item.key == transaction.category,
+    );
   };
 
   const handleEditTransaction = (transaction: Transaction) => {
@@ -27,8 +32,12 @@ export default function TransactionListItem({
     setIsDrawerOpen(true);
   };
 
-  const handleDeleteTransaction = (id: string) => {
-    deleteTransaction(id);
+  const handleDeleteTransaction = (transaction: Transaction) => {
+    if (transaction._id) {
+      deleteTransaction(transaction._id).then((res: any) =>
+        deleteStoreTransaction(transaction.id),
+      );
+    }
   };
 
   const date = useMemo(() => moment(transaction.date), [transaction.date]);
@@ -56,9 +65,7 @@ export default function TransactionListItem({
       <div className="flex justify-end col-start-3 col-end-4 row-start-2 row-end-3 truncate text-end">
         <TransactionListItemPopover
           handleEditTransaction={() => handleEditTransaction(transaction)}
-          handleDeleteTransaction={() =>
-            handleDeleteTransaction(transaction.id)
-          }
+          handleDeleteTransaction={() => handleDeleteTransaction(transaction)}
         />
       </div>
     </Card>
