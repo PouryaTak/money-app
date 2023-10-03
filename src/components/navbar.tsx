@@ -32,13 +32,16 @@ export default function Navbar() {
   };
   return (
     <ul className="w-full p-3 grid grid-flow-col gap-6 relative bg-white border-t">
-      <Button
-        onClick={addNewTransaction}
-        size={"icon"}
-        className="flex items-center gap-2 ml-auto shadow-lg shadow-slate-300 absolute -top-4 left-1/2 -translate-x-1/2"
-      >
-        <Plus width={32} height={32} />
-      </Button>
+      <li className="absolute -top-4 left-1/2 -translate-x-1/2">
+        <Button
+          onClick={addNewTransaction}
+          size={"icon"}
+          className="shadow-lg shadow-slate-300"
+        >
+          <Plus width={32} height={32} aria-hidden />
+          <span className="sr-only">add new transaction</span>
+        </Button>
+      </li>
       {links.map((i) => {
         const isActive = pathname === i.href;
         return (
@@ -47,8 +50,11 @@ export default function Navbar() {
               href={i.href}
               className="flex flex-col items-center justify-center gap-1"
             >
-              <Icon name={i.icon} />
-              <span className="text-xs md:text-sm">{i.title}</span>
+              <Icon name={i.icon} aria-hidden />
+              <span className="text-xs md:text-sm">
+                {" "}
+                <span className="sr-only">go to </span> {i.title}
+              </span>
             </Link>
           </li>
         );

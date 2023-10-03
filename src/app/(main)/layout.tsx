@@ -2,13 +2,17 @@
 import Navbar from "@/components/navbar";
 import React from "react";
 import Drawer from "@/components/drawer";
-import TransactionForm from "@/components/transaction-form/transaction-form-container";
 import TransactionProvider from "@/context/transaction-provider";
 import DateProvider from "@/context/date-provider";
 import DrawerProvider from "@/context/drawer-provider";
 import DateHeader from "@/components/date-header";
+import dynamic from "next/dynamic";
 
 export default function Layout({ children }: { children: React.ReactElement }) {
+  const TransactionForm = dynamic(
+    () =>
+      import("../../components/transaction-form/transaction-form-container"),
+  );
   return (
     <DateProvider>
       <TransactionProvider>

@@ -19,9 +19,10 @@ export default function Drawer({ children }: { children: React.ReactNode }) {
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={() => setIsDrawerOpen(false)}>
-          <XSquare size={24} className="text-slate-500" />
+          <XSquare size={24} className="text-slate-500" aria-hidden />
+          <span className="sr-only">close drawer</span>
         </button>
-        {children}
+        {isDrawerOpen && children}
       </div>
     </div>
   );
