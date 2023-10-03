@@ -23,7 +23,7 @@ function TypeTabs({
           value="expense"
           className="w-full"
           disabled={isLoading}
-          aria-controls={undefined}
+          aria-controls={undefined} //it has to be undefined because of a radix ui issue in not having the TabContent
         >
           Expense
         </TabsTrigger>

@@ -1,23 +1,24 @@
 "use client";
 import Navbar from "@/components/navbar";
-import React from "react";
+import React, { useEffect } from "react";
 import Drawer from "@/components/drawer";
 import TransactionProvider from "@/context/transaction-provider";
 import DateProvider from "@/context/date-provider";
 import DrawerProvider from "@/context/drawer-provider";
 import DateHeader from "@/components/date-header";
 import dynamic from "next/dynamic";
+import fixHeight from "@/functions/fix-height";
 
+const TransactionForm = dynamic(() => import("../../components/transaction-form/transaction-form-container"));
 export default function Layout({ children }: { children: React.ReactElement }) {
-  const TransactionForm = dynamic(
-    () =>
-      import("../../components/transaction-form/transaction-form-container"),
-  );
+  useEffect(() => {
+    fixHeight();
+  }, []);
   return (
     <DateProvider>
       <TransactionProvider>
         <DrawerProvider>
-          <main className="h-screen grid grid-rows-[1fr_68px] overflow-hidden relative">
+          <main className="fixed-h grid grid-rows-[1fr_68px] overflow-hidden relative">
             <Drawer>
               <TransactionForm />
             </Drawer>

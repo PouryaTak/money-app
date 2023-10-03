@@ -55,7 +55,10 @@ body {
   * {
     @apply border-border;
   }
-  /* body {
-        @apply bg-background text-foreground;
-      } */
+
+}
+
+.fixed-h {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
