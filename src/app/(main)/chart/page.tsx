@@ -1,5 +1,5 @@
 "use client";
-import Doughnut from "@/components/charts/doughnut";
+
 import { DateContext } from "@/context/date-provider";
 import { TransactionContext } from "@/context/transaction-provider";
 import { groupTransactionsByTypeCategory } from "@/functions/statistics";
@@ -10,14 +10,7 @@ export default function Chart() {
   const { selectedDate } = useContext(DateContext);
   return (
     <div>
-      <Doughnut
-        data={groupTransactionsByTypeCategory(
-          selectedDate.startDate,
-          selectedDate.endDate,
-          transactions,
-          "expense",
-        )}
-      />
+      {JSON.stringify(groupTransactionsByTypeCategory(selectedDate.startDate, selectedDate.endDate, transactions, "expense"))}
     </div>
   );
 }

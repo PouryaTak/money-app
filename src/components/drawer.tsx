@@ -13,7 +13,7 @@ export default function Drawer({ children }: { children: React.ReactNode }) {
       onClick={() => setIsDrawerOpen(false)}
     >
       <div
-        className={`absolute bg-slate-50 p-5 h-screen duration-500 w-full md:w-1/2 transition-all top-0 shadow-xl ${
+        className={`absolute bg-slate-50 p-5 fixed-h duration-500 w-full md:w-1/2 transition-all top-0 shadow-xl ${
           isDrawerOpen ? "right-0" : "-right-full"
         }`}
         onClick={(e) => e.stopPropagation()}
