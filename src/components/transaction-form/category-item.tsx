@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import React from "react";
+import React, { useMemo } from "react";
 import Icon from "../ui/icons";
 import { Transaction } from "@/types/transaction";
 
@@ -12,19 +12,20 @@ export default function CategoryItem({
   data: any;
   onOptionChange: Function;
 }) {
+  const isCategorySelected = useMemo(()=> data.key == currentTransaction.category, [currentTransaction.category, data.key])
   return (
     <label
       htmlFor={data.key}
       key={data.key}
       className={`flex self-start gap-2 items-center relative p-2 border border-slate-300 rounded-lg ${
-        data.key !== currentTransaction.category
+        !isCategorySelected
           ? ""
           : currentTransaction.type === "expense"
           ? "bg-white !text-red-500 !border-current"
           : "bg-white text-green-500 !border-current"
       }`}
     >
-      {data.key == currentTransaction.category && (
+      {isCategorySelected && (
         <span className="w-4 h-4 rounded-full grid place-content-center absolute -right-2 -top-2 bg-current">
           <Check width={12} height={12} className="text-white" />
         </span>
@@ -34,7 +35,7 @@ export default function CategoryItem({
         name="category"
         value={data.key}
         id={data.key}
-        checked={data.key === currentTransaction.category}
+        checked={isCategorySelected}
         onChange={(e) => onOptionChange(e.target.value, "category")}
         className="absolute inset-0 opacity-0 !cursor-pointer"
       />

@@ -1,7 +1,7 @@
 "use client";
 import { DrawerContext } from "@/context/drawer-provider";
 import React, { useContext } from "react";
-import { XSquare } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 
 export default function Drawer({ children }: { children: React.ReactNode }) {
   const { isDrawerOpen, setIsDrawerOpen } = useContext(DrawerContext);
@@ -19,7 +19,8 @@ export default function Drawer({ children }: { children: React.ReactNode }) {
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={() => setIsDrawerOpen(false)}>
-          <XSquare size={24} className="text-slate-500" aria-hidden />
+          <ArrowLeft size={24} className="text-slate-800 md:hidden" aria-hidden />
+          <X size={24} className="text-slate-800 hidden md:block" aria-hidden />
           <span className="sr-only">close drawer</span>
         </button>
         {isDrawerOpen && children}
