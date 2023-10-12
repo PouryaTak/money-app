@@ -1,12 +1,12 @@
 "use client";
 import Balance from "@/components/balance-view";
-import TransactionList from "@/components/transaction-list/transaction-list";
+import TransactionListContainer from "@/components/transaction-list/transaction-list-container";
 
 export default function Home() {
   return (
     <>
       <Balance />
-      <TransactionList />
+      <TransactionListContainer />
     </>
   );
 }

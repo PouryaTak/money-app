@@ -1,44 +1,34 @@
 "use client";
-import { TransactionContext } from "@/context/transaction-provider";
-import React, { useContext, useMemo } from "react";
-import TransactionListItem from "./transaction-item";
-import { DrawerContext } from "@/context/drawer-provider";
-import { deleteTransaction } from "@/functions/handle-transactions";
+
 import { Transaction } from "@/types/transaction";
-import TransactionLoading from "./transaction-loading";
+import TransactionListItem from "@/components/transaction-list/transaction-item";
+import TransactionLoading from "@/components/transaction-list/transaction-loading";
 
-export default function TransactionList() {
-  const { transactions, transactionsStatus } = useContext(TransactionContext);
-  const { setIsDrawerOpen } = useContext(DrawerContext);
-  const { deleteStoreTransaction, setCurrentTransaction } = useContext(TransactionContext);
-  const sortedTransactions = useMemo(() => {
-    return transactions.sort((a: any, b: any) => (a.date > b.date ? -1 : 1));
-  }, [transactions]);
+type TransactionListProps = {
+  status: string;
+  sortedTransactions: Array<any>;
+  handleEdit: (item: Transaction) => void;
+  handleDelete: (item: Transaction) => void;
+};
 
-  const handleEditTransaction = (transaction: Transaction) => {
-    setCurrentTransaction(transaction);
-    setIsDrawerOpen(true);
-  };
-
-  const handleDeleteTransaction = (transaction: Transaction) => {
-    if (transaction._id) {
-      deleteTransaction(transaction._id).then((res: any) => deleteStoreTransaction(transaction.id));
-    }
-  };
-
+export default function TransactionList({ status, sortedTransactions, handleEdit, handleDelete }: TransactionListProps) {
+  if (status === "error")
+    return (
+      <div className="flex flex-col justify-center items-center my-3 h-full overflow-y-auto">
+        <span>Error happened</span>
+      </div>
+    );
   return (
     <div className="flex flex-col gap-3 my-3 h-full overflow-y-auto">
-      {transactionsStatus === "loading" ? (
+      {status === "loading" ? (
         <TransactionLoading />
-      ) : transactionsStatus === "error" ? (
-        <span>Error happened</span>
-      ) : Boolean(transactions.length) ? (
+      ) : Boolean(sortedTransactions?.length) ? (
         sortedTransactions.map((i: any) => (
           <TransactionListItem
             transaction={i}
             key={i.id}
-            handleEditTransaction={handleEditTransaction}
-            handleDeleteTransaction={handleDeleteTransaction}
+            handleEditTransaction={handleEdit}
+            handleDeleteTransaction={handleDelete}
           />
         ))
       ) : (

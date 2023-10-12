@@ -24,7 +24,6 @@ const withPWAInit = require("next-pwa");
 /** @type {import('next-pwa').PWAConfig} */
 const withPWA = withPWAInit({
   dest: "public",
-  // Solution: https://github.com/shadowwalker/next-pwa/issues/424#issuecomment-1399683017
   buildExcludes: ["app-build-manifest.json"],
 });
 
@@ -34,7 +33,6 @@ const generateAppDirEntry = (entry) => {
   const registerJs = path.join(packageDirectory, "register.js");
 
   return entry().then((entries) => {
-    // Register SW on App directory, solution: https://github.com/shadowwalker/next-pwa/pull/427
     if (entries["main-app"] && !entries["main-app"].includes(registerJs)) {
       if (Array.isArray(entries["main-app"])) {
         entries["main-app"].unshift(registerJs);

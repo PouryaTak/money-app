@@ -130,15 +130,12 @@ module.exports = [
       const isSameOrigin = self.origin === url.origin
       if (!isSameOrigin) return false
       const pathname = url.pathname
-      // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without impact other environment
-      // Above route is default for next-auth, you may need to change it if your OAuth workflow has a different callback route
-      // Issue: https://github.com/shadowwalker/next-pwa/issues/131#issuecomment-821894809
-      if (pathname.startsWith('/api/auth/')) return false
+      if (pathname.startsWith('/api/auth/')) return false // in the case we have auth route
       if (pathname.startsWith('/api/')) return true
       return false
     },
     handler: 'NetworkFirst',
-    method: 'GET',
+    // method: 'GET',
     options: {
       cacheName: 'apis',
       expiration: {
