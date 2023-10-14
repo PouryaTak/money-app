@@ -9,7 +9,9 @@ import DateHeader from "@/components/date-header";
 import dynamic from "next/dynamic";
 import fixHeight from "@/functions/fix-height";
 
-const TransactionForm = dynamic(() => import("../../components/transaction-form/transaction-form-container"));
+const TransactionForm = dynamic(
+  () => import("../../components/transaction-form/transaction-form-container"),
+);
 export default function Layout({ children }: { children: React.ReactElement }) {
   useEffect(() => {
     fixHeight();

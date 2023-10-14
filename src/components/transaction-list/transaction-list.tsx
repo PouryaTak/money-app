@@ -11,7 +11,12 @@ type TransactionListProps = {
   handleDelete: (item: Transaction) => void;
 };
 
-export default function TransactionList({ status, sortedTransactions, handleEdit, handleDelete }: TransactionListProps) {
+export default function TransactionList({
+  status,
+  sortedTransactions,
+  handleEdit,
+  handleDelete,
+}: TransactionListProps) {
   if (status === "error")
     return (
       <div className="flex flex-col justify-center items-center my-3 h-full overflow-y-auto">

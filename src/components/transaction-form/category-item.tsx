@@ -12,7 +12,10 @@ export default function CategoryItem({
   data: any;
   onOptionChange: Function;
 }) {
-  const isCategorySelected = useMemo(()=> data.key == currentTransaction.category, [currentTransaction.category, data.key])
+  const isCategorySelected = useMemo(
+    () => data.key == currentTransaction.category,
+    [currentTransaction.category, data.key],
+  );
   return (
     <label
       htmlFor={data.key}

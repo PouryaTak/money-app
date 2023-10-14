@@ -33,7 +33,11 @@ export default function Navbar() {
   return (
     <ul className="w-full p-3 grid grid-flow-col gap-6 relative bg-white border-t">
       <li className="absolute -top-4 left-1/2 -translate-x-1/2">
-        <Button onClick={addNewTransaction} size={"icon"} className="shadow-lg shadow-slate-300">
+        <Button
+          onClick={addNewTransaction}
+          size={"icon"}
+          className="shadow-lg shadow-slate-300"
+        >
           <Plus width={32} height={32} aria-hidden />
           <span className="sr-only">add new transaction</span>
         </Button>
@@ -42,7 +46,10 @@ export default function Navbar() {
         const isActive = pathname === i.href;
         return (
           <li key={i.title} className={isActive ? "text-orange-500" : ""}>
-            <Link href={i.href} className="flex flex-col items-center justify-center gap-1">
+            <Link
+              href={i.href}
+              className="flex flex-col items-center justify-center gap-1"
+            >
               <Icon name={i.icon} aria-hidden />
               <span className="text-xs md:text-sm">
                 {" "}
