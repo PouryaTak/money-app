@@ -13,6 +13,6 @@ export type CategorizedTransaction = {
   type: "expense" | "income";
   category: string;
   id: string;
-  value: number;
+  amount: number;
   color: string;
 };

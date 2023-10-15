@@ -47,7 +47,7 @@ export const groupTransactionsByTypeCategory = (
       category: findCategory(item[0])?.value,
       id: item[0],
       color: findCategory(item[0])?.color || "#eee",
-      value: item[1],
+      amount: item[1],
     };
   });
 };
@@ -57,7 +57,7 @@ export const convertChartData = (
 ): Array<{ x: string; y: number }> => {
   return data.map((item: CategorizedTransaction) => ({
     x: item.category,
-    y: item.value,
+    y: item.amount,
     color: item.color,
   }));
 };

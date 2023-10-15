@@ -29,11 +29,11 @@ export default function Chart() {
         selectedDate.endDate,
         transactions,
         type,
-      ).reverse(),
+      ).sort((a, b)=> a.amount > b.amount ? -1 : 1),
     [selectedDate.endDate, selectedDate.startDate, transactions, type],
   );
   return (
-    <div>
+    <div className="h-full overflow-y-auto">
       <DropdownMenu>
         <DropdownMenuTrigger className="flex justify-between items-center w-full py-2 px-3 bg-gray-100 rounded-lg mb-5">
           <span>{type}</span>
@@ -41,9 +41,7 @@ export default function Chart() {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuRadioGroup value={type} onValueChange={setType}>
-            <DropdownMenuRadioItem value="expense">
-              Expense
-            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="expense">Expense</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="income">Income</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
@@ -54,6 +52,7 @@ export default function Chart() {
         containerComponent={
           <VictoryContainer responsive={false} className="mx-auto" />
         }
+        labelPlacement="perpendicular"
         innerRadius={100}
         padAngle={2}
         height={200}
@@ -72,7 +71,9 @@ export default function Chart() {
             ></div>
             <span>{item.category}</span>
           </div>
-          <span>{numberSeparator(item.value)}</span>
+          <span>{numberSeparator(item.amount)}
+          <span className="text-slate-300 text-sm leading-6"> IRR</span>
+          </span>
         </div>
       ))}
     </div>
