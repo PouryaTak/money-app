@@ -8,9 +8,12 @@ import TransactionList from "@/components/transaction-list/transaction-list";
 export default function TransactionListContainer() {
   const { transactions, transactionsStatus } = useContext(TransactionContext);
   const { setIsDrawerOpen } = useContext(DrawerContext);
-  const { deleteStoreTransaction, setCurrentTransaction } = useContext(TransactionContext);
+  const { deleteStoreTransaction, setCurrentTransaction } =
+    useContext(TransactionContext);
   const sortedTransactions = useMemo(() => {
-    return transactions.sort((a: any, b: any) => (a.date > b.date ? -1 : 1)) || [];
+    return (
+      transactions.sort((a: any, b: any) => (a.date > b.date ? -1 : 1)) || []
+    );
   }, [transactions]);
 
   const handleEditTransaction = (transaction: Transaction) => {
@@ -20,7 +23,9 @@ export default function TransactionListContainer() {
 
   const handleDeleteTransaction = (transaction: Transaction) => {
     if (transaction._id) {
-      deleteTransaction(transaction._id).then((res: any) => deleteStoreTransaction(transaction.id));
+      deleteTransaction(transaction._id).then((res: any) =>
+        deleteStoreTransaction(transaction.id),
+      );
     }
   };
   return (

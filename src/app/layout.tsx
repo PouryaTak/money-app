@@ -10,7 +10,7 @@ const vazir = Vazirmatn({
 export const metadata: Metadata = {
   title: "Money App",
   description: "Keep track of your money",
-  manifest: "/manifest.json"
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

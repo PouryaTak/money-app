@@ -1,5 +1,9 @@
 import React from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calender";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
@@ -21,9 +25,16 @@ export default function CalenderInput({
         <Button
           disabled={isLoading}
           variant={"outline"}
-          className={cn("w-full pl-3 text-left font-normal", !currentTransaction.date && "text-muted-foreground")}
+          className={cn(
+            "w-full pl-3 text-left font-normal",
+            !currentTransaction.date && "text-muted-foreground",
+          )}
         >
-          {currentTransaction?.date ? JSON.stringify(currentTransaction.date).slice(1, 11) : <span>--/--/--</span>}
+          {currentTransaction?.date ? (
+            JSON.stringify(currentTransaction.date).slice(1, 11)
+          ) : (
+            <span>--/--/--</span>
+          )}
           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
         </Button>
       </PopoverTrigger>

@@ -29,7 +29,7 @@ export const groupTransactionsByTypeCategory = (
   type: "expense" | "income",
 ): Array<CategorizedTransaction> => {
   const findCategory = (category: string) =>
-    categories[type].find((i: any) => i.category == category);
+    categories[type].find((i: any) => i.key == category);
   const transactionObj: { [key: string]: number } = {};
 
   transactions.forEach((item) => {
@@ -44,10 +44,20 @@ export const groupTransactionsByTypeCategory = (
   return Object.entries(transactionObj).map((item: [string, number]) => {
     return {
       type,
-      category: item[0],
+      category: findCategory(item[0])?.value,
       id: item[0],
       color: findCategory(item[0])?.color || "#eee",
-      value: item[1],
+      amount: item[1],
     };
   });
+};
+
+export const convertChartData = (
+  data: Array<CategorizedTransaction>,
+): Array<{ x: string; y: number }> => {
+  return data.map((item: CategorizedTransaction) => ({
+    x: item.category,
+    y: item.amount,
+    color: item.color,
+  }));
 };
