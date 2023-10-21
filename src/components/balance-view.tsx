@@ -4,10 +4,12 @@ import { TransactionContext } from "@/context/transaction-provider";
 import { calculateAmountByType } from "@/functions/statistics";
 import React, { useContext, useMemo } from "react";
 import { numberSeparator } from "@/functions/handle-numbers";
+import { DictionaryContext } from "@/context/dictionary-provider";
 
 export default function Balance() {
   const { transactions } = useContext(TransactionContext);
   const { selectedDate } = useContext(DateContext);
+  const {dictionary} = useContext(DictionaryContext)
   const calcExpenses = useMemo(
     () =>
       calculateAmountByType(
@@ -33,7 +35,7 @@ export default function Balance() {
     <div className="flex gap-3 w-full mb-3">
       <div className="p-5 flex-1 bg-red-100/75 rounded-lg">
         <div className="h-full">
-          <h2 className="font-bold text-xl">Expenses</h2>
+          <h2 className="font-bold text-xl">{dictionary.general.expenses}</h2>
           <span className="text-red-400 text-xl font-bold block">
             - {numberSeparator(calcExpenses)}
           </span>
@@ -41,7 +43,7 @@ export default function Balance() {
       </div>
       <div className="p-5 flex-1 bg-green-100/75 rounded-lg">
         <div className="h-full">
-          <h2 className="font-bold text-xl">Incomes</h2>
+          <h2 className="font-bold text-xl">{dictionary.general.incomes}</h2>
           <span className="text-green-400 text-xl font-bold block">
             + {numberSeparator(calcIncomes)}
           </span>

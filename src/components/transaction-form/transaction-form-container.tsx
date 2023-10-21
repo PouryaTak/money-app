@@ -28,10 +28,10 @@ export default function TransactionFormContainer() {
     try {
       currentTransaction.amount = removeNonNumeric(currentTransaction.amount);
 
-      if (currentTransaction.id) {
+      if (currentTransaction.id) { // update
         await updateTransaction(currentTransaction.id, currentTransaction);
         updateStoreTransaction(currentTransaction);
-      } else {
+      } else { // create
         currentTransaction.id = crypto.randomUUID();
         await addTransaction(currentTransaction);
         saveStoreTransaction(currentTransaction);

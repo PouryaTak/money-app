@@ -1,2 +1,2 @@
 export type DropdownProps = { items: { value: string; title: string }[]; selected: string; setSelected: (item: string) => void };
-export type ChartProps = DropdownProps & {data: Array<CategorizedTransaction>, isLoading:boolean}
+export type ChartProps = DropdownProps & {data: Array<CategorizedTransaction>, isLoading:boolean, dictionary:any}

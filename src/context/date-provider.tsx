@@ -1,3 +1,4 @@
+"use client"
 import moment from "moment-jalaali";
 import React, { createContext, useRef, useState } from "react";
 interface Date {

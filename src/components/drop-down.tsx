@@ -23,8 +23,6 @@ export default function DropDown({ items, selected, setSelected }: DropdownProps
               {item.title}
             </DropdownMenuRadioItem>
           ))}
-          {/* <DropdownMenuRadioItem value="expense">Expense</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="income">Income</DropdownMenuRadioItem> */}
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

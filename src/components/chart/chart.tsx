@@ -1,7 +1,6 @@
 import { convertChartData } from "@/functions/statistics";
 import { VictoryContainer, VictoryPie } from "victory";
 import React from "react";
-import { CategorizedTransaction } from "@/types/transaction";
 import { numberSeparator } from "@/functions/handle-numbers";
 import DropDown from "@/components/drop-down";
 import { ChartProps } from "@/types/general";

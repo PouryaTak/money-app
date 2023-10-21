@@ -1,0 +1,36 @@
+{
+  "html": {
+    "lang": "en-US",
+    "dir": "ltr"
+  },
+  "general": {
+    "next":"Next",
+    "previous":"Previous",
+    "expense": "Expense",
+    "income": "Income",
+    "expenses": "Expenses",
+    "incomes": "Incomes",
+    "add":"add",
+    "error": "Error happened",
+    "form": {
+      "amount": "amount",
+      "title": "title",
+      "description": "description",
+      "date": "date",
+      "select-date": "Select a date"
+    }
+  },
+  "pages": {
+    "go-to":"Go to",
+    "add-new-transaction":"Add new transaction",
+    "home": {
+      "title": "Home",
+      "open-actions":"Open actions",
+      "edit-transaction": "Edit Transaction",
+      "delete-transaction": "Delete Transaction"
+    },
+    "chart": {
+      "title": "Chart"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { TransactionContext } from "@/context/transaction-provider";
 import { groupTransactionsByTypeCategory } from "@/functions/statistics";
 import React, { useContext, useMemo, useState } from "react";
 import ChartView from "@/components/chart/chart";
+import { DictionaryContext } from "@/context/dictionary-provider";
 
 const dropDownItems = [
   { value: "expense", title: "Expense" },
@@ -13,6 +14,7 @@ const dropDownItems = [
 export default function ChartContainer() {
   const { transactions, transactionsStatus } = useContext(TransactionContext);
   const { selectedDate } = useContext(DateContext);
+  const {dictionary} = useContext(DictionaryContext)
   const [type, setType] = useState<any>("expense");
   const data = useMemo(
     () =>
@@ -22,5 +24,5 @@ export default function ChartContainer() {
     [selectedDate.endDate, selectedDate.startDate, transactions, type]
   );
 
-  return <ChartView data={data} items={dropDownItems} selected={type} setSelected={setType} isLoading={transactionsStatus === 'loading'} />;
+  return <ChartView dictionary={dictionary} data={data} items={dropDownItems} selected={type} setSelected={setType} isLoading={transactionsStatus === 'loading'} />;
 }
