@@ -9,6 +9,7 @@ type TransactionListProps = {
   sortedTransactions: Array<any>;
   handleEdit: (item: Transaction) => void;
   handleDelete: (item: Transaction) => void;
+  dictionary: any
 };
 
 export default function TransactionList({
@@ -16,11 +17,12 @@ export default function TransactionList({
   sortedTransactions,
   handleEdit,
   handleDelete,
+  dictionary
 }: TransactionListProps) {
   if (status === "error")
     return (
       <div className="flex flex-col justify-center items-center my-3 h-full overflow-y-auto">
-        <span>Error happened</span>
+        <span>{dictionary.general.error}</span>
       </div>
     );
   return (
@@ -34,6 +36,7 @@ export default function TransactionList({
             key={i.id}
             handleEditTransaction={handleEdit}
             handleDeleteTransaction={handleDelete}
+            dictionary={dictionary}
           />
         ))
       ) : (

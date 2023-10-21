@@ -14,10 +14,12 @@ export default function CalenderInput({
   isLoading,
   currentTransaction,
   onOptionChange,
+  dictionary
 }: {
   isLoading: boolean;
   currentTransaction: Transaction;
   onOptionChange: Function;
+  dictionary:any
 }) {
   return (
     <Popover>
@@ -33,7 +35,7 @@ export default function CalenderInput({
           {currentTransaction?.date ? (
             JSON.stringify(currentTransaction.date).slice(1, 11)
           ) : (
-            <span>--/--/--</span>
+            <span>{dictionary.general.form['select-date']}</span>
           )}
           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
         </Button>

@@ -6,10 +6,12 @@ function TypeTabs({
   isLoading,
   currentTransaction,
   onOptionChange,
+  dictionary
 }: {
   isLoading: boolean;
   currentTransaction: Transaction;
   onOptionChange: Function;
+  dictionary:any
 }) {
   return (
     <Tabs
@@ -25,7 +27,7 @@ function TypeTabs({
           disabled={isLoading}
           aria-controls={undefined} //it has to be undefined because of a radix ui issue in not having the TabContent
         >
-          Expense
+          {dictionary.general.expense}
         </TabsTrigger>
         <TabsTrigger
           value="income"
@@ -33,7 +35,7 @@ function TypeTabs({
           disabled={isLoading}
           aria-controls={undefined}
         >
-          Income
+           {dictionary.general.income}
         </TabsTrigger>
       </TabsList>
     </Tabs>

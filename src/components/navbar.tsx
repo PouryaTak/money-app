@@ -8,15 +8,16 @@ import { Button } from "@/components/ui/button";
 import { DrawerContext } from "@/context/drawer-provider";
 import { TransactionContext } from "@/context/transaction-provider";
 import { initialForm } from "@/helpers/static-data";
+import { DictionaryContext } from "@/context/dictionary-provider";
 
 const links = [
   {
-    title: "Home",
+    title: "home",
     href: "/",
     icon: "Home",
   },
   {
-    title: "Chart",
+    title: "chart",
     href: "/chart",
     icon: "PieChart",
   },
@@ -24,6 +25,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const {dictionary} = useContext(DictionaryContext)
   const { setCurrentTransaction } = useContext(TransactionContext);
   const { setIsDrawerOpen } = useContext(DrawerContext);
   const addNewTransaction = () => {
@@ -39,7 +41,7 @@ export default function Navbar() {
           className="shadow-lg shadow-slate-300"
         >
           <Plus width={32} height={32} aria-hidden />
-          <span className="sr-only">add new transaction</span>
+          <span className="sr-only">{dictionary.pages["add-new-transaction"]}</span>
         </Button>
       </li>
       {links.map((i) => {
@@ -53,7 +55,7 @@ export default function Navbar() {
               <Icon name={i.icon} aria-hidden />
               <span className="text-xs md:text-sm">
                 {" "}
-                <span className="sr-only">go to </span> {i.title}
+                <span className="sr-only">{dictionary.pages["go-to"]} </span> {dictionary.pages[i.title].title}
               </span>
             </Link>
           </li>

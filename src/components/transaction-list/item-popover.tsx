@@ -10,16 +10,18 @@ import { Button } from "../ui/button";
 const TransactionListItemPopover = ({
   handleEditTransaction,
   handleDeleteTransaction,
+  dictionary
 }: {
   handleEditTransaction: () => void;
   handleDeleteTransaction: () => void;
+  dictionary:any
 }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant={"ghost"} className="p-0 h-5">
           <MoreHorizontal className="text-gray-500" aria-hidden />
-          <span className="sr-only">open actions</span>
+          <span className="sr-only">{dictionary.pages.home["open-actions"]}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-max p-1">
@@ -29,7 +31,7 @@ const TransactionListItemPopover = ({
           className="text-gray-500"
         >
           <PencilLine size={16} aria-hidden />
-          <span className="sr-only">edit transaction</span>
+          <span className="sr-only">{dictionary.pages.home["edit-transaction"]}</span>
         </Button>
         <Button
           variant={"ghost"}
@@ -37,7 +39,7 @@ const TransactionListItemPopover = ({
           className="text-red-500"
         >
           <Trash2 size={16} aria-hidden />
-          <span className="sr-only">delete transaction</span>
+          <span className="sr-only">{dictionary.pages.home["delete-transaction"]}</span>
         </Button>
       </PopoverContent>
     </Popover>

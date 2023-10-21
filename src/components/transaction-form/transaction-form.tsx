@@ -1,11 +1,13 @@
+"use client"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import React from "react";
+import React, { useContext } from "react";
 import { Transaction } from "@/types/transaction";
 import CalenderInput from "@/components/transaction-form/calender-input";
 import CategoryList from "./category-list";
 import TypeTabs from "./type-tabs";
+import { DictionaryContext } from "@/context/dictionary-provider";
 
 export default function TransactionForm({
   currentTransaction,
@@ -18,6 +20,7 @@ export default function TransactionForm({
   saveTransactionHandler: React.FormEventHandler<HTMLFormElement>;
   isLoading: boolean;
 }) {
+  const {dictionary} = useContext(DictionaryContext)
   return (
     <form
       className="flex flex-col gap-3 h-[calc(100%-44px)] "
@@ -27,6 +30,7 @@ export default function TransactionForm({
         isLoading={isLoading}
         currentTransaction={currentTransaction}
         onOptionChange={onOptionChange}
+        dictionary={dictionary}
       />
       <CategoryList
         isLoading={isLoading}
@@ -37,16 +41,17 @@ export default function TransactionForm({
         isLoading={isLoading}
         currentTransaction={currentTransaction}
         onOptionChange={onOptionChange}
+        dictionary={dictionary}
       />
       <Input
-        placeholder="title"
+        placeholder={dictionary.general.form.title}
         disabled={isLoading}
         value={currentTransaction.title}
         onChange={(e) => onOptionChange(e.target.value, "title")}
       />
       <Input
         type="text"
-        placeholder="amount"
+        placeholder={dictionary.general.form.amount}
         value={currentTransaction.amount}
         required
         onChange={(e) => onOptionChange(e.target.value, "amount")}
@@ -54,7 +59,7 @@ export default function TransactionForm({
       />
       <Textarea
         rows={5}
-        placeholder="description"
+        placeholder={dictionary.general.form.description}
         value={currentTransaction.desc}
         onChange={(e) => onOptionChange(e.target.value, "desc")}
         disabled={isLoading}
@@ -67,7 +72,9 @@ export default function TransactionForm({
             : "bg-orange-600"
         }`}
       >
-        add {currentTransaction.type}
+        {
+          `${dictionary.general.add} ${currentTransaction.type == "income" ? dictionary.general.income : dictionary.general.expense}` 
+        }
       </Button>
     </form>
   );

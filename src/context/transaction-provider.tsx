@@ -1,3 +1,4 @@
+'use client'
 import { getTransactions } from "@/functions/handle-transactions";
 import { initialForm } from "@/helpers/static-data";
 import { Transaction } from "@/types/transaction";
@@ -39,7 +40,9 @@ export default function TransactionProvider({ children }: any) {
         setTransactions(response);
         setTransactionsStatus("success");
       })
-      .catch((err: any) => setTransactionsStatus("error"));
+      .catch((err: any) => {
+        console.log(err);
+        setTransactionsStatus("error")});
   }, [selectedDate]);
 
   return (

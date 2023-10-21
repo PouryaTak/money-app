@@ -11,15 +11,17 @@ export default function TransactionListItem({
   transaction,
   handleEditTransaction,
   handleDeleteTransaction,
+  dictionary,
 }: {
   transaction: Transaction;
   handleEditTransaction: (transaction: Transaction) => void;
   handleDeleteTransaction: (transaction: Transaction) => void;
+  dictionary: any;
 }) {
   const getCategory = useCallback((transaction: Transaction) => {
     if (!transaction.category) return "Home";
     return categories[transaction.type].find(
-      (item: any) => item.key == transaction.category,
+      (item: any) => item.key == transaction.category
     );
   }, []);
 
@@ -34,7 +36,10 @@ export default function TransactionListItem({
             : "text-green-500 bg-green-100"
         }`}
       >
-        <Icon name={getCategory(transaction).icon} size={16} />
+        <span aria-hidden>
+          <Icon name={getCategory(transaction).icon} size={16} />
+        </span>
+        <span className="sr-only">{dictionary.general[transaction.type]}</span>
       </div>
       <span className="col-start-2 col-end-3 row-start-1 row-end-2 font-bold truncate">
         {transaction.title || "0"}
@@ -48,6 +53,7 @@ export default function TransactionListItem({
       </div>
       <div className="flex justify-end col-start-3 col-end-4 row-start-2 row-end-3 truncate text-end">
         <TransactionListItemPopover
+          dictionary={dictionary}
           handleEditTransaction={() => handleEditTransaction(transaction)}
           handleDeleteTransaction={() => handleDeleteTransaction(transaction)}
         />
