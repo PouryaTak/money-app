@@ -35,6 +35,7 @@ export default function TransactionProvider({ children }: any) {
   };
 
   useEffect(() => {
+    setTransactionsStatus("loading")
     getTransactions(selectedDate.startDate, selectedDate.endDate)
       .then((response: any) => {
         setTransactions(response);

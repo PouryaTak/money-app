@@ -1,53 +1,35 @@
 import React from "react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calender";
-import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Transaction } from "@/types/transaction";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import persian_en from "react-date-object/locales/persian_en";
+import gregorian_en from "react-date-object/locales/gregorian_en";
+import gregorian_fa from "react-date-object/locales/gregorian_fa";
 
 export default function CalenderInput({
   isLoading,
   currentTransaction,
   onOptionChange,
-  dictionary
+  dictionary,
 }: {
   isLoading: boolean;
   currentTransaction: Transaction;
   onOptionChange: Function;
-  dictionary:any
+  dictionary: any;
 }) {
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          disabled={isLoading}
-          variant={"outline"}
-          className={cn(
-            "w-full pl-3 text-left font-normal",
-            !currentTransaction.date && "text-muted-foreground",
-          )}
-        >
-          {currentTransaction?.date ? (
-            JSON.stringify(currentTransaction.date).slice(1, 11)
-          ) : (
-            <span>{dictionary.general.form['select-date']}</span>
-          )}
-          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="z-50">
-        <Calendar
-          mode="single"
-          selected={currentTransaction.date as any}
-          onSelect={(e) => onOptionChange(e, "date")}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
+    <DatePicker
+      value={currentTransaction.date}
+      placeholder={dictionary.general.form['select-date']}
+      disabled={isLoading}
+      maxDate={new Date()}
+      calendar={persian}
+      locale={persian_fa}
+      calendarPosition={'top-center'}
+      required={true}
+      onChange={(e: DateObject) =>  onOptionChange(e.toDate().toISOString(), "date")}
+    />
   );
 }

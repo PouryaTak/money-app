@@ -62,3 +62,31 @@ body {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 }
+
+/* ------------ Calender styles overrides ------------ */
+
+.rmdp-container > input {
+  @apply h-10 w-full rounded-md border-input px-3 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50
+}
+
+.rmdp-week-day {
+  @apply !text-orange-600
+}
+
+.rmdp-today > span {
+  @apply !bg-orange-300 !shadow-none
+}
+.rmdp-day.rmdp-selected > span {
+  @apply !bg-orange-600
+}
+.rmdp-day:not(.rmdp-day-hidden) > span:hover {
+  @apply !bg-orange-300
+}
+
+.rmdp-arrow-container:not(.disabled) .rmdp-arrow {
+  @apply !border-orange-600
+}
+
+.rmdp-arrow-container:not(.disabled):hover {
+  @apply !bg-orange-200 !shadow-none
+}
