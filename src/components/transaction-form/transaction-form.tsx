@@ -28,18 +28,19 @@ export default function TransactionForm({
     >
       <TypeTabs
         isLoading={isLoading}
-        currentTransaction={currentTransaction}
+        transactionType={currentTransaction.type}
         onOptionChange={onOptionChange}
         dictionary={dictionary}
       />
       <CategoryList
         isLoading={isLoading}
-        currentTransaction={currentTransaction}
+        transactionType={currentTransaction.type}
+        transactionCategory={currentTransaction.category}
         onOptionChange={onOptionChange}
       />
       <CalenderInput
         isLoading={isLoading}
-        currentTransaction={currentTransaction}
+        transactionDate={currentTransaction.date}
         onOptionChange={onOptionChange}
         dictionary={dictionary}
       />

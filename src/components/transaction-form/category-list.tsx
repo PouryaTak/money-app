@@ -4,25 +4,28 @@ import CategoryItem from "@/components/transaction-form/category-item";
 import { Transaction } from "@/types/transaction";
 function CategoryList({
   isLoading,
-  currentTransaction,
   onOptionChange,
+  transactionType,
+  transactionCategory,
 }: {
   isLoading: boolean;
-  currentTransaction: Transaction;
   onOptionChange: Function;
+  transactionType: Transaction["type"];
+  transactionCategory: Transaction["category"];
 }) {
   return (
     <div
       className={`flex flex-wrap items-start content-start gap-3 flex-1 p-2 bg-gray-100 rounded-xl ${
         isLoading ? "pointer-events-none opacity-50" : ""
       }`}
-      key={currentTransaction.type}
+      key={transactionType}
     >
-      {categories[currentTransaction.type].map((i: any) => (
+      {categories[transactionType].map((i: any) => (
         <CategoryItem
-          currentTransaction={currentTransaction}
+          transactionType={transactionType}
           data={i}
           onOptionChange={onOptionChange}
+          isSelected={i.key === transactionCategory}
           key={i.key}
         />
       ))}

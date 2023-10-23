@@ -4,19 +4,19 @@ import { Transaction } from "@/types/transaction";
 
 function TypeTabs({
   isLoading,
-  currentTransaction,
+  transactionType,
   onOptionChange,
   dictionary
 }: {
   isLoading: boolean;
-  currentTransaction: Transaction;
+  transactionType: Transaction["type"];
   onOptionChange: Function;
   dictionary:any
 }) {
   return (
     <Tabs
       defaultValue="expense"
-      value={currentTransaction.type}
+      value={transactionType}
       className="w-full"
       onValueChange={(e) => onOptionChange(e, "type")}
     >
