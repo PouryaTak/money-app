@@ -1,3 +1,37 @@
 {
-    
-}
+    "html": {
+      "lang": "fa-IR",
+      "dir": "rtl"
+    },
+    "general": {
+      "next": "بعدی",
+      "previous": "قبلی",
+      "expense": "هزینه",
+      "income": "درآمد",
+      "expenses": "هزینه‌ها",
+      "incomes": "درآمدها",
+      "add": "افزودن",
+      "error": "خطا رخ داد",
+      "form": {
+        "amount": "مبلغ",
+        "title": "عنوان",
+        "description": "توضیحات",
+        "date": "تاریخ",
+        "select-date": "انتخاب تاریخ"
+      }
+    },
+    "pages": {
+      "go-to": "رفتن به",
+      "add-new-transaction": "افزودن تراکنش جدید",
+      "home": {
+        "title": "خانه",
+        "open-actions": "اقدامات باز",
+        "edit-transaction": "ویرایش تراکنش",
+        "delete-transaction": "حذف تراکنش"
+      },
+      "chart": {
+        "title": "نمودار"
+      }
+    }
+  }
+  
