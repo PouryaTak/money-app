@@ -1,9 +1,7 @@
 'use client'
-import { getTransactions } from "@/functions/handle-transactions";
 import { initialForm } from "@/helpers/static-data";
 import { Transaction } from "@/types/transaction";
-import { createContext, useContext, useEffect, useState } from "react";
-import { DateContext } from "./date-provider";
+import { createContext, useState } from "react";
 
 export const TransactionContext = createContext<any>({});
 export default function TransactionProvider({ children }: any) {
@@ -13,7 +11,6 @@ export default function TransactionProvider({ children }: any) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [currentTransaction, setCurrentTransaction] =
     useState<Transaction>(initialForm);
-  const { selectedDate } = useContext(DateContext);
 
   const saveStoreTransaction = (transaction: Transaction) => {
     setTransactions((current) => [...current, transaction]);
@@ -34,18 +31,6 @@ export default function TransactionProvider({ children }: any) {
     setTransactions((current) => transactions.filter((i) => i.id !== id));
   };
 
-  useEffect(() => {
-    setTransactionsStatus("loading")
-    getTransactions(selectedDate.startDate, selectedDate.endDate)
-      .then((response: any) => {
-        setTransactions(response);
-        setTransactionsStatus("success");
-      })
-      .catch((err: any) => {
-        console.log(err);
-        setTransactionsStatus("error")});
-  }, [selectedDate]);
-
   return (
     <TransactionContext.Provider
       value={{
@@ -57,6 +42,7 @@ export default function TransactionProvider({ children }: any) {
         setCurrentTransaction,
         updateStoreTransaction,
         transactionsStatus,
+        setTransactionsStatus
       }}
     >
       {children}

@@ -16,3 +16,11 @@ export type CategorizedTransaction = {
   amount: number;
   color: string;
 };
+
+export type TransactionListProps = {
+  status: string;
+  sortedTransactions: Array<any>;
+  handleEdit: (item: Transaction) => void;
+  handleDelete: (item: Transaction) => void;
+  dictionary: any
+};

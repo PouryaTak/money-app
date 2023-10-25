@@ -1,15 +1,25 @@
 "use client";
-
-import { Transaction } from "@/types/transaction";
+import React from "react";
+import { TransactionListProps } from "@/types/transaction";
 import TransactionListItem from "@/components/transaction-list/transaction-item";
 import TransactionLoading from "@/components/transaction-list/transaction-loading";
 
-type TransactionListProps = {
-  status: string;
-  sortedTransactions: Array<any>;
-  handleEdit: (item: Transaction) => void;
-  handleDelete: (item: Transaction) => void;
-  dictionary: any
+const ListWrapper = ({
+  children,
+  isCenter = false,
+}: {
+  children: React.ReactElement;
+  isCenter?: boolean;
+}) => {
+  return (
+    <div
+      className={`flex flex-col my-3 h-full overflow-y-auto ${
+        isCenter && "justify-center items-center"
+      }`}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default function TransactionList({
@@ -17,31 +27,39 @@ export default function TransactionList({
   sortedTransactions,
   handleEdit,
   handleDelete,
-  dictionary
+  dictionary,
 }: TransactionListProps) {
   if (status === "error")
     return (
-      <div className="flex flex-col justify-center items-center my-3 h-full overflow-y-auto">
+      <ListWrapper isCenter>
         <span>{dictionary.general.error}</span>
-      </div>
+      </ListWrapper>
+    );
+  if (status === "loading")
+    return (
+      <ListWrapper>
+        <TransactionLoading />
+      </ListWrapper>
+    );
+  if (Boolean(sortedTransactions?.length))
+    return (
+      <ListWrapper>
+        <>
+          {sortedTransactions.map((i: any) => (
+            <TransactionListItem
+              transaction={i}
+              key={i.id}
+              handleEditTransaction={handleEdit}
+              handleDeleteTransaction={handleDelete}
+              dictionary={dictionary}
+            />
+          ))}
+        </>
+      </ListWrapper>
     );
   return (
-    <div className="flex flex-col gap-3 my-3 h-full overflow-y-auto">
-      {status === "loading" ? (
-        <TransactionLoading />
-      ) : Boolean(sortedTransactions?.length) ? (
-        sortedTransactions.map((i: any) => (
-          <TransactionListItem
-            transaction={i}
-            key={i.id}
-            handleEditTransaction={handleEdit}
-            handleDeleteTransaction={handleDelete}
-            dictionary={dictionary}
-          />
-        ))
-      ) : (
-        <span>No data</span>
-      )}
-    </div>
+    <ListWrapper isCenter>
+      <span>No data</span>
+    </ListWrapper>
   );
 }

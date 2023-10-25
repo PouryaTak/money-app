@@ -5,6 +5,7 @@ import Drawer from "@/components/drawer";
 import DateHeader from "@/components/date-header";
 import fixHeight from "@/functions/fix-height";
 import dynamic from "next/dynamic";
+import useTransactions from "@/hooks/useTransactions";
 const TransactionForm = dynamic(
   () => import("./transaction-form/transaction-form-container")
 );
@@ -14,6 +15,7 @@ export default function PagesContainer({
 }: {
   children: React.ReactElement;
 }) {
+  useTransactions()
   useEffect(() => {
     fixHeight();
   }, []);
