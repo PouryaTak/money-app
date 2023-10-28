@@ -5,6 +5,7 @@ import { ArrowLeft, X } from "lucide-react";
 
 export default function Drawer({ children }: { children: React.ReactNode }) {
   const { isDrawerOpen, setIsDrawerOpen } = useContext(DrawerContext);
+  
   return (
     <div
       className={`${

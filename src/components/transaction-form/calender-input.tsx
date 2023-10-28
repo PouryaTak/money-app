@@ -7,8 +7,9 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import persian_en from "react-date-object/locales/persian_en";
 import gregorian_en from "react-date-object/locales/gregorian_en";
 import gregorian_fa from "react-date-object/locales/gregorian_fa";
+import { Settings } from "@/types/settings";
 
-const calenderLocal = {
+const calenderLocal:{[key:string]:any} = {
   'fa-IR':{
     jalali:persian_fa,
     gregorian: gregorian_fa
@@ -24,12 +25,14 @@ export default function CalenderInput({
   transactionDate,
   onOptionChange,
   dictionary,
+  settings
 }: {
   isLoading: boolean;
   transactionDate: Transaction["date"];
   onOptionChange: Function;
   dictionary: any;
-}) {
+  settings:Settings
+}) {  
   return (
     <div className="relative">
       <DatePicker
@@ -38,7 +41,7 @@ export default function CalenderInput({
         disabled={isLoading}
         maxDate={new Date()}
         calendar={persian}
-        locale={calenderLocal['fa-IR']['jalali']}
+        locale={calenderLocal[settings.lang][settings.calender]}
         calendarPosition={"top-center"}
         required={true}
         onChange={(e: DateObject) =>

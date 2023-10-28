@@ -2,7 +2,7 @@
 import React, { useContext, useMemo } from "react";
 import { TransactionContext } from "@/context/transaction-provider";
 import { DrawerContext } from "@/context/drawer-provider";
-import { deleteTransaction } from "@/functions/handle-transactions";
+import { deleteTransaction } from "@/functions/api/transactions";
 import { Transaction } from "@/types/transaction";
 import TransactionList from "@/components/transaction-list/transaction-list";
 import { DictionaryContext } from "@/context/dictionary-provider";

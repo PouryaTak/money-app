@@ -13,7 +13,7 @@ const ListWrapper = ({
 }) => {
   return (
     <div
-      className={`flex flex-col my-3 h-full overflow-y-auto ${
+      className={`flex flex-col gap-2 my-3 h-full overflow-y-auto ${
         isCenter && "justify-center items-center"
       }`}
     >

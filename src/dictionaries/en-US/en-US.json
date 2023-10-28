@@ -23,6 +23,7 @@
   "pages": {
     "go-to":"Go to",
     "add-new-transaction":"Add new transaction",
+    "settings":"Settings",
     "home": {
       "title": "Home",
       "open-actions":"Open actions",

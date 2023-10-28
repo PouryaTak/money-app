@@ -1,6 +1,6 @@
 import { DateContext } from "@/context/date-provider";
 import { TransactionContext } from "@/context/transaction-provider";
-import { getTransactions } from "@/functions/handle-transactions";
+import { getTransactions } from "@/functions/api/transactions";
 import { useContext, useEffect } from "react";
 
 export default function useTransactions(){
