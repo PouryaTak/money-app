@@ -9,13 +9,13 @@ export default function DrawerContents() {
     const searchParams = useSearchParams()
     const pathname = usePathname()
     const router = useRouter()
+
     useEffect(() => {
-        console.log("---created")
         return () => {
-            console.log("---destroy")
             router.push(pathname)
         }
     }, [pathname, router])
+
     if (searchParams.get("drawer") == "settings") {
         return <Settings />
     }

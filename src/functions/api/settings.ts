@@ -8,7 +8,5 @@ export const addSettings = async (settings:any) => {
 
 export const getSettings = async () => {
   const response = await apiClient.Get("api/settings");
-  console.log('------++', response.settings[0]);
-  
   return response.settings[0];
 };
