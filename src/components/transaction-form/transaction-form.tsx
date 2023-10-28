@@ -8,6 +8,7 @@ import CalenderInput from "@/components/transaction-form/calender-input";
 import CategoryList from "./category-list";
 import TypeTabs from "./type-tabs";
 import { DictionaryContext } from "@/context/dictionary-provider";
+import { SettingsContext } from "@/context/settings-provider";
 
 export default function TransactionForm({
   currentTransaction,
@@ -21,6 +22,7 @@ export default function TransactionForm({
   isLoading: boolean;
 }) {
   const {dictionary} = useContext(DictionaryContext)
+  const { settings } = useContext(SettingsContext)
   return (
     <form
       className="flex flex-col gap-3 h-[calc(100%-44px)] "
@@ -43,6 +45,7 @@ export default function TransactionForm({
         transactionDate={currentTransaction.date}
         onOptionChange={onOptionChange}
         dictionary={dictionary}
+        settings={settings}
       />
       <Input
         placeholder={dictionary.general.form.title}

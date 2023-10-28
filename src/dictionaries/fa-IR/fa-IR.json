@@ -23,6 +23,7 @@
     "pages": {
       "go-to": "رفتن به",
       "add-new-transaction": "افزودن تراکنش جدید",
+      "settings":"تنظیمات",
       "home": {
         "title": "خانه",
         "open-actions": "اقدامات باز",
