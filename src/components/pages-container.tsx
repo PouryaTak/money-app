@@ -2,7 +2,7 @@
 import React, { useEffect } from "react"
 import NavbarContainer from "@/components/navbar/navbar-container"
 import Drawer from "@/components/drawer"
-import DateHeader from "@/components/date-header"
+import DateHeader from "@/components/date-header/date-header-container"
 import fixHeight from "@/functions/fix-height"
 import useTransactions from "@/hooks/useTransactions"
 import DrawerContents from "./drawer-contents"
