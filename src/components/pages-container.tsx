@@ -6,8 +6,9 @@ import DateHeader from "@/components/date-header/date-header-container"
 import fixHeight from "@/functions/fix-height"
 import useTransactions from "@/hooks/useTransactions"
 import DrawerContents from "./drawer-contents"
+import { Settings } from "@/types/settings"
 
-export default function PagesContainer({ children }: { children: React.ReactElement }) {
+export default function PagesContainer({ children, settings }: { children: React.ReactElement, settings:Settings }) {
     useTransactions()
     useEffect(() => {
         fixHeight()
@@ -18,7 +19,7 @@ export default function PagesContainer({ children }: { children: React.ReactElem
                 <DrawerContents />
             </Drawer>
             <div className="relative w-full max-w-5xl h-full grid grid-rows-[80px_auto_1fr] p-5 pt-0 mx-auto overflow-y-hidden bg-white">
-                <DateHeader />
+                <DateHeader settings={settings} />
                 {children}
             </div>
             <NavbarContainer />

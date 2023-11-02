@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import moment from "moment-jalaali";
 import { numberSeparator } from "@/functions/handle-numbers";
 import { categories } from "@/helpers/static-data";
@@ -6,6 +6,7 @@ import { Transaction } from "@/types/transaction";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icons";
 import TransactionListItemPopover from "@/components/transaction-list/item-popover";
+import { SettingsContext } from "@/context/settings-provider";
 
 export default function TransactionListItem({
   transaction,
@@ -18,13 +19,14 @@ export default function TransactionListItem({
   handleDeleteTransaction: (transaction: Transaction) => void;
   dictionary: any;
 }) {
+  const {settings} = useContext(SettingsContext)
   const getCategory = useCallback((transaction: Transaction) => {
     if (!transaction.category) return "Home";
     return categories[transaction.type].find(
       (item: any) => item.key == transaction.category
     );
   }, []);
-
+  const isJalaliCalender = useMemo(()=> (settings.calender == 'jalali' ? 'j' : '') ,[settings.calender])
   const date = useMemo(() => moment(transaction.date), [transaction.date]);
 
   return (
@@ -45,11 +47,11 @@ export default function TransactionListItem({
         {transaction.title || "0"}
       </span>
       <div className="col-start-2 col-end-3 row-start-2 row-end-3 truncate flex gap-2 text-slate-500">
-        <span className="text-slate-300 text-sm leading-6">IRR </span>
+        <span className="text-slate-300 text-sm leading-6">{settings.currency} </span>
         {numberSeparator(Number(transaction.amount)) || "0"}
       </div>
       <div className="col-start-3 col-end-4 row-start-1 row-end-2 truncate text-end text-xs">
-        {date.format("jMMMM jDD") || "-"}
+        {date.format(`${isJalaliCalender}MMMM ${isJalaliCalender}DD`) || "-"}
       </div>
       <div className="flex justify-end col-start-3 col-end-4 row-start-2 row-end-3 truncate text-end">
         <TransactionListItemPopover
