@@ -11,7 +11,8 @@ import { cookies } from "next/dist/client/components/headers"
 export default async function Layout({ children }: { children: React.ReactElement }) {
     const dictionary = await getTranslations()
     const cookieStore = cookies()
-    const settings = cookieStore.get('settings')
+    const cookieSettings = cookieStore.get('settings')
+    const settings = JSON.parse(cookieSettings!.value)
     
     return (
         <SettingsProvider>
@@ -19,7 +20,7 @@ export default async function Layout({ children }: { children: React.ReactElemen
                 <TransactionProvider>
                     <DrawerProvider>
                         <DictionaryProvider dictionary={dictionary}>
-                            <PagesContainer settings={JSON.parse(settings!.value)}>{children}</PagesContainer>
+                            <PagesContainer settings={settings}>{children}</PagesContainer>
                         </DictionaryProvider>
                     </DrawerProvider>
                 </TransactionProvider>

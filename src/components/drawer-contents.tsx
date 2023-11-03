@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import dynamic from "next/dynamic"
 
-const TransactionForm = dynamic(() => import("./transaction-form/transaction-form-container"))
-const Settings = dynamic(() => import("./settings/settings-container"))
+const TransactionForm = dynamic(() => import(/* webpackChunkName: "TransactionForm"*/ "./transaction-form/transaction-form-container"))
+const Settings = dynamic(() => import(/* webpackChunkName: "Settings"*/"./settings/settings-container"))
 
 export default function DrawerContents() {
     const searchParams = useSearchParams()
