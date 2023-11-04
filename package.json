@@ -44,6 +44,7 @@
     "victory": "^36.6.11"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.0.1",
     "@types/moment-jalaali": "^0.7.8",
     "@types/node": "^20.8.9"
   }

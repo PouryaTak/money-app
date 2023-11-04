@@ -3,13 +3,16 @@ import { DateContext } from "@/context/date-provider";
 import { TransactionContext } from "@/context/transaction-provider";
 import { groupTransactionsByTypeCategory } from "@/functions/statistics";
 import React, { useContext, useMemo, useState } from "react";
-import ChartView from "@/components/chart/chart";
+// import ChartView from "@/components/chart/chart";
 import { DictionaryContext } from "@/context/dictionary-provider";
+import dynamic from "next/dynamic";
 
 const dropDownItems = [
   { value: "expense", title: "Expense" },
   { value: "income", title: "Income" },
 ];
+
+const ChartView = dynamic(()=> import('./chart'))
 
 export default function ChartContainer() {
   const { transactions, transactionsStatus } = useContext(TransactionContext);
