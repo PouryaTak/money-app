@@ -3,10 +3,11 @@ import React from "react"
 import { TransactionListProps } from "@/types/transaction"
 import TransactionListItem from "@/components/transaction-list/transaction-item"
 import TransactionLoading from "@/components/transaction-list/transaction-loading"
+import Image from "next/image"
 
 const ListWrapper = ({ children, isCenter = false }: { children: React.ReactElement; isCenter?: boolean }) => {
     return (
-        <div className={`flex flex-col gap-2 my-3 h-full overflow-y-auto ${isCenter && "justify-center items-center"}`}>
+        <div className={`flex flex-col gap-2 my-3 h-full px-5 overflow-y-auto ${isCenter && "justify-center items-center"}`}>
             {children}
         </div>
     )
@@ -49,7 +50,10 @@ export default function TransactionList({
         )
     return (
         <ListWrapper isCenter>
-            <span>No data</span>
+            <div className="flex flex-col items-center">
+                <Image src="/wallet.svg" alt="wallet graphic image" width={190} height={172} className="grayscale opacity-40" />
+                <span className="text-lg font-bold text-gray-300">{dictionary["pages"]["home"]["no-transaction"]}</span>
+            </div>
         </ListWrapper>
     )
 }

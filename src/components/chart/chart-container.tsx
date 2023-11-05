@@ -3,7 +3,6 @@ import { DateContext } from "@/context/date-provider";
 import { TransactionContext } from "@/context/transaction-provider";
 import { groupTransactionsByTypeCategory } from "@/functions/statistics";
 import React, { useContext, useMemo, useState } from "react";
-// import ChartView from "@/components/chart/chart";
 import { DictionaryContext } from "@/context/dictionary-provider";
 import dynamic from "next/dynamic";
 

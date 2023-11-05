@@ -20,6 +20,10 @@
       "select-date": "Select a date"
     }
   },
+  "date-header":{
+    "go-next-month":"Go to the next month",
+    "go-previous-month":"Go to the previous month"
+  },
   "pages": {
     "go-to":"Go to",
     "add-new-transaction":"Add new transaction",
@@ -28,7 +32,8 @@
       "title": "Home",
       "open-actions":"Open actions",
       "edit-transaction": "Edit Transaction",
-      "delete-transaction": "Delete Transaction"
+      "delete-transaction": "Delete Transaction",
+      "no-transaction" : "No Transaction yet!"
     },
     "chart": {
       "title": "Chart"

@@ -7,6 +7,7 @@ import fixHeight from "@/functions/fix-height"
 import useTransactions from "@/hooks/useTransactions"
 import DrawerContents from "./drawer-contents"
 import { Settings } from "@/types/settings"
+import Balance from "./balance/balance-container"
 
 export default function PagesContainer({ children, settings }: { children: React.ReactElement, settings:Settings }) {
     useTransactions()
@@ -18,8 +19,9 @@ export default function PagesContainer({ children, settings }: { children: React
             <Drawer>
                 <DrawerContents />
             </Drawer>
-            <div className="relative w-full max-w-5xl h-full grid grid-rows-[80px_auto_1fr] p-5 pt-0 mx-auto overflow-y-hidden bg-white">
+            <div className="relative w-full max-w-5xl h-full grid grid-rows-[64px_auto_1fr] py-5 pt-0 mx-auto overflow-y-hidden bg-white">
                 <DateHeader settings={settings} />
+                <Balance />
                 {children}
             </div>
             <NavbarContainer />

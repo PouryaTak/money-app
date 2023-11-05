@@ -20,6 +20,10 @@
         "select-date": "انتخاب تاریخ"
       }
     },
+    "date-header":{
+      "go-next-month":"برو به ماه بعدی",
+      "go-previous-month":"برو به ماه قبلی"
+    },
     "pages": {
       "go-to": "رفتن به",
       "add-new-transaction": "افزودن تراکنش جدید",

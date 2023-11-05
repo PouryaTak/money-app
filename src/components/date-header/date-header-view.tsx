@@ -1,23 +1,38 @@
 import React from "react"
 import { Button } from "@/components/ui/button"
+import { Minus, Plus } from "lucide-react"
 
 export default function DateHeaderView({
     goNext,
     goPrev,
     date,
+    dictionary,
 }: {
     goNext: () => void
     goPrev: () => void
     date: string
+    dictionary: any
 }) {
     return (
-        <div className="w-full flex justify-between py-5">
-            <Button variant="secondary" onClick={goPrev}>
-                Prev
+        <div className="w-full flex justify-between p-5 pb-0">
+            <Button
+                variant="default"
+                size="icon"
+                className="w-8 h-8 bg-orange-100 hover:bg-orange-200 text-primary rounded-lg"
+                onClick={goPrev}
+            >
+                <Minus aria-hidden />
+                <span className="sr-only">{dictionary["date-header"]["go-previous-month"]}</span>
             </Button>
-            <h2 className="text-xl font-bold mt-2">{date}</h2>
-            <Button variant="secondary" onClick={goNext}>
-                Next
+            <span className="text-base font-bold">{date}</span>
+            <Button
+                variant="default"
+                size="icon"
+                className="w-8 h-8 bg-orange-100 hover:bg-orange-200 text-primary rounded-lg"
+                onClick={goNext}
+            >
+                <Plus aria-hidden />
+                <span className="sr-only">{dictionary["date-header"]["go-next-month"]}</span>
             </Button>
         </div>
     )
