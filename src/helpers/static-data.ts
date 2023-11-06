@@ -1,35 +1,31 @@
 export const categories: any = {
     expense: [
         {
-            key: "item01",
-            value: "Shopping",
+            name: "Shopping",
             icon: "ShoppingCart",
             color: "#9b5de5",
         },
         {
-            key: "item02",
-            value: "Food",
+            name: "Food",
             icon: "Utensils",
             color: "hsl(358, 70%, 50%)",
         },
-        { key: "item03", value: "Bills", icon: "Receipt", color: "#fe7f2d" },
-        { key: "item04", value: "Relations", icon: "Users", color: "#00bbf9" },
-        { key: "item05", value: "Maintenance", icon: "Wrench", color: "#5fa8d3" },
-        { key: "item06", value: "Rent", icon: "Home", color: "#ff88d3" },
+        { name: "Bills", icon: "Receipt", color: "#fe7f2d" },
+        { name: "Relations", icon: "Users", color: "#00bbf9" },
+        { name: "Maintenance", icon: "Wrench", color: "#5fa8d3" },
+        { name: "Rent", icon: "Home", color: "#ff88d3" },
     ],
     income: [
-        { key: "item01", value: "Salary", icon: "Banknote", color: "#ffbc42" },
-        { key: "item02", value: "Loan", icon: "Landmark", color: "#d81159" },
-        { key: "item03", value: "Sell", icon: "Tags", color: "#218380" },
+        { name: "Salary", icon: "Banknote", color: "#ffbc42" },
+        { name: "Loan", icon: "Landmark", color: "#d81159" },
+        { name: "Sell", icon: "Tags", color: "#218380" },
         {
-            key: "item04",
-            value: "ّInvestment",
+            name: "ّInvestment",
             icon: "BadgePercent",
             color: "#a1c181",
         },
         {
-            key: "item05",
-            value: "ّBonus",
+            name: "ّBonus",
             icon: "BadgePlus",
             color: "#6185f1",
         },
@@ -43,7 +39,7 @@ export const types = [
 
 export const initialForm = {
     type: "expense",
-    category: "item01",
+    category: "Shopping",
     title: "",
     date: "",
     amount: "",

@@ -22,7 +22,7 @@ export default function TransactionListItem({
     const { settings } = useContext(SettingsContext)
     const getCategory = useCallback((transaction: Transaction) => {
         if (!transaction.category) return "Home"
-        return categories[transaction.type].find((item: any) => item.key == transaction.category)
+        return categories[transaction.type].find((item: any) => item.name == transaction.category)
     }, [])
     const isJalaliCalender = useMemo(() => (settings.calender == "jalali" ? "j" : ""), [settings.calender])
     const date = useMemo(() => moment(transaction.date), [transaction.date])

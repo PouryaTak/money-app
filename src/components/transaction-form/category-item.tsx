@@ -30,19 +30,19 @@ export default function CategoryItem({
   );
 
   return (
-    <label htmlFor={data.key} key={data.key} className={labelClassName}>
+    <label htmlFor={data.name} key={data.name} className={labelClassName}>
       {renderCheckIcon}
       <input
         type="radio"
         name="category"
-        value={data.key}
-        id={data.key}
+        value={data.name}
+        id={data.name}
         checked={isSelected}
         onChange={(e) => onOptionChange(e.target.value, "category")}
         className="absolute inset-0 opacity-0 !cursor-pointer"
       />
       <Icon name={data.icon} />
-      <span className="mt-1 text-inherit">{data.value}</span>
+      <span className="mt-1 text-inherit">{data.name}</span>
     </label>
   );
 }

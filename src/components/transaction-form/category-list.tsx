@@ -13,6 +13,8 @@ function CategoryList({
   transactionType: Transaction["type"];
   transactionCategory: Transaction["category"];
 }) {
+  console.log(transactionCategory);
+  
   return (
     <div
       className={`flex flex-wrap items-start content-start gap-3 flex-1 p-2 bg-gray-100 rounded-xl ${
@@ -25,8 +27,8 @@ function CategoryList({
           transactionType={transactionType}
           data={i}
           onOptionChange={onOptionChange}
-          isSelected={i.key === transactionCategory}
-          key={i.key}
+          isSelected={i.name === transactionCategory}
+          key={i.name}
         />
       ))}
     </div>

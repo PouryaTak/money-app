@@ -32,7 +32,8 @@
         "title": "خانه",
         "open-actions": "اقدامات باز",
         "edit-transaction": "ویرایش تراکنش",
-        "delete-transaction": "حذف تراکنش"
+        "delete-transaction": "حذف تراکنش",
+        "no-transaction" : "هنوز هیچ تراکنشی نداری!"
       },
       "chart": {
         "title": "نمودار"

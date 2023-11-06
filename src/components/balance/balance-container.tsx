@@ -24,8 +24,6 @@ export default function Balance() {
         return totalValue == 0 ? null : ((calcIncomes * 100) / totalValue)
     }, [calcExpenses, calcIncomes])
 
-    console.log("00000000", calcExpenses, calcIncomes, gradientPosition)
-
     return (
         <BalanceView
             dictionary={dictionary}

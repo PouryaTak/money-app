@@ -7,7 +7,7 @@ export type DropdownProps = {
     setSelected: (item: string) => void
 }
 
-export type ChartProps = DropdownProps & { data: Array<CategorizedTransaction>; isLoading: boolean; dictionary: any }
+export type ChartProps = { expenseData: Array<CategorizedTransaction>; incomeData:Array<CategorizedTransaction>; isLoading: boolean; dictionary: any }
 
 export type CalenderInputProps = {
     isLoading: boolean
