@@ -1,6 +1,6 @@
 export type Transaction = {
   _id?: string;
-  type: string;
+  type: "expense" | "income";
   category: string;
   title: string;
   date: string;
@@ -15,6 +15,7 @@ export type CategorizedTransaction = {
   id: string;
   amount: number;
   color: string;
+  percentage:string
 };
 
 export type TransactionListProps = {

@@ -2,9 +2,10 @@
 import { DateContext } from "@/context/date-provider"
 import { TransactionContext } from "@/context/transaction-provider"
 import { groupTransactionsByTypeCategory } from "@/functions/statistics"
-import React, { useContext, useMemo } from "react"
+import React, { Suspense, useContext, useMemo } from "react"
 import { DictionaryContext } from "@/context/dictionary-provider"
 import dynamic from "next/dynamic"
+import { SettingsContext } from "@/context/settings-provider"
 
 const ChartView = dynamic(() => import("./chart"))
 
@@ -12,11 +13,12 @@ export default function ChartContainer() {
     const { transactions, transactionsStatus } = useContext(TransactionContext)
     const { selectedDate } = useContext(DateContext)
     const { dictionary } = useContext(DictionaryContext)
+    const { settings } = useContext(SettingsContext)
 
     const data = useMemo(
         () =>
-            groupTransactionsByTypeCategory(selectedDate.startDate, selectedDate.endDate, transactions, "expense").sort(
-                (a, b) => (a.amount > b.amount ? -1 : 1)
+            groupTransactionsByTypeCategory(selectedDate.startDate, selectedDate.endDate, transactions).sort((a, b) =>
+                a.amount > b.amount ? -1 : 1
             ),
         [selectedDate.endDate, selectedDate.startDate, transactions]
     )
@@ -25,11 +27,14 @@ export default function ChartContainer() {
     const incomeData = data.filter((i) => i.type === "income")
 
     return (
-        <ChartView
-            dictionary={dictionary}
-            expenseData={expenseData}
-            incomeData={incomeData}
-            isLoading={transactionsStatus === "loading"}
-        />
+        <Suspense fallback={<span>Loading...</span>}>
+            <ChartView
+                dictionary={dictionary}
+                expenseData={expenseData}
+                incomeData={incomeData}
+                isLoading={transactionsStatus === "loading"}
+                currency={settings.currency}
+            />
+        </Suspense>
     )
 }

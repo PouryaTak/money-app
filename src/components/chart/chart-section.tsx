@@ -6,9 +6,11 @@ import { CategorizedTransaction } from "@/types/transaction"
 export default function ChartSection({
     chartData,
     title,
+    currency
 }: {
     chartData: Array<CategorizedTransaction>
     title: string
+    currency:string
 }) {
     
     return (
@@ -19,14 +21,15 @@ export default function ChartSection({
                     {chartData.map((item) => (
                         <div
                             key={`${item.id}-${item.category}`}
-                            className="flex flex-col px-2 mb-2 border-l-8 text-sm h-max"
+                            className="flex flex-col px-2 mb-2 border-l-8 text-sm h-max py-1"
                             style={{ borderLeftColor: item.color }}
                         >
                             <span className="mb-1">{item.category}</span>
-                            <span>
+                            <span className="mb-1">
                                 {numberSeparator(item.amount)}
-                                <span className="text-slate-300 leading-6"> IRR</span>
+                                <span className="text-slate-300 leading-6 mx-1">{currency}</span>
                             </span>
+                            <span className="text-xs">{item.percentage} %</span>
                         </div>
                     ))}
                 </div>

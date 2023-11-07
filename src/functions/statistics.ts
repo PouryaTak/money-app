@@ -18,23 +18,22 @@ export const calculateAmountByType = (
 export const groupTransactionsByTypeCategory = (
     startDate: any,
     endDate: any,
-    transactions: Transaction[],
-    type: "expense" | "income"
+    transactions: Transaction[]
 ): Array<CategorizedTransaction> => {
     const findCategory = (category: string) =>
         categories["expense"].find((i: any) => i.name == category) ||
         categories["income"].find((i: any) => i.name == category)
 
     const findType = (categoryValue: string): "expense" | "income" => {
-      console.log(categories["expense"].find((i: any) => i.name === categoryValue));
-      
         return categories["expense"].find((i: any) => i.name === categoryValue) ? "expense" : "income"
     }
 
     const transactionObj: { [key: string]: number } = {}
+    const total = { income: 0, expense: 0 }
 
     transactions.forEach((item) => {
         if (item.date >= startDate && item.date <= endDate) {
+            total[item.type] += Number(item.amount)
             const amount: number = Number(item.amount)
             item.category in transactionObj
                 ? (transactionObj[item.category] += amount)
@@ -49,6 +48,7 @@ export const groupTransactionsByTypeCategory = (
             id: item[0],
             color: findCategory(item[0])?.color || "#eee",
             amount: item[1],
+            percentage: ((item[1] * 100) / total[findType(item[0])]).toFixed(2)
         }
     })
 
