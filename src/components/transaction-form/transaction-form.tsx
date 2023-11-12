@@ -7,8 +7,8 @@ import { Transaction } from "@/types/transaction";
 import CalenderInput from "@/components/transaction-form/calender-input";
 import CategoryList from "./category-list";
 import TypeTabs from "./type-tabs";
-import { DictionaryContext } from "@/context/dictionary-provider";
-import { SettingsContext } from "@/context/settings-provider";
+import { DictionaryContext } from "@/providers/dictionary-provider";
+import { SettingsContext } from "@/providers/settings-provider";
 
 export default function TransactionForm({
   currentTransaction,

@@ -1,27 +1,35 @@
 "use client"
-import { DateContext } from "@/context/date-provider"
-import { TransactionContext } from "@/context/transaction-provider"
+import { DateContext } from "@/providers/date-provider"
 import { calculateAmountByType } from "@/functions/statistics"
 import React, { useContext, useMemo } from "react"
-import { DictionaryContext } from "@/context/dictionary-provider"
+import { DictionaryContext } from "@/providers/dictionary-provider"
 import BalanceView from "./balance-view"
+import useTransactions from "@/hooks/useTransactions"
 
 export default function Balance() {
-    const { transactions } = useContext(TransactionContext)
+    // const { transactions } = useContext(TransactionContext)
     const { selectedDate } = useContext(DateContext)
     const { dictionary } = useContext(DictionaryContext)
+    const { data: transactions, isLoading, isError }: any = useTransactions()
+
     const calcExpenses = useMemo(
-        () => calculateAmountByType(selectedDate.startDate, selectedDate.endDate, transactions, "expense"),
+        () =>
+            transactions
+                ? calculateAmountByType(selectedDate.startDate, selectedDate.endDate, transactions.data, "expense")
+                : 0,
         [selectedDate.endDate, selectedDate.startDate, transactions]
     )
     const calcIncomes = useMemo(
-        () => calculateAmountByType(selectedDate.startDate, selectedDate.endDate, transactions, "income"),
+        () =>
+            transactions
+                ? calculateAmountByType(selectedDate.startDate, selectedDate.endDate, transactions.data, "income")
+                : 0,
         [selectedDate.endDate, selectedDate.startDate, transactions]
     )
 
     const gradientPosition = useMemo(() => {
         const totalValue = calcIncomes + calcExpenses
-        return totalValue == 0 ? null : ((calcIncomes * 100) / totalValue)
+        return totalValue == 0 ? null : (calcIncomes * 100) / totalValue
     }, [calcExpenses, calcIncomes])
 
     return (

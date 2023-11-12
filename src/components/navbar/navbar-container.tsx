@@ -1,10 +1,10 @@
 "use client"
 import { usePathname, useRouter } from "next/navigation"
 import { useContext } from "react"
-import { DrawerContext } from "@/context/drawer-provider"
-import { TransactionContext } from "@/context/transaction-provider"
+import { DrawerContext } from "@/providers/drawer-provider"
+import { TransactionContext } from "@/providers/transaction-provider"
 import { initialForm } from "@/helpers/static-data"
-import { DictionaryContext } from "@/context/dictionary-provider"
+import { DictionaryContext } from "@/providers/dictionary-provider"
 import Navbar from "./navbar-view"
 
 export default function NavbarContainer() {

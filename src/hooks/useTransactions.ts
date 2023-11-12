@@ -1,20 +1,19 @@
-import { DateContext } from "@/context/date-provider";
-import { TransactionContext } from "@/context/transaction-provider";
-import { getTransactions } from "@/functions/api/transactions";
-import { useContext, useEffect } from "react";
+"use client"
+import { DateContext } from "@/providers/date-provider"
+import { getTransactions } from "@/functions/api/transactions"
+import { useContext } from "react"
+import { useQuery } from "react-query"
 
-export default function useTransactions(){
-    const { selectedDate } = useContext(DateContext);
-    const {setTransactionsStatus, setTransactions} = useContext(TransactionContext)
-    useEffect(() => {
-        setTransactionsStatus("loading")
-        getTransactions(selectedDate.startDate, selectedDate.endDate)
-          .then((response: any) => {
-            setTransactions(response);
-            setTransactionsStatus("success");
-          })
-          .catch((err: any) => {
-            console.log(err);
-            setTransactionsStatus("error")});
-      }, [selectedDate, setTransactions, setTransactionsStatus]);
+export default function useTransactions() {
+    const { selectedDate } = useContext(DateContext)
+
+    const response = useQuery({
+        staleTime: Infinity,
+        cacheTime: 1000 * 60 * 60,
+        queryKey: ["transactions", { selectedDate }],
+        queryFn: () =>
+        getTransactions(selectedDate.startDate, selectedDate.endDate),
+    })
+
+    return response
 }

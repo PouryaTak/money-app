@@ -5,7 +5,7 @@ export const getTransactions = async (startDate: string, endDate: string) => {
   const response = await apiClient.Get(
     `api/transactions?startDate=${startDate}&endDate=${endDate}`,
   );
-  return response.data;
+  return response;
 };
 
 export const addTransaction = async (data: Transaction) => {

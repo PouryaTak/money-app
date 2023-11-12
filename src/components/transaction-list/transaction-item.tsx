@@ -6,7 +6,7 @@ import { Transaction } from "@/types/transaction"
 import { Card } from "@/components/ui/card"
 import Icon from "@/components/ui/icons"
 import TransactionListItemPopover from "@/components/transaction-list/item-popover"
-import { SettingsContext } from "@/context/settings-provider"
+import { SettingsContext } from "@/providers/settings-provider"
 
 export default function TransactionListItem({
     transaction,

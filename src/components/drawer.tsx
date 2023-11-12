@@ -1,5 +1,5 @@
 "use client"
-import { DrawerContext } from "@/context/drawer-provider"
+import { DrawerContext } from "@/providers/drawer-provider"
 import React, { Suspense, useContext } from "react"
 import { ArrowLeft, X } from "lucide-react"
 

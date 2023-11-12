@@ -1,3 +1,5 @@
+import { Transaction } from "@/types/transaction"
+
 export const categories: any = {
     expense: [
         {
@@ -37,7 +39,7 @@ export const types = [
     { key: "income", value: "Income" },
 ]
 
-export const initialForm = {
+export const initialForm:Transaction = {
     type: "expense",
     category: "Shopping",
     title: "",

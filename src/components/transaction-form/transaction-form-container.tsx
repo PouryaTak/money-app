@@ -1,10 +1,10 @@
 "use client";
 import React, { useContext, useState } from "react";
-import { TransactionContext } from "@/context/transaction-provider";
+import { TransactionContext } from "@/providers/transaction-provider";
 import { initialForm } from "@/helpers/static-data";
 import { addCommas, removeNonNumeric } from "@/lib/utils";
 import TransactionForm from "./transaction-form";
-import { DrawerContext } from "@/context/drawer-provider";
+import { DrawerContext } from "@/providers/drawer-provider";
 import {
   addTransaction,
   updateTransaction,
