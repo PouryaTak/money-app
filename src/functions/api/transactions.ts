@@ -15,7 +15,7 @@ export const addTransaction = async (data: Transaction) => {
 
 export const deleteTransaction = async (id: string) => {
   const response = await apiClient.Delete("api/transaction?id=" + id);
-  return response.data;
+  return response;
 };
 
 export const getSingleTransaction = async (id: string) => {

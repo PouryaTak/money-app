@@ -7,6 +7,7 @@ import { DrawerContext } from "@/providers/drawer-provider"
 import { initialForm } from "@/helpers/static-data"
 import { TransactionContext } from "@/providers/transaction-provider"
 import { prepareNewData } from "@/functions/transactions"
+import { Transaction } from "@/types/transaction"
 
 export default function useSetTransaction() {
     const { selectedDate } = useContext(DateContext)
@@ -19,13 +20,18 @@ export default function useSetTransaction() {
         setCurrentTransaction(initialForm)
         setIsDrawerOpen(false)
         queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {
+            if(transaction._id){
+                const index = oldData.data.findIndex((t: Transaction) => t._id === transaction._id)
+                oldData.data[index] = transaction
+                return { data: [...oldData.data] }
+            } 
             return { data: [transaction, ...oldData.data] }
         })
     }
 
     const mutationFn = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        return transaction.id ? updateTransaction(transaction.id, transaction) : addTransaction(transaction)
+        return transaction._id ? updateTransaction(transaction._id, transaction) : addTransaction(transaction)
     }
 
 
