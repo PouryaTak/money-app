@@ -19,7 +19,9 @@ export type CategorizedTransaction = {
 };
 
 export type TransactionListProps = {
-  status: string;
+  // status: string;
+  isLoading: boolean
+  isError:boolean
   sortedTransactions: Array<any>;
   handleEdit: (item: Transaction) => void;
   handleDelete: (item: Transaction) => void;

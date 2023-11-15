@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 import moment from "moment-jalaali"
 import { Settings } from "@/types/settings";
-import { DateContext } from "@/context/date-provider"
+import { DateContext } from "@/providers/date-provider"
 
 export default function useDateController(settings:Settings) {
     const [date, setDate] = useState(moment(Date.now()))

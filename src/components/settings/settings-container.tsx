@@ -1,6 +1,6 @@
 "use client"
 import React, { useContext, useMemo } from "react"
-import { SettingsContext } from "@/context/settings-provider"
+import { SettingsContext } from "@/providers/settings-provider"
 import Settings from "./settings-view"
 import { settingsTabItems } from "@/helpers/static-data"
 

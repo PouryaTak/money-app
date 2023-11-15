@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { categories } from "@/helpers/static-data";
 import CategoryItem from "@/components/transaction-form/category-item";
 import { Transaction } from "@/types/transaction";
@@ -13,7 +13,6 @@ function CategoryList({
   transactionType: Transaction["type"];
   transactionCategory: Transaction["category"];
 }) {
-  console.log(transactionCategory);
   
   return (
     <div
@@ -35,4 +34,4 @@ function CategoryList({
   );
 }
 
-export default memo(CategoryList);
+export default CategoryList;

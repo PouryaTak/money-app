@@ -14,19 +14,21 @@ const ListWrapper = ({ children, isCenter = false }: { children: React.ReactElem
 }
 
 export default function TransactionList({
-    status,
+    // status,
+    isError,
+    isLoading,
     sortedTransactions,
     handleEdit,
     handleDelete,
     dictionary,
 }: TransactionListProps) {
-    if (status === "error")
+    if (isError)
         return (
             <ListWrapper isCenter>
                 <span>{dictionary.general.error}</span>
             </ListWrapper>
         )
-    if (status === "loading")
+    if (isLoading)
         return (
             <ListWrapper>
                 <TransactionLoading />
