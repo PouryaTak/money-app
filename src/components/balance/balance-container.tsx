@@ -7,7 +7,6 @@ import BalanceView from "./balance-view"
 import useTransactions from "@/hooks/useTransactions"
 
 export default function Balance() {
-    // const { transactions } = useContext(TransactionContext)
     const { selectedDate } = useContext(DateContext)
     const { dictionary } = useContext(DictionaryContext)
     const { data: transactions, isLoading, isError }: any = useTransactions()
@@ -34,6 +33,7 @@ export default function Balance() {
 
     return (
         <BalanceView
+        isLoading={isLoading}
             dictionary={dictionary}
             calcExpenses={calcExpenses}
             calcIncomes={calcIncomes}
