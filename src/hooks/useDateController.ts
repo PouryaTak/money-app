@@ -1,9 +1,11 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 import moment from "moment-jalaali"
-import { Settings } from "@/types/settings";
+import { Settings } from "@/types/settings"
 import { DateContext } from "@/providers/date-provider"
+import useRouterHandler from "./useRouterHandler"
 
-export default function useDateController(settings:Settings) {
+export default function useDateController(settings: Settings) {
+    const { handleSearchParams, searchParam } = useRouterHandler()
     const [date, setDate] = useState(moment(Date.now()))
     const { setSelectedDate } = useContext(DateContext)
 
@@ -14,11 +16,11 @@ export default function useDateController(settings:Settings) {
     const MonthFormat = useMemo<"jMonth">(() => `${isJalaliCalender}Month`, [isJalaliCalender])
 
     const goPreviousDate = () => {
-        setDate(moment(date.format()).subtract(1, MonthFormat))
+        handleSearchParams("date", moment(date.format()).subtract(1, MonthFormat).format("x"))
     }
 
     const goNextDate = () => {
-        setDate(moment(date.format()).add(1, MonthFormat))
+        handleSearchParams("date", moment(date.format()).add(1, MonthFormat).format("x"))
     }
 
     useEffect(() => {
@@ -28,5 +30,14 @@ export default function useDateController(settings:Settings) {
             return JSON.parse(JSON.stringify(current))
         })
     }, [MonthFormat, date, setSelectedDate])
-    return {currentListDate,goPreviousDate, goNextDate}
+
+    useEffect(() => {
+        const iso = searchParam.get("date")
+        if (iso) {
+            setDate(moment(+iso))
+        }
+        console.log(searchParam)
+    }, [searchParam])
+
+    return { currentListDate, goPreviousDate, goNextDate }
 }

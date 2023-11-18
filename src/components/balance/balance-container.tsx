@@ -33,7 +33,7 @@ export default function Balance() {
 
     return (
         <BalanceView
-        isLoading={isLoading}
+            isLoading={isLoading}
             dictionary={dictionary}
             calcExpenses={calcExpenses}
             calcIncomes={calcIncomes}
