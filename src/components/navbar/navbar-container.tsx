@@ -10,16 +10,16 @@ import useRouterHandler from "@/hooks/useRouterHandler"
 export default function NavbarContainer() {
     const { dictionary } = useContext(DictionaryContext)
     const { setCurrentTransaction } = useContext(TransactionContext)
-    const { setIsDrawerOpen } = useContext(DrawerContext)
-    const {handleDrawerQuery, pathname} = useRouterHandler()
+    const { setIsDrawerOpen, setQuery } = useContext(DrawerContext)
+    const { pathname} = useRouterHandler()
 
     const addNewTransaction = () => {
         setCurrentTransaction(initialForm)
-        handleDrawerQuery("new-transaction")
+        setQuery("transactionForm")
         setIsDrawerOpen(true)
     }
     const openSettings = () => {
-        handleDrawerQuery("settings")
+        setQuery("settings")
         setIsDrawerOpen(true)
     }
     return (

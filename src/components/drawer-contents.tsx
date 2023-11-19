@@ -1,26 +1,21 @@
-import React, { useEffect } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import React, { ComponentType, useContext } from "react"
 import dynamic from "next/dynamic"
+import { DrawerContext } from "@/providers/drawer-provider"
 
-const TransactionForm = dynamic(() => import(/* webpackChunkName: "TransactionForm"*/ "./transaction-form/transaction-form-container"))
-const Settings = dynamic(() => import(/* webpackChunkName: "Settings"*/"./settings/settings-container"))
+const contents: {
+    transactionForm: ComponentType<{}>
+    settings: ComponentType<{}>
+} = {
+    transactionForm: dynamic(
+        () => import(/* webpackChunkName: "TransactionForm"*/ "./transaction-form/transaction-form-container")
+    ),
+    settings: dynamic(() => import(/* webpackChunkName: "Settings"*/ "./settings/settings-container")),
+}
+
+export type DrawerContentsProps = keyof typeof contents
 
 export default function DrawerContents() {
-    const searchParams = useSearchParams()
-    const pathname = usePathname()
-    const router = useRouter()
-
-    useEffect(() => {
-        return () => {
-            router.push(pathname)
-        }
-    }, [pathname, router])
-
-    if (searchParams.get("drawer") == "settings") {
-        return <Settings />
-    }
-    if (searchParams.get("drawer") == "new-transaction") {
-        return <TransactionForm />
-    }
-    return null
+    const { query } = useContext(DrawerContext)
+    const DynamicComponent = query !== "" ? contents[query] : null
+    return DynamicComponent && <DynamicComponent />
 }
