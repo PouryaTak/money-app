@@ -2,13 +2,13 @@ import React, { ComponentType, useContext } from "react"
 import dynamic from "next/dynamic"
 import { DrawerContext } from "@/providers/drawer-provider"
 
-const contents: {
+type Contents = {
     transactionForm: ComponentType<{}>
     settings: ComponentType<{}>
-} = {
-    transactionForm: dynamic(
-        () => import(/* webpackChunkName: "TransactionForm"*/ "./transaction-form/transaction-form-container")
-    ),
+}
+
+const contents: Contents = {
+    transactionForm: dynamic(() => import(/* webpackChunkName: "TransactionForm"*/ "./transaction-form/transaction-form-container")),
     settings: dynamic(() => import(/* webpackChunkName: "Settings"*/ "./settings/settings-container")),
 }
 

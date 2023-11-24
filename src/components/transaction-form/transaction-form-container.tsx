@@ -2,11 +2,11 @@
 import React from "react"
 import TransactionForm from "./transaction-form"
 import useSetTransaction from "@/hooks/useSetTransaction"
-import useNewTransaction from "@/hooks/useNewTransaction"
+import useTransactionForm from "@/hooks/useTransactionForm"
 
 export default function TransactionFormContainer() {
     const {isLoading, mutate} = useSetTransaction()
-    const {onOptionChange, currentTransaction} = useNewTransaction()
+    const {onOptionChange, currentTransaction} = useTransactionForm()
   
     return (
         <TransactionForm
