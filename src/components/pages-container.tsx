@@ -8,23 +8,26 @@ import useTransactions from "@/hooks/useTransactions"
 import DrawerContents from "./drawer-contents"
 import { Settings } from "@/types/settings"
 import Balance from "./balance/balance-container"
+import ContentView from "./content-view"
 
-export default function PagesContainer({ children, settings }: { children: React.ReactElement, settings:Settings }) {
+export default function PagesContainer({ children, settings }: { children: React.ReactElement; settings: Settings }) {
     useTransactions()
     useEffect(() => {
         fixHeight()
     }, [])
     return (
-        <main className="fixed-h grid grid-rows-[1fr_68px] overflow-hidden relative">
+        <>
             <Drawer>
                 <DrawerContents />
             </Drawer>
-            <div className="relative w-full max-w-5xl h-full grid grid-rows-[64px_auto_1fr] py-5 pt-0 mx-auto overflow-y-hidden bg-white">
-                <DateHeader settings={settings} />
-                <Balance />
-                {children}
+            <div className="h-full grid grid-rows-[1fr_68px]">
+                <ContentView className=" grid grid-rows-[64px_auto_1fr]">
+                    <DateHeader settings={settings} />
+                    <Balance />
+                    {children}
+                </ContentView>
+                <NavbarContainer />
             </div>
-            <NavbarContainer />
-        </main>
+        </>
     )
 }
