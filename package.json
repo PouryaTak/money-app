@@ -42,7 +42,8 @@
     "tailwindcss": "3.3.5",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
-    "victory": "^36.6.11"
+    "victory": "^36.6.11",
+    "@chakra-ui/pin-input": "^2.0.20"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.0.1",
