@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { TransactionContext } from "@/providers/transaction-provider"
 import { addCommas, removeNonNumeric } from "@/lib/utils"
 
-export default function useNewTransaction() {
+export default function useTransactionForm() {
     const { currentTransaction, setCurrentTransaction } = useContext(TransactionContext)
 
     const onOptionChange = (value: any, key: keyof typeof currentTransaction) => {
