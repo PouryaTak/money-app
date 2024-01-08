@@ -7,7 +7,6 @@ import DateProvider from "@/providers/date-provider"
 import DrawerProvider from "@/providers/drawer-provider"
 import DictionaryProvider from "@/providers/dictionary-provider"
 import SettingsProvider from "@/providers/settings-provider"
-import { Settings } from "@/types/settings"
 import { NextAuthProvider } from "./auth-provider"
 
 export default function ProviderContainer({ children, dictionary }: { children: React.ReactElement; dictionary: any }) {

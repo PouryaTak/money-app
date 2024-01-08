@@ -10,7 +10,9 @@ const fetchSettings = async () => {
             calender: response.calender,
             currency: response.currency,
         }
-        nextResponse.cookies.set("settings", JSON.stringify(settings))
+        nextResponse.cookies.set("settings", JSON.stringify(settings), {
+            maxAge: 60 * 60 * 24 * 30,
+        })
         return nextResponse
     }
 }

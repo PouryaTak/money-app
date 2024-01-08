@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo } from "react"
+import React, { memo, useCallback, useContext, useMemo } from "react"
 import moment from "moment-jalaali"
 import { numberSeparator } from "@/functions/handle-numbers"
 import { categories } from "@/helpers/static-data"
@@ -8,7 +8,7 @@ import Icon from "@/components/ui/icons"
 import TransactionListItemPopover from "@/components/transaction-list/item-popover"
 import { SettingsContext } from "@/providers/settings-provider"
 
-export default function TransactionListItem({
+const TransactionListItem = ({
     transaction,
     handleEditTransaction,
     handleDeleteTransaction,
@@ -18,7 +18,7 @@ export default function TransactionListItem({
     handleEditTransaction: (transaction: Transaction) => void
     handleDeleteTransaction: (transaction: Transaction) => void
     dictionary: any
-}) {
+}) => {
     const { settings } = useContext(SettingsContext)
     const getCategory = useCallback((transaction: Transaction) => {
         if (!transaction.category) return "Home"
@@ -65,3 +65,5 @@ export default function TransactionListItem({
         </Card>
     )
 }
+
+export default memo(TransactionListItem)
