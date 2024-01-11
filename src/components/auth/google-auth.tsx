@@ -25,7 +25,6 @@ export default function GoogleAuth() {
                 </svg>
                 <span>Enter using Google</span>
             </Button>
-            <p className="text-sm text-gray-400 text-center">Sign in / Sign up using Google</p>
         </div>
     )
 }
