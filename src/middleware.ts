@@ -19,7 +19,8 @@ const fetchSettings = async () => {
 
 export async function middleware(request: NextRequest) {
     const hasSettings = request.cookies.has("settings")
-    const hasSession = !!request.cookies.get("next-auth.session-token")
+    const hasSession =
+        request.cookies.has("next-auth.session-token") || request.cookies.has("__Secure-next-auth.session-token")
     const isAuthPage = request.nextUrl.pathname === "/auth"
 
     if (!hasSession && !isAuthPage) {
