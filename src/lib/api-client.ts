@@ -1,4 +1,5 @@
-import { getCookie } from "@/functions/handle-cookies"
+import { getCookie, removeCookies } from "@/functions/handle-cookies"
+import { signOut } from "next-auth/react"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_API
 
@@ -11,12 +12,26 @@ const initialConfig = {
     },
 }
 
-const errorHandler = (error: any) => {}
+const errorHandler = (error: any) => {
+    // call notification error here
+
+    if(error.status === 403){
+        removeCookies()
+        signOut()
+    }
+    return {data:[]}
+}
 
 const fetcher = async (url: string, config: any) => {
-    return fetch(baseUrl + url, config)
-        .then((res) => res.json())
-        .catch((err) => errorHandler(err))
+    try {
+        const response = await fetch(baseUrl + url, config)
+        if (!response.ok) {
+            errorHandler(response)
+        }
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 export const apiClient = {

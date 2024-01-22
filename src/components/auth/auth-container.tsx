@@ -8,7 +8,7 @@ export default function AuthContainer() {
     return (
         <ContentView className="px-5 grid grid-rows-[1fr_auto]">
             <WelcomeBanner />
-            <GoogleAuth />
+            {/* <GoogleAuth /> */}
             <GithubAuth />
         </ContentView>
     )

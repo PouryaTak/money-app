@@ -4,7 +4,8 @@ const settingSchema = new Schema(
   {
     lang: String,
     calender: String,
-    currency: String
+    currency: String,
+    owner: String
   },
   {
     timestamps: true,
