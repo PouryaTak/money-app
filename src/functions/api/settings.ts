@@ -6,7 +6,7 @@ export const addSettings = async (settings:any) => {
   return response.data;
 };
 
-export const getSettings = async () => {
-  const response = await apiClient.Get("api/settings");
+export const getSettings = async (email:string) => {
+  const response = await apiClient.Get(`api/settings?email=${email}`);
   return response?.settings;
 };
