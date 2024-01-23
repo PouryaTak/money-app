@@ -21,13 +21,18 @@ const calenderLocal: { [key: string]: any } = {
 
 export default function CalenderInput(props: CalenderInputProps) {
     const { isLoading, transactionDate, onOptionChange, dictionary, settings } = props
+
+    let maxDate = new Date()
+    // Add one day to the current date
+    maxDate.setDate(maxDate.getDate() + 1)
+
     return (
         <div className="relative">
             <DatePicker
                 value={transactionDate}
                 placeholder={dictionary.general.form["select-date"]}
                 disabled={isLoading}
-                maxDate={new Date()}
+                maxDate={maxDate}
                 calendar={persian}
                 locale={calenderLocal[settings.lang][settings.calender]}
                 calendarPosition={"top-center"}
