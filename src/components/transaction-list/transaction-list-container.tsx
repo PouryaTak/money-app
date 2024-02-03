@@ -1,15 +1,15 @@
 "use client"
 import React, { useContext, useMemo } from "react"
 import { TransactionContext } from "@/providers/transaction-provider"
-import { DrawerContext } from "@/providers/drawer-provider"
 import { Transaction } from "@/types/transaction"
 import TransactionList from "@/components/transaction-list/transaction-list"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import useTransactions from "@/hooks/useTransactions"
 import useDeleteTransaction from "@/hooks/useDeleteTransaction"
+import useDrawerStore from "../../../store/useDrawerStore"
 
 export default function TransactionListContainer() {
-    const { setIsDrawerOpen, setQuery } = useContext(DrawerContext)
+    const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
     const { dictionary } = useContext(DictionaryContext)
     const { setCurrentTransaction } = useContext(TransactionContext)
     const { data:transactions, isLoading, isError }: any = useTransactions()

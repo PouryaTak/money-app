@@ -1,18 +1,22 @@
-import { DrawerContentsProps } from '@/components/drawer-contents'
-import { create } from 'zustand'
+import { DrawerContentsProps } from "@/components/drawer-contents"
+import { create } from "zustand"
 
 type State = {
-    isDrawerOpen: boolean,
-    updateFirstName: (state: boolean) => void,
-    query: DrawerContentsProps | "",
-    setQuery: (query: DrawerContentsProps) => void
+    isDrawerOpen: boolean
+    query: DrawerContentsProps | ""
+    actions: {
+        setIsDrawerOpen: (state: boolean) => void
+        setQuery: (query: DrawerContentsProps | "") => void
+    }
 }
 
-const usePersonStore = create<State>((set) => ({
+const useDrawerStore = create<State>((set) => ({
     isDrawerOpen: false,
-    updateFirstName: (state) => set(() => ({ isDrawerOpen: state })),
     query: "",
-    setQuery: (query:any) => set(() => ({ query })),
-  }))
+    actions: {
+        setIsDrawerOpen: (state) => set(() => ({ isDrawerOpen: state })),
+        setQuery: (query: any) => set(() => ({ query })),
+    },
+}))
 
-export default usePersonStore
+export default useDrawerStore
