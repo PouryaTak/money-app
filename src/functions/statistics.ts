@@ -20,12 +20,10 @@ export const groupTransactionsByTypeCategory = (
     endDate: any,
     transactions: Transaction[]
 ): Array<CategorizedTransaction> => {
-    const findCategory = (category: string) =>
-        categories["expense"].find((i: any) => i.name == category) ||
-        categories["income"].find((i: any) => i.name == category)
+    const findCategory = (category: string) => categories["expense"][category] || categories["income"][category]
 
     const findType = (categoryValue: string): "expense" | "income" => {
-        return categories["expense"].find((i: any) => i.name === categoryValue) ? "expense" : "income"
+        return categories["expense"][categoryValue] ? "expense" : "income"
     }
 
     const transactionObj: { [key: string]: number } = {}
@@ -44,11 +42,11 @@ export const groupTransactionsByTypeCategory = (
     const categorizedTransaction = Object.entries(transactionObj).map((item: [string, number]) => {
         return {
             type: findType(item[0]),
-            category: findCategory(item[0])?.name,
+            category: item[0],
             id: item[0],
             color: findCategory(item[0])?.color || "#eee",
             amount: item[1],
-            percentage: ((item[1] * 100) / total[findType(item[0])]).toFixed(2)
+            percentage: ((item[1] * 100) / total[findType(item[0])]).toFixed(2),
         }
     })
 

@@ -7,10 +7,12 @@ import { DictionaryContext } from "@/providers/dictionary-provider"
 import useTransactions from "@/hooks/useTransactions"
 import useDeleteTransaction from "@/hooks/useDeleteTransaction"
 import useDrawerStore from "../../../store/useDrawerStore"
+import { SettingsContext } from "@/providers/settings-provider"
 
 export default function TransactionListContainer() {
     const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
     const { dictionary } = useContext(DictionaryContext)
+    const { settings } = useContext(SettingsContext)
     const { setCurrentTransaction } = useContext(TransactionContext)
     const { data:transactions, isLoading, isError }: any = useTransactions()
     const sortedTransactions = useMemo(() => {
@@ -33,6 +35,7 @@ export default function TransactionListContainer() {
             handleEdit={handleEditTransaction}
             handleDelete={handleDeleteTransaction}
             dictionary={dictionary}
+            settings={settings}
         />
     )
 }
