@@ -1,20 +1,20 @@
 "use client"
 import { useContext } from "react"
-import { TransactionContext } from "@/providers/transaction-provider"
 import { initialForm } from "@/helpers/static-data"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import Navbar from "./navbar-view"
 import useRouterHandler from "@/hooks/useRouterHandler"
 import useDrawerStore from "../../../store/useDrawerStore"
+import useTransactionStore from "../../../store/useTransactionStore"
 
 export default function NavbarContainer() {
     const { dictionary } = useContext(DictionaryContext)
-    const { setCurrentTransaction } = useContext(TransactionContext)
+    const {updateTransaction} = useTransactionStore((state) => state.actions)
     const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
     const { pathname} = useRouterHandler()
 
     const addNewTransaction = () => {
-        setCurrentTransaction(initialForm)
+        updateTransaction(initialForm)
         setQuery("transactionForm")
         setIsDrawerOpen(true)
     }

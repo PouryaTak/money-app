@@ -1,15 +1,19 @@
-import { initialForm } from '@/helpers/static-data'
-import { Transaction } from '@/types/transaction'
-import { create } from 'zustand'
+import { initialForm } from "@/helpers/static-data"
+import { Transaction } from "@/types/transaction"
+import { create } from "zustand"
 
 type State = {
-    currentTransaction: Transaction,
-    updateFirstName: (currentTransaction: Transaction) => void
+    currentTransaction: Transaction
+    actions: {
+        updateTransaction: (currentTransaction: Transaction) => void
+    }
 }
 
-const usePersonStore = create<State>((set) => ({
+const useTransactionStore = create<State>((set) => ({
     currentTransaction: initialForm,
-    updateFirstName: (currentTransaction) => set(() => ({ currentTransaction })),
-  }))
+    actions: {
+        updateTransaction: (currentTransaction) => set(() => ({ currentTransaction })),
+    },
+}))
 
-export default usePersonStore
+export default useTransactionStore

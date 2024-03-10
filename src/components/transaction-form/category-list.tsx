@@ -29,7 +29,7 @@ function CategoryList({
                         data={categoryItem}
                         onOptionChange={onOptionChange}
                         isSelected={categoryKey === transactionCategory}
-                        key={categoryItem.name}
+                        key={categoryKey}
                     />
                 )
             })}
