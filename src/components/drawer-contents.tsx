@@ -1,6 +1,6 @@
-import React, { ComponentType, useContext } from "react"
+import React, { ComponentType } from "react"
 import dynamic from "next/dynamic"
-import { DrawerContext } from "@/providers/drawer-provider"
+import useDrawerStore from "../../store/useDrawerStore"
 
 type Contents = {
     transactionForm: ComponentType<{}>
@@ -15,7 +15,7 @@ const contents: Contents = {
 export type DrawerContentsProps = keyof typeof contents
 
 export default function DrawerContents() {
-    const { query } = useContext(DrawerContext)
+    const {query} = useDrawerStore((state) => state)
     const DynamicComponent = query !== "" ? contents[query] : null
     return DynamicComponent && <DynamicComponent />
 }

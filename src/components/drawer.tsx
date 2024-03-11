@@ -1,17 +1,14 @@
 "use client"
-import { DrawerContext } from "@/providers/drawer-provider"
 import React, { Suspense, useContext, useEffect } from "react"
 import { ArrowLeft, X } from "lucide-react"
+import useDrawerStore from "../../store/useDrawerStore"
 
 export default function Drawer({ children }: { children: React.ReactNode }) {
-    const { isDrawerOpen, setIsDrawerOpen, setQuery } = useContext(DrawerContext)
+    const { isDrawerOpen, actions } = useDrawerStore((state) => state)
     const handleClose = () => {
-        
-        setIsDrawerOpen(false)
+        actions.setIsDrawerOpen(false)
+        actions.setQuery('')
     }
-    useEffect(()=>{
-        !isDrawerOpen && setQuery('')
-    },[isDrawerOpen, setQuery])
 
     return (
         <div

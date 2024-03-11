@@ -26,4 +26,5 @@ export type TransactionListProps = {
   handleEdit: (item: Transaction) => void;
   handleDelete: (item: Transaction) => void;
   dictionary: any
+  settings: any
 };

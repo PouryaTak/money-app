@@ -14,13 +14,13 @@ const ListWrapper = ({ children, isCenter = false }: { children: React.ReactElem
 }
 
 export default function TransactionList({
-    // status,
     isError,
     isLoading,
     sortedTransactions,
     handleEdit,
     handleDelete,
     dictionary,
+    settings
 }: TransactionListProps) {
     if (isError)
         return (
@@ -45,6 +45,8 @@ export default function TransactionList({
                             handleEditTransaction={handleEdit}
                             handleDeleteTransaction={handleDelete}
                             dictionary={dictionary}
+                            datePrefix={settings.calender == "jalali" ? "j" : ""}
+                            currency={settings.currency}
                         />
                     ))}
                 </>

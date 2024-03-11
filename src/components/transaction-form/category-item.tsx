@@ -7,12 +7,14 @@ export default function CategoryItem({
   data,
   onOptionChange,
   transactionType,
-  isSelected
+  isSelected,
+  title
 }: {
   data: any;
   onOptionChange: Function;
   transactionType: Transaction['type']
-  isSelected:boolean
+  isSelected:boolean,
+  title: string
 }) {
   
   const labelClassName = `flex self-start gap-2 items-center relative p-2 border rounded-lg ${
@@ -30,19 +32,19 @@ export default function CategoryItem({
   );
 
   return (
-    <label htmlFor={data.name} key={data.name} className={labelClassName}>
+    <label htmlFor={title} key={title} className={labelClassName}>
       {renderCheckIcon}
       <input
         type="radio"
         name="category"
-        value={data.name}
-        id={data.name}
+        value={title}
+        id={title}
         checked={isSelected}
         onChange={(e) => onOptionChange(e.target.value, "category")}
         className="absolute inset-0 opacity-0 !cursor-pointer"
       />
       <Icon name={data.icon} />
-      <span className="mt-1 text-inherit">{data.name}</span>
+      <span className="mt-1 text-inherit">{title}</span>
     </label>
   );
 }
