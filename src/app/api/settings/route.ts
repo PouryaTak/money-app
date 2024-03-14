@@ -19,10 +19,6 @@ export async function GET(request: any) {
     const email = request.nextUrl.searchParams.get("email")
     const settingsOfUser = await SettingsModel.find({ owner: email })
 
-    if (!settingsOfUser.length && email) {
-        await SettingsModel.updateOne({}, { ...initialSettingsState, owner: email }, { upsert: true })
-    }
-
     const { lang, calender, currency } = settingsOfUser[0] || initialSettingsState
     const settings = { lang, calender, currency }
 
