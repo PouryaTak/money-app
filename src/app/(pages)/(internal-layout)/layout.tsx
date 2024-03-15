@@ -6,7 +6,6 @@ import { initialSettingsState } from "@/helpers/static-data"
 export default async function Layout({ children }: { children: React.ReactElement }) {
     const cookieStore = cookies()
     const cookieSettings = cookieStore.get("settings")
-
     const settings = cookieSettings ? JSON.parse(cookieSettings?.value) : initialSettingsState
 
     return <PagesContainer settings={settings}>{children}</PagesContainer>
