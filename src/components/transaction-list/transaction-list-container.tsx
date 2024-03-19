@@ -5,9 +5,9 @@ import TransactionList from "@/components/transaction-list/transaction-list"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import useTransactions from "@/hooks/useTransactions"
 import useDeleteTransaction from "@/hooks/useDeleteTransaction"
-import useDrawerStore from "../../../store/useDrawerStore"
+import useDrawerStore from "@/store/useDrawerStore"
 import { SettingsContext } from "@/providers/settings-provider"
-import useTransactionStore from "../../../store/useTransactionStore"
+import useTransactionStore from "@/store/useTransactionStore"
 
 export default function TransactionListContainer() {
     const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)

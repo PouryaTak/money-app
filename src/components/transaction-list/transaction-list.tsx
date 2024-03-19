@@ -1,13 +1,17 @@
 "use client"
-import React from "react"
+import React, { FC } from "react"
 import { TransactionListProps } from "@/types/transaction"
 import TransactionListItem from "@/components/transaction-list/transaction-item"
 import TransactionLoading from "@/components/transaction-list/transaction-loading"
 import Image from "next/image"
 
-const ListWrapper = ({ children, isCenter = false }: { children: React.ReactElement; isCenter?: boolean }) => {
+interface ListWrapperProps {
+    children: React.ReactElement;
+    className?: string
+}
+const ListWrapper: FC<ListWrapperProps> = ({ children, className }) => {
     return (
-        <div className={`flex flex-col gap-2 my-3 h-full px-5 overflow-y-auto ${isCenter && "justify-center items-center"}`}>
+        <div className={`flex flex-col gap-2 min-h-full h-max px-5 ${className}`}>
             {children}
         </div>
     )
@@ -24,19 +28,19 @@ export default function TransactionList({
 }: TransactionListProps) {
     if (isError)
         return (
-            <ListWrapper isCenter>
+            <ListWrapper className="justify-center items-center">
                 <span>{dictionary.general.error}</span>
             </ListWrapper>
         )
     if (isLoading)
         return (
-            <ListWrapper>
+            <ListWrapper className="py-5">
                 <TransactionLoading />
             </ListWrapper>
         )
     if (Boolean(sortedTransactions?.length))
         return (
-            <ListWrapper>
+            <ListWrapper className="py-5">
                 <>
                     {sortedTransactions.map((i: any) => (
                         <TransactionListItem
@@ -53,7 +57,7 @@ export default function TransactionList({
             </ListWrapper>
         )
     return (
-        <ListWrapper isCenter>
+        <ListWrapper className="justify-center items-center">
             <div className="flex flex-col items-center">
                 <Image src="/wallet.svg" alt="wallet graphic image" width={190} height={172} className="grayscale opacity-40" />
                 <span className="text-lg font-bold text-gray-300">{dictionary["pages"]["home"]["no-transaction"]}</span>

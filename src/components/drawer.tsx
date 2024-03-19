@@ -1,7 +1,7 @@
 "use client"
-import React, { Suspense, useContext, useEffect } from "react"
+import React, { Suspense } from "react"
 import { ArrowLeft, X } from "lucide-react"
-import useDrawerStore from "../../store/useDrawerStore"
+import useDrawerStore from "@/store/useDrawerStore"
 
 export default function Drawer({ children }: { children: React.ReactNode }) {
     const { isDrawerOpen, actions } = useDrawerStore((state) => state)

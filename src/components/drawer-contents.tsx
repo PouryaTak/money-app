@@ -1,6 +1,6 @@
 import React, { ComponentType } from "react"
 import dynamic from "next/dynamic"
-import useDrawerStore from "../../store/useDrawerStore"
+import useDrawerStore from "@/store/useDrawerStore"
 
 type Contents = {
     transactionForm: ComponentType<{}>

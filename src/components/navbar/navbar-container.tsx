@@ -4,8 +4,8 @@ import { initialForm } from "@/helpers/static-data"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import Navbar from "./navbar-view"
 import useRouterHandler from "@/hooks/useRouterHandler"
-import useDrawerStore from "../../../store/useDrawerStore"
-import useTransactionStore from "../../../store/useTransactionStore"
+import useDrawerStore from "@/store/useDrawerStore"
+import useTransactionStore from "@/store/useTransactionStore"
 
 export default function NavbarContainer() {
     const { dictionary } = useContext(DictionaryContext)

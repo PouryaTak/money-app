@@ -9,6 +9,7 @@ import DrawerContents from "./drawer-contents"
 import { Settings } from "@/types/settings"
 import Balance from "./balance/balance-container"
 import ContentView from "./content-view"
+import SwipeWrapper from "./swipe-wrapper"
 
 export default function PagesContainer({ children, settings }: { children: React.ReactElement; settings: Settings }) {
     useTransactions()
@@ -24,7 +25,7 @@ export default function PagesContainer({ children, settings }: { children: React
                 <ContentView className=" grid grid-rows-[64px_auto_1fr]">
                     <DateHeader settings={settings} />
                     <Balance />
-                    {children}
+                    <SwipeWrapper settings={settings}>{children}</SwipeWrapper>
                 </ContentView>
                 <NavbarContainer />
             </div>

@@ -5,7 +5,7 @@ export default function ContentView({ children, className }: { children: React.R
     return (
         <div
             className={cn(
-                "relative w-full max-w-5xl h-full py-5 pt-0 mx-auto overflow-y-hidden bg-white",
+                "relative w-full max-w-5xl h-full mx-auto overflow-y-hidden bg-white",
                 className
             )}
         >

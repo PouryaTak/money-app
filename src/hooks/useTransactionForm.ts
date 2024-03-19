@@ -1,6 +1,6 @@
 "use client"
 import { addCommas, removeNonNumeric } from "@/lib/utils"
-import useTransactionStore from "../../store/useTransactionStore"
+import useTransactionStore from "@/store/useTransactionStore"
 
 export default function useTransactionForm() {
     const {

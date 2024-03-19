@@ -6,8 +6,8 @@ import { useMutation, useQueryClient } from "react-query"
 import { initialForm } from "@/helpers/static-data"
 import { prepareNewData } from "@/functions/transactions"
 import { Transaction } from "@/types/transaction"
-import useDrawerStore from "../../store/useDrawerStore"
-import useTransactionStore from "../../store/useTransactionStore"
+import useDrawerStore from "@/store/useDrawerStore"
+import useTransactionStore from "@/store/useTransactionStore"
 
 export default function useSetTransaction() {
     const { selectedDate } = useContext(DateContext)

@@ -4,6 +4,7 @@
 
 body {
   background: #eee5;
+  overflow: hidden;
 }
 
 @layer base {
