@@ -27,6 +27,12 @@ export default function TransactionListContainer() {
         setIsDrawerOpen(true)
     }
 
+    const getTransactionDetails = (id: string) => {
+        updateTransaction({ _id: id } as Transaction)
+        setQuery("transactionDetails")
+        setIsDrawerOpen(true)
+    }
+
     return (
         <TransactionList
             isError={isError}
@@ -36,6 +42,7 @@ export default function TransactionListContainer() {
             handleDelete={handleDeleteTransaction}
             dictionary={dictionary}
             settings={settings}
+            getTransactionDetails={getTransactionDetails}
         />
     )
 }

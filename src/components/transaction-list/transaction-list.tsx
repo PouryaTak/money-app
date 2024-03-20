@@ -23,6 +23,7 @@ export default function TransactionList({
     sortedTransactions,
     handleEdit,
     handleDelete,
+    getTransactionDetails,
     dictionary,
     settings
 }: TransactionListProps) {
@@ -48,6 +49,7 @@ export default function TransactionList({
                             key={i.id}
                             handleEditTransaction={handleEdit}
                             handleDeleteTransaction={handleDelete}
+                            getTransactionDetails={getTransactionDetails}
                             dictionary={dictionary}
                             datePrefix={settings.calender == "jalali" ? "j" : ""}
                             currency={settings.currency}

@@ -13,8 +13,8 @@ export async function PUT(request: Request, context: { params: any }) {
   );
 }
 
-export async function GET(request: Request, context: { params: any }) {
-  const { id } = context.params;
+export async function GET(request: any) {
+  const id  = request.nextUrl.pathname.split("/").pop()
   await connectMongoDB();
   const transaction = await TransactionModel.findOne({ _id: id });
   return NextResponse.json({ transaction }, { status: 200 });
