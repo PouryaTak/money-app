@@ -17,15 +17,19 @@ export default function useSetTransaction() {
         actions: { updateTransaction },
     } = useTransactionStore((state) => state)
     const queryClient = useQueryClient()
-    
+
     const onSuccess = () => {
         updateTransaction(initialForm)
         setIsDrawerOpen(false)
-        queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {       
-            if (currentTransaction._id && oldData?.data) {
-                const index = oldData.data.findIndex((t: Transaction) => t._id === currentTransaction._id)
-                oldData.data[index] = currentTransaction
-                return { data: [...oldData.data] }
+        queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {
+            if (currentTransaction?._id && oldData?.data) {
+                const newData = oldData.data.map((transaction: Transaction) => {
+                    if (transaction._id === currentTransaction._id) {
+                        return currentTransaction
+                    }
+                    return transaction
+                })
+                return { data: [...newData] }
             }
             return { data: [currentTransaction, ...oldData.data] }
         })

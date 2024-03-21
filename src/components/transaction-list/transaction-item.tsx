@@ -5,20 +5,15 @@ import { categories } from "@/helpers/static-data"
 import { Transaction } from "@/types/transaction"
 import { Card } from "@/components/ui/card"
 import Icon from "@/components/ui/icons"
-import TransactionListItemPopover from "@/components/transaction-list/item-popover"
 
 const TransactionListItem = ({
     transaction,
-    handleEditTransaction,
-    handleDeleteTransaction,
     getTransactionDetails,
     dictionary,
     datePrefix,
     currency,
 }: {
     transaction: Transaction
-    handleEditTransaction: (transaction: Transaction) => void
-    handleDeleteTransaction: (transaction: Transaction) => void
     getTransactionDetails: (id:string) => void
     dictionary: any
     datePrefix: "j" | ""
@@ -51,11 +46,6 @@ const TransactionListItem = ({
                         <span className="text-slate-300 text-sm leading-6">{currency} </span>
                     </div>
                     <div className="flex justify-end col-start-3 col-end-4 row-start-2 row-end-3 truncate text-end">
-                        <TransactionListItemPopover
-                            dictionary={dictionary}
-                            handleEditTransaction={() => handleEditTransaction(transaction)}
-                            handleDeleteTransaction={() => handleDeleteTransaction(transaction)}
-                        />
                     </div>
                 </div>
             </div>
