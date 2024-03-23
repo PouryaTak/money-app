@@ -71,25 +71,30 @@ const TransactionDetails = () => {
                 </div>
                 <h2 className="text-center font-semibold">{data.transaction.title}</h2>
             </div>
-            <div className="[&>h2]:font-semibold [&>p]:mb-3 [&>p]:ml-3 bg-slate-100 p-5 rounded-lg">
-                <h2>amount</h2>
-                <p>{numberSeparator(Number(data.transaction.amount)) || "0"}
-                <span className="text-slate-300 text-sm leading-6 ms-2">{settings.currency} </span>
+            <div
+                className="[&>h2]:font-semibold [&>p]:mb-3 [&>p]:ml-3 bg-slate-100 p-5 rounded-lg"
+                dir={dictionary.html.dir}
+            >
+                <h2>{dictionary.details.amount}</h2>
+                <p>
+                    {numberSeparator(Number(data.transaction.amount)) || "0"}
+                    <span className="text-slate-300 text-sm leading-6 ms-2">{settings.currency} </span>
                 </p>
-                <h2>date</h2>
+                <h2>{dictionary.details.date}</h2>
                 <p>
                     {moment(data.transaction.date).format(`${datePrefix}YYYY-${datePrefix}MM-${datePrefix}DD`) || "-"}
                 </p>
-                <h2>category</h2>
+                <h2>{dictionary.details.category}</h2>
 
                 <p>
-                    {data.transaction.category}-{data.transaction.type}
+                    {data.transaction.category}-
+                    {data.transaction.type === "expense" ? dictionary.details.expense : dictionary.details.income}
                 </p>
-                <h2>desc</h2>
+                <h2>{dictionary.details.description}</h2>
                 <p>{data.transaction.desc || ""}</p>
             </div>
-            <div className="flex items-center justify-start text-xs gap-2 py-2 px-5 italic">
-                <span>Updated at:</span>
+            <div className="flex items-center justify-start text-xs gap-2 py-2 px-5 italic" dir={dictionary.html.dir}>
+                <span>{dictionary.details["updated-at"]}:</span>
                 <span>
                     {moment(data.transaction.updatedAt!).format(`${datePrefix}YYYY-${datePrefix}MM-${datePrefix}DD`) ||
                         "-"}

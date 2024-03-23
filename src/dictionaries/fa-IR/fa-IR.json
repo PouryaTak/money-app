@@ -24,6 +24,16 @@
       "go-next-month":"برو به ماه بعدی",
       "go-previous-month":"برو به ماه قبلی"
     },
+    "details":{
+      "amount": "مبلغ",
+      "title": "عنوان",
+      "description": "توضیحات",
+      "date": "تاریخ",
+      "category": "دسته بندی",
+      "expense": "هزینه",
+      "income": "درآمد",
+      "updated-at": "آخرین ویرایش در"
+    },
     "pages": {
       "go-to": "رفتن به",
       "add-new-transaction": "افزودن تراکنش جدید",

@@ -24,6 +24,16 @@
     "go-next-month":"Go to the next month",
     "go-previous-month":"Go to the previous month"
   },
+  "details":{
+    "amount": "Amount",
+    "title": "Title",
+    "description": "Description",
+    "date": "Date",
+    "category": "Category",
+    "expense": "Expense",
+    "income": "Income",
+    "updated-at": "Last edit at"
+  },
   "pages": {
     "go-to":"Go to",
     "add-new-transaction":"Add new transaction",
