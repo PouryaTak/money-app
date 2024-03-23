@@ -23,8 +23,7 @@ export type TransactionListProps = {
   isLoading: boolean
   isError:boolean
   sortedTransactions: Array<any>;
-  handleEdit: (item: Transaction) => void;
-  handleDelete: (item: Transaction) => void;
+  getTransactionDetails: (id:string) => void;
   dictionary: any
   settings: any
 };

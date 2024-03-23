@@ -5,25 +5,22 @@ import { categories } from "@/helpers/static-data"
 import { Transaction } from "@/types/transaction"
 import { Card } from "@/components/ui/card"
 import Icon from "@/components/ui/icons"
-import TransactionListItemPopover from "@/components/transaction-list/item-popover"
 
 const TransactionListItem = ({
     transaction,
-    handleEditTransaction,
-    handleDeleteTransaction,
+    getTransactionDetails,
     dictionary,
     datePrefix,
     currency,
 }: {
     transaction: Transaction
-    handleEditTransaction: (transaction: Transaction) => void
-    handleDeleteTransaction: (transaction: Transaction) => void
+    getTransactionDetails: (id:string) => void
     dictionary: any
     datePrefix: "j" | ""
     currency: string
 }) => {
     return (
-        <Card className="flex gap-2 bg-white p-2 md:p-4 rounded-2xl pr-3">
+        <Card className="flex gap-2 bg-white transition-all shadow-none hover:shadow-md cursor-pointer p-2 md:p-4 rounded-2xl pr-3" onClick={()=>getTransactionDetails(transaction._id!)}>
             <div
                 className={`w-12 h-16 flex items-center justify-center rounded-lg  ${
                     transaction.type == "expense" ? "text-red-500 bg-red-100" : "text-green-500 bg-green-100"
@@ -49,11 +46,6 @@ const TransactionListItem = ({
                         <span className="text-slate-300 text-sm leading-6">{currency} </span>
                     </div>
                     <div className="flex justify-end col-start-3 col-end-4 row-start-2 row-end-3 truncate text-end">
-                        <TransactionListItemPopover
-                            dictionary={dictionary}
-                            handleEditTransaction={() => handleEditTransaction(transaction)}
-                            handleDeleteTransaction={() => handleDeleteTransaction(transaction)}
-                        />
                     </div>
                 </div>
             </div>

@@ -5,11 +5,13 @@ import useDrawerStore from "@/store/useDrawerStore"
 type Contents = {
     transactionForm: ComponentType<{}>
     settings: ComponentType<{}>
+    transactionDetails: ComponentType<{}>
 }
 
 const contents: Contents = {
     transactionForm: dynamic(() => import(/* webpackChunkName: "TransactionForm"*/ "./transaction-form/transaction-form-container")),
     settings: dynamic(() => import(/* webpackChunkName: "Settings"*/ "./settings/settings-container")),
+    transactionDetails: dynamic(()=> import("./transaction-list/transaction-details"))
 }
 
 export type DrawerContentsProps = keyof typeof contents

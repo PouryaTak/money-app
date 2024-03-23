@@ -21,8 +21,7 @@ export default function TransactionList({
     isError,
     isLoading,
     sortedTransactions,
-    handleEdit,
-    handleDelete,
+    getTransactionDetails,
     dictionary,
     settings
 }: TransactionListProps) {
@@ -46,8 +45,7 @@ export default function TransactionList({
                         <TransactionListItem
                             transaction={i}
                             key={i.id}
-                            handleEditTransaction={handleEdit}
-                            handleDeleteTransaction={handleDelete}
+                            getTransactionDetails={getTransactionDetails}
                             dictionary={dictionary}
                             datePrefix={settings.calender == "jalali" ? "j" : ""}
                             currency={settings.currency}
