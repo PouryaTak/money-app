@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { useQuery } from "react-query"
-import { getSingleTransaction } from "@/functions/api/transactions"
+import { getTransactionDetail } from "@/functions/api/transactions"
 import useTransactionForm from "@/hooks/useTransactionForm"
 import { categories } from "@/helpers/static-data"
 import Icon from "../ui/icons"
@@ -22,9 +22,10 @@ const TransactionDetails = () => {
     const { settings } = useContext(SettingsContext)
     const { updateTransaction } = useTransactionStore((state) => state.actions)
 
-    const { data, isLoading } = useQuery({
+    
+    const { data, isError, isLoading } = useQuery({
         queryKey: ["getTransactionDetails", currentTransaction._id],
-        queryFn: () => getSingleTransaction(currentTransaction._id!),
+        queryFn: () => getTransactionDetail( currentTransaction._id!)
     })
 
     const { mutate: handleDeleteTransaction } = useDeleteTransaction()
@@ -38,6 +39,10 @@ const TransactionDetails = () => {
 
     if (isLoading) {
         return <div className="w-full p-5 flex justify-center items-center">Loading...</div>
+    }
+
+    if (isError || data === undefined) {
+        return <div className="w-full p-5 flex justify-center items-center">Error</div>
     }
 
     return (
