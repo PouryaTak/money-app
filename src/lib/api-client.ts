@@ -19,7 +19,7 @@ const errorHandler = (error: any) => {
         removeCookies()
         signOut()
     }
-    return {data:[]}
+    throw new Error('something happened')
 }
 
 const fetcher = async (url: string, config: any) => {
@@ -35,7 +35,7 @@ const fetcher = async (url: string, config: any) => {
 }
 
 export const apiClient = {
-    Get: (url: string, config: any = initialConfig) => fetcher(url, config),
+    Get: (url: string) => fetcher(url, {}),
     Post: (url: string, data: any, config: any = initialConfig) => {
         config.method = "POST"
         config.body = JSON.stringify(data)
