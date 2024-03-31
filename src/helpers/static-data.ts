@@ -2,31 +2,30 @@ import { Transaction } from "@/types/transaction"
 
 export const categories: any = {
     expense: {
-        Shopping: {
-            icon: "ShoppingCart",
-            color: "#FF8787",
-        },
-        Food: {
-            icon: "Utensils",
-            color: "#FFEB83",
-        },
-        Bills: { icon: "Receipt", color: "#FFBF84" },
-        Relations: { icon: "Users", color: "#D99EF4" },
-        Maintenance: { icon: "Wrench", color: "#FFA0CE" },
-        Rent: { icon: "Home", color: "#DF7575" },
+        Shopping: {icon: "ShoppingCart",color: "#FCB951",},
+        Food: { icon: "Utensils",color: "#FEB514",},
+        Bills: { icon: "Receipt", color: "#FB9C14" },
+        Entertainment: { icon: "RollerCoaster", color: "#812EB0" },
+        Maintenance: { icon: "Wrench", color: "#F46C14" },
+        Personal: { icon: "User", color: "#821A8F" },
+        Transportation: { icon: "CarTaxiFront", color: "#EA2914" },
+        Healthcare: { icon: "HeartPulse", color: "#E71614" },
+        Rent: { icon: "Home", color: "#F15514" },
+        Gift: { icon: "Gift", color: "#C61639" },
+        Education: { icon: "GraduationCap", color: "#EE5451" },
+        Investment: { icon: "Gem", color: "#B5174E" },
+        Relations: { icon: "Users", color: "#F78414" },
+        Tax: { icon: "Gavel", color: "#ED3C26" },
+        Other: { icon: "CircleDotDashed", color: "#B255A1" },
     },
     income: {
-        Salary: { icon: "Banknote", color: "#78D8A7" },
-        Loan: { icon: "Landmark", color: "#8EB19F" },
-        Sell: { icon: "Tags", color: "#83E9FF" },
-        Investment: {
-            icon: "BadgePercent",
-            color: "#8DBAFD",
-        },
-        Bonus: {
-            icon: "BadgePlus",
-            color: "#CFDFFF",
-        },
+        Salary: { icon: "Banknote", color: "#BAFE36" },
+        Loan: { icon: "Landmark", color: "#9CFE01" },
+        Gift: { icon: "Gift", color: "#4F7DF1" },
+        Sell: { icon: "Tags", color: "#47E957" },
+        Bonus: { icon: "BadgePlus", color: "#0177E9" },
+        Investment: { icon: "BadgePercent", color: "#10A1BA",},
+        Other: { icon: "CircleDotDashed", color: "#8A86F4" },
     },
 }
 

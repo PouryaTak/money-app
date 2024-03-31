@@ -13,13 +13,16 @@ import {
     Users,
     Utensils,
     Wrench,
+    Gavel,
+    CarTaxiFront,
+    HeartPulse,
+    GraduationCap,
+    Gift,
+    Gem,
+    RollerCoaster,
+    User,
+    CircleDotDashed,
 } from "lucide-react"
-
-interface Props {
-    name: string | null
-    color?: string
-    size?: number
-}
 
 const icons = {
     ShoppingCart: <ShoppingCart />,
@@ -33,12 +36,24 @@ const icons = {
     Tags: <Tags />,
     BadgePercent: <BadgePercent />,
     BadgePlus: <BadgePlus />,
-    PieChart: <PieChart/>,
+    PieChart: <PieChart />,
+    Gavel: <Gavel />,
+    CarTaxiFront: <CarTaxiFront />,
+    HeartPulse: <HeartPulse />,
+    GraduationCap: <GraduationCap />,
+    Gift: <Gift />,
+    Gem: <Gem />,
+    RollerCoaster: <RollerCoaster />,
+    User: <User />,
+    CircleDotDashed: <CircleDotDashed />,
 }
+interface Props {
+    name: keyof typeof icons | null
+    color?: string
+    size?: number
+}
+
 const Icon = ({ name, color, size }: Props) => {
-    if (!name) {
-        name = "CircleDollarSign"
-    }
     // const LucideIcon = icons[name as keyof typeof icons]
     // return <LucideIcon color={color} size={size} />
     return icons[name as keyof typeof icons]

@@ -15,11 +15,13 @@ export default function TransactionForm({
   onOptionChange,
   saveTransactionHandler,
   isLoading,
+  onAddNewTagButtonClick
 }: {
   currentTransaction: Transaction;
   onOptionChange: Function;
   saveTransactionHandler: React.FormEventHandler<HTMLFormElement>;
   isLoading: boolean;
+  onAddNewTagButtonClick: () => void
 }) {
   const {dictionary} = useContext(DictionaryContext)
   const { settings } = useContext(SettingsContext)
@@ -39,6 +41,7 @@ export default function TransactionForm({
         transactionType={currentTransaction.type}
         transactionCategory={currentTransaction.category}
         onOptionChange={onOptionChange}
+        onAddNewTagButtonClick={onAddNewTagButtonClick}
       />
       <CalenderInput
         isLoading={isLoading}

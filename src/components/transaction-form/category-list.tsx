@@ -2,16 +2,19 @@ import React from "react"
 import { categories } from "@/helpers/static-data"
 import CategoryItem from "@/components/transaction-form/category-item"
 import { Transaction } from "@/types/transaction"
+import { Button } from "../ui/button"
 function CategoryList({
     isLoading,
     onOptionChange,
     transactionType,
     transactionCategory,
+    onAddNewTagButtonClick,
 }: {
     isLoading: boolean
     onOptionChange: Function
     transactionType: Transaction["type"]
     transactionCategory: Transaction["category"]
+    onAddNewTagButtonClick: () => void
 }) {
     return (
         <div
@@ -33,6 +36,10 @@ function CategoryList({
                     />
                 )
             })}
+            {/* uncomment when the create tag form is ready */}
+            {/* <Button variant={"outline"} className="text-xl h-11" onClick={onAddNewTagButtonClick}>
+                +
+            </Button> */}
         </div>
     )
 }
