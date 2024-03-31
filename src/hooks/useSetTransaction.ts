@@ -18,21 +18,14 @@ export default function useSetTransaction() {
     } = useTransactionStore((state) => state)
     const queryClient = useQueryClient()
 
-    const onSuccess = () => {
+    const onSuccess = (response: any) => {
+        queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {
+            // in case of updating, this will clear the updated one and re inserts it
+            const data = oldData?.data.filter((t: Transaction) => t.id !== currentTransaction.id)
+            return { data: [response.transaction, ...data] }
+        })
         updateTransaction(initialForm)
         setIsDrawerOpen(false)
-        queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {
-            if (currentTransaction?._id && oldData?.data) {
-                const newData = oldData.data.map((transaction: Transaction) => {
-                    if (transaction._id === currentTransaction._id) {
-                        return currentTransaction
-                    }
-                    return transaction
-                })
-                return { data: [...newData] }
-            }
-            return { data: [currentTransaction, ...oldData.data] }
-        })
     }
 
     const mutationFn = (e: React.FormEvent<HTMLFormElement>) => {
