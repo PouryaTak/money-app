@@ -27,7 +27,7 @@ export default function TransactionForm({
   const { settings } = useContext(SettingsContext)
   return (
     <form
-      className="flex flex-col gap-3 h-[calc(100%-44px)] "
+      className="flex flex-col gap-3 h-max"
       onSubmit={saveTransactionHandler}
     >
       <TypeTabs

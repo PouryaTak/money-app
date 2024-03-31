@@ -16,7 +16,8 @@ export async function POST(request: Request) {
     }
     const newData = { ...data, owner: email }
     await TransactionModel.create(newData)
-    return NextResponse.json({ message: "Transaction created" }, { status: 201 })
+    const transaction = await TransactionModel.findOne({id: data.id})
+    return NextResponse.json({ message: "Transaction created", transaction }, { status: 201 })
 }
 
 export async function DELETE(request: any) {

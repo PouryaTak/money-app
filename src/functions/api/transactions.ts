@@ -10,7 +10,7 @@ export const getTransactions = async (startDate: string, endDate: string) => {
 
 export const addTransaction = async (data: Transaction) => {
   const response = await apiClient.Post("api/transaction", data);
-  return response.data;
+  return response;
 };
 
 export const deleteTransaction = async (id: string) => {
@@ -25,5 +25,5 @@ export const getTransactionDetail = async (id: string) => {
 
 export const updateTransaction = async (id: string, data: Transaction) => {
   const response = await apiClient.Put("api/transaction/" + id, data);
-  return response.data;
+  return response;
 };

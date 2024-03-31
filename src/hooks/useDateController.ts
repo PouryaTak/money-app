@@ -36,7 +36,6 @@ export default function useDateController(settings: Settings) {
         if (iso) {
             setDate(moment(+iso))
         }
-        console.log(searchParam)
     }, [searchParam])
 
     return { currentListDate, goPreviousDate, goNextDate }

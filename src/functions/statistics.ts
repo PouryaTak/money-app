@@ -4,12 +4,12 @@ import { CategorizedTransaction, Transaction } from "@/types/transaction"
 export const calculateAmountByType = (
     startDate: any,
     endDate: any,
-    transactions: Array<Transaction>,
+    transactions: Transaction[],
     type: "expense" | "income"
 ): number => {
     return transactions.reduce((totalAmount: number, transaction: Transaction) => {
-        if (transaction.type === type && transaction.date >= startDate && transaction.date <= endDate) {
-            totalAmount += Number(transaction.amount)
+        if (transaction?.type === type && transaction?.date >= startDate && transaction?.date <= endDate) {
+            totalAmount += Number(transaction?.amount)
         }
         return totalAmount
     }, 0)
