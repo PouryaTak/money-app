@@ -48,7 +48,7 @@ const icons = {
     CircleDotDashed: <CircleDotDashed />,
 }
 interface Props {
-    name: keyof typeof icons | null
+    name: string | null
     color?: string
     size?: number
 }
