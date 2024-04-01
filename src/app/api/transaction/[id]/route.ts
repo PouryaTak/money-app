@@ -7,8 +7,7 @@ export async function PUT(request: Request, context: { params: any }) {
         const { id } = context.params
         const newData = await request.json()
         await connectMongoDB()
-        await TransactionModel.findByIdAndUpdate(id, newData)
-        const transaction = await TransactionModel.findOne({id: newData.id})
+        const transaction = await TransactionModel.findByIdAndUpdate(id, newData)
         return NextResponse.json({ message: " Transaction updated", transaction }, { status: 200 })
     } catch (err) {
         return NextResponse.json({ message: "can not update", transaction: [] }, { status: 500 })

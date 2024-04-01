@@ -15,42 +15,59 @@ export const calculateAmountByType = (
     }, 0)
 }
 
+interface categorizedItem {
+    type: "expense" | "income"
+    category: string
+    id: string
+    color: string
+    amount: number
+    percentage: string
+}
+export interface GroupTransactionsByTypeCategoryReturn {
+    expense: { [category: string]: categorizedItem }
+    income: { [category: string]: categorizedItem }
+}
+
 export const groupTransactionsByTypeCategory = (
     startDate: any,
     endDate: any,
     transactions: Transaction[]
-): Array<CategorizedTransaction> => {
-    const findCategory = (category: string) => categories["expense"][category] || categories["income"][category]
-
-    const findType = (categoryValue: string): "expense" | "income" => {
-        return categories["expense"][categoryValue] ? "expense" : "income"
+): GroupTransactionsByTypeCategoryReturn => {
+    const transactionObj: { [key in "expense" | "income"]: { [key: string]: categorizedItem } } = {
+        expense: {},
+        income: {},
     }
-
-    const transactionObj: { [key: string]: number } = {}
     const total = { income: 0, expense: 0 }
+    transactions.forEach((item) => {
+        total[item.type] += Number(item.amount)
+    })
 
+
+    // sum the total amount and category amount
     transactions.forEach((item) => {
         if (item.date >= startDate && item.date <= endDate) {
-            total[item.type] += Number(item.amount)
-            const amount: number = Number(item.amount)
-            item.category in transactionObj
-                ? (transactionObj[item.category] += amount)
-                : (transactionObj[item.category] = amount)
+            
+            const amount: number =
+                Number(item.amount) +
+                (transactionObj[item.type][item.category]
+                    ? transactionObj[item.type][item.category]["amount"]
+                    : 0)
+
+
+            const percentage = ((amount * 100) / total[item.type]).toFixed(2)
+
+            transactionObj[item.type][item.category] = {
+                type: item.type,
+                category: item.category,
+                id: item.category,
+                color: categories[item.type][item.category]["color"] || "#eee",
+                amount,
+                percentage,
+            }
         }
     })
 
-    const categorizedTransaction = Object.entries(transactionObj).map((item: [string, number]) => {
-        return {
-            type: findType(item[0]),
-            category: item[0],
-            id: item[0],
-            color: findCategory(item[0])?.color || "#eee",
-            amount: item[1],
-            percentage: ((item[1] * 100) / total[findType(item[0])]).toFixed(2),
-        }
-    })
-
-    return categorizedTransaction
+    return transactionObj
 }
 
 export const convertChartData = (data: Array<CategorizedTransaction>): Array<{ x: string; y: number }> => {

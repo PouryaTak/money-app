@@ -1,5 +1,6 @@
-import ChartContainer from "@/components/chart/chart-container";
+"use client"
+import ChartContainer from "@/components/chart/chart-container"
 
 export default function Chart() {
-  return <ChartContainer />;
+    return <ChartContainer />
 }
