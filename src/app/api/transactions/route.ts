@@ -8,7 +8,6 @@ export async function GET(request: any) {
     const endDate = request.nextUrl.searchParams.get("endDate")
     await connectMongoDB()
     const { email } = await checkDbUser()
-    console.log("🚀 -- file: route.ts:11 -- GET -- email:", email)
 
     if (!email) return NextResponse.json({ message: "You don't have permission" }, { status: 403 })
 
@@ -19,5 +18,5 @@ export async function GET(request: any) {
         },
         owner: email,
     })
-    return NextResponse.json({ data: filteredTransactions })
+    return NextResponse.json({ data: filteredTransactions, message: "" })
 }

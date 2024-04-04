@@ -19,7 +19,7 @@ export async function GET(request: any) {
         const id = request.nextUrl.pathname.split("/").pop()
         await connectMongoDB()
         const transaction = await TransactionModel.findOne({ _id: id })
-        return NextResponse.json({ transaction }, { status: 200 })
+        return NextResponse.json({ transaction, message:'' }, { status: 200 })
     } catch (err) {
         return NextResponse.json({ message: "can not get detail", transaction: [] }, { status: 500 })
     }
