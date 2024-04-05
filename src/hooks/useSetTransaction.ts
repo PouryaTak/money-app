@@ -18,10 +18,11 @@ export default function useSetTransaction() {
     } = useTransactionStore((state) => state)
     const queryClient = useQueryClient()
 
-    const onSuccess = (response: any) => {
+    const onSuccess = (response: any): void => {
         queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {
             // in case of updating, this will clear the updated one and re inserts it
-            const data = oldData?.data.filter((t: Transaction) => t.id !== currentTransaction.id)
+            const data = oldData?.data.filter((t: Transaction) => t.id !== response.transaction.id)
+            console.log("🚀 ~ queryClient.setQueryData ~ data:", data, response.transaction)
             return { data: [response.transaction, ...data] }
         })
         updateTransaction(initialForm)
@@ -36,7 +37,7 @@ export default function useSetTransaction() {
 
     const response = useMutation({
         mutationFn,
-        onSuccess,
+        onSuccess
     })
 
     return response

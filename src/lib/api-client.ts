@@ -14,12 +14,12 @@ const initialConfig = {
 }
 
 const errorHandler = (error: any) => {
-    toast.error(error.message || 'Something went wrong');
-    if(error.status === 403){
+    toast.error(error.message || "Something went wrong")
+    if (error.status === 403) {
         removeCookies()
         signOut()
     }
-    throw new Error('something happened')
+    throw new Error("something happened")
 }
 
 const fetcher = async (url: string, config: any, showToast: boolean = true) => {
@@ -29,7 +29,7 @@ const fetcher = async (url: string, config: any, showToast: boolean = true) => {
             errorHandler(response)
         }
         const data = await response.json()
-        if(showToast && data.message) toast.success(data.message);
+        if (showToast && data.message) toast.success(data.message)
         return data
     } catch (err) {
         console.log(err)
