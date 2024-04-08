@@ -1,9 +1,11 @@
 import { apiClient } from "@/lib/api-client";
 import { Transaction } from "@/types/transaction";
 
-export const getTransactions = async (startDate: string, endDate: string) => {
+export const getTransactions = async (startDate: string, endDate: string, type: string, categories: string[]) => {
+  const typeFilter = type !== 'all' ? `&type=${type}` : '';
+  const categoryFilter = categories?.length > 0 ? `&category=${categories.join(',')}` : '';
   const response = await apiClient.Get(
-    `api/transactions?startDate=${startDate}&endDate=${endDate}`,
+    `api/transactions?startDate=${startDate}&endDate=${endDate}${typeFilter}${categoryFilter}`,
   );
   return response;
 };

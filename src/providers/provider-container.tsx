@@ -8,8 +8,8 @@ import SettingsProvider from "@/providers/settings-provider"
 import { NextAuthProvider } from "./auth-provider"
 import { Toaster } from "react-hot-toast"
 
+export const queryClient = new QueryClient()
 export default function ProviderContainer({ children, dictionary }: { children: React.ReactElement; dictionary: any }) {
-    const queryClient = new QueryClient()
     return (
         <NextAuthProvider>
             <QueryClientProvider client={queryClient}>

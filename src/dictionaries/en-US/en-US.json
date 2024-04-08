@@ -12,6 +12,8 @@
     "incomes": "Incomes",
     "add":"add",
     "error": "Error happened",
+    "all": "All",
+    "apply-filter": "Apply filters",
     "form": {
       "amount": "amount",
       "title": "title",

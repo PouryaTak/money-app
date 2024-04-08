@@ -25,6 +25,16 @@ export default function TransactionForm({
 }) {
   const {dictionary} = useContext(DictionaryContext)
   const { settings } = useContext(SettingsContext)
+  const typeTabValues = [
+    {
+      value: "income",
+      label: dictionary.general.income as string
+    },
+    {
+      value: "expense",
+      label: dictionary.general.expense as string
+    }
+  ]
   return (
     <form
       className="flex flex-col gap-3 h-max"
@@ -32,9 +42,9 @@ export default function TransactionForm({
     >
       <TypeTabs
         isLoading={isLoading}
-        transactionType={currentTransaction.type}
+        currentValue={currentTransaction.type}
         onOptionChange={onOptionChange}
-        dictionary={dictionary}
+        values={typeTabValues}
       />
       <CategoryList
         isLoading={isLoading}
