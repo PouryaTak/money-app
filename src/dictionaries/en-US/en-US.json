@@ -14,6 +14,8 @@
     "error": "Error happened",
     "all": "All",
     "apply-filter": "Apply filters",
+    "type": "Type",
+    "selected": "Selected",
     "form": {
       "amount": "amount",
       "title": "title",
