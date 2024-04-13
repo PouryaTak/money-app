@@ -7,9 +7,13 @@ import useTransactions from "@/hooks/useTransactions"
 import useDrawerStore from "@/store/useDrawerStore"
 import { SettingsContext } from "@/providers/settings-provider"
 import useTransactionStore from "@/store/useTransactionStore"
+import { Button } from "@/components/ui/button"
+import { Filter } from "lucide-react"
+import useFilterStore from "@/store/useFilterStore"
 
 export default function TransactionListContainer() {
     const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
+    const { type, categories } = useFilterStore((state) => state)
     const { dictionary } = useContext(DictionaryContext)
     const { settings } = useContext(SettingsContext)
     const { updateTransaction } = useTransactionStore((state) => state.actions)
@@ -24,14 +28,30 @@ export default function TransactionListContainer() {
         setIsDrawerOpen(true)
     }
 
+    const handleFilterClick = () => {
+        setQuery("transactionFilter")
+        setIsDrawerOpen(true)
+    }
+
     return (
-        <TransactionList
-            isError={isError}
-            isLoading={isLoading}
-            sortedTransactions={sortedTransactions}
-            dictionary={dictionary}
-            settings={settings}
-            getTransactionDetails={getTransactionDetails}
-        />
+        <>
+            <div className="px-5 pt-3 flex justify-end">
+                <Button variant={"ghost"} size={"icon"} className="bg-primary/15 relative" onClick={handleFilterClick}>
+                    {Boolean(type !== "all" || categories.length) && (
+                        <div className="w-3 h-3 rounded-full bg-red-400 absolute -top-1 -right-1"></div>
+                    )}
+                    <Filter className="text-primary" />
+                    <span className="sr-only">filters</span>
+                </Button>
+            </div>
+            <TransactionList
+                isError={isError}
+                isLoading={isLoading}
+                sortedTransactions={sortedTransactions}
+                dictionary={dictionary}
+                settings={settings}
+                getTransactionDetails={getTransactionDetails}
+            />
+        </>
     )
 }

@@ -7,13 +7,15 @@ type Contents = {
     settings: ComponentType<{}>
     transactionDetails: ComponentType<{}>
     addTagForm: ComponentType<{}>
+    transactionFilter: ComponentType<{}>
 }
 
 const contents: Contents = {
     transactionForm: dynamic(() => import(/* webpackChunkName: "TransactionForm"*/ "./transaction-form/transaction-form-container")),
     settings: dynamic(() => import(/* webpackChunkName: "Settings"*/ "./settings/settings-container")),
     transactionDetails: dynamic(()=> import("./transaction-list/transaction-details")),
-    addTagForm: dynamic(()=> import("./drawer-contents/new-tag-form"))
+    addTagForm: dynamic(()=> import("./drawer-contents/new-tag-form")),
+    transactionFilter: dynamic(()=> import("./drawer-contents/transaction-filter"))
 }
 
 export type DrawerContentsProps = keyof typeof contents
