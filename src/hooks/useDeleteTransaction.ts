@@ -13,10 +13,7 @@ export default function useDeleteTransaction() {
     let selectedId = ''
 
     const onSuccess = () => {
-        queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {
-            const data = oldData.data.filter((t: Transaction) => t.id !== selectedId)
-            return { data }
-        })
+        queryClient.invalidateQueries(["transactions", { selectedDate }])
         setQuery("")
         setIsDrawerOpen(false)
     }

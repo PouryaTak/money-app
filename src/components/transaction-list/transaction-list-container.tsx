@@ -35,15 +35,22 @@ export default function TransactionListContainer() {
 
     return (
         <>
-            <div className="px-5 pt-3 flex justify-end">
-                <Button variant={"ghost"} size={"icon"} className="bg-primary/15 relative" onClick={handleFilterClick}>
-                    {Boolean(type !== "all" || categories.length) && (
-                        <div className="w-3 h-3 rounded-full bg-red-400 absolute -top-1 -right-1"></div>
-                    )}
-                    <Filter className="text-primary" />
-                    <span className="sr-only">filters</span>
-                </Button>
-            </div>
+            {Boolean(transactions?.data.length) && (
+                <div className="px-5 pt-3 flex justify-end">
+                    <Button
+                        variant={"ghost"}
+                        size={"icon"}
+                        className="bg-primary/15 relative"
+                        onClick={handleFilterClick}
+                    >
+                        {Boolean(type !== "all" || categories.length) && (
+                            <div className="w-3 h-3 rounded-full bg-red-400 absolute -top-1 -right-1"></div>
+                        )}
+                        <Filter className="text-primary" />
+                        <span className="sr-only">filters</span>
+                    </Button>
+                </div>
+            )}
             <TransactionList
                 isError={isError}
                 isLoading={isLoading}

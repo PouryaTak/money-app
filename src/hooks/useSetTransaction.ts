@@ -5,7 +5,6 @@ import { useContext } from "react"
 import { useMutation, useQueryClient } from "react-query"
 import { initialForm } from "@/helpers/static-data"
 import { prepareNewData } from "@/functions/transactions"
-import { Transaction } from "@/types/transaction"
 import useDrawerStore from "@/store/useDrawerStore"
 import useTransactionStore from "@/store/useTransactionStore"
 
@@ -18,13 +17,8 @@ export default function useSetTransaction() {
     } = useTransactionStore((state) => state)
     const queryClient = useQueryClient()
 
-    const onSuccess = (response: any): void => {
-        queryClient.setQueryData(["transactions", { selectedDate }], (oldData: any) => {
-            // in case of updating, this will clear the updated one and re inserts it
-            const data = oldData?.data.filter((t: Transaction) => t.id !== response.transaction.id)
-            console.log("🚀 ~ queryClient.setQueryData ~ data:", data, response.transaction)
-            return { data: [response.transaction, ...data] }
-        })
+    const onSuccess = () => {
+        queryClient.invalidateQueries(["transactions", { selectedDate }])
         updateTransaction(initialForm)
         setIsDrawerOpen(false)
     }
@@ -37,7 +31,7 @@ export default function useSetTransaction() {
 
     const response = useMutation({
         mutationFn,
-        onSuccess
+        onSuccess,
     })
 
     return response
