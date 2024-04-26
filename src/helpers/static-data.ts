@@ -42,6 +42,7 @@ export const initialForm: Transaction = {
     amount: "",
     desc: "",
     id: "",
+    tags: [],
 }
 
 export const initialSettingsState = {

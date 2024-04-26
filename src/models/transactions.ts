@@ -9,6 +9,7 @@ const transactionSchema = new Schema(
         amount: String,
         desc: String,
         id: String,
+        tags: Array,
         owner: { type: String, required: true },
     },
     {
