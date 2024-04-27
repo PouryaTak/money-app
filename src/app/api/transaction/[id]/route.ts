@@ -8,6 +8,7 @@ export async function PUT(request: Request, context: { params: any }) {
         const newData = await request.json()
         await connectMongoDB()
         await TransactionModel.findByIdAndUpdate(id, newData)
+        // todo: add tag model add
         return NextResponse.json({ message: " Transaction updated", transaction: newData }, { status: 200 })
     } catch (err) {
         return NextResponse.json({ message: "can not update", transaction: [] }, { status: 500 })

@@ -7,6 +7,7 @@ export type Transaction = {
   amount: string;
   desc: string;
   id: string;
+  tags: string[];
 };
 
 export type CategorizedTransaction = {

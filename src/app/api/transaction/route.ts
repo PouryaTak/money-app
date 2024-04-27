@@ -11,6 +11,7 @@ export async function POST(request: Request) {
     const session = await getServerSession()
     const email = session?.user?.email
     const hasUser = await UserModel.findOne({ email })
+    // todo: add tags model add
     if (!hasUser || !email) {
         return NextResponse.json({ message: "You don't have permission" }, { status: 403 })
     }
@@ -24,5 +25,6 @@ export async function DELETE(request: any) {
     const id = request.nextUrl.searchParams.get("id")
     await connectMongoDB()
     await TransactionModel.findByIdAndDelete(id)
+    // todo: add tags model delete
     return NextResponse.json({ message: "Transaction deleted" }, { status: 200 })
 }
