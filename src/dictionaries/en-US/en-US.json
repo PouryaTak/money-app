@@ -36,7 +36,8 @@
     "category": "Category",
     "expense": "Expense",
     "income": "Income",
-    "updated-at": "Last edit at"
+    "updated-at": "Last edit at",
+    "tag": "Tag"
   },
   "pages": {
     "go-to":"Go to",

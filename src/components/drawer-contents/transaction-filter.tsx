@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useMemo } from "react"
 import TypeTabs from "../transaction-form/type-tabs"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import { Button } from "../ui/button"
@@ -8,12 +8,16 @@ import useFilterStore from "@/store/useFilterStore"
 import useDrawerStore from "@/store/useDrawerStore"
 import { categories as CATEGORIES } from "@/helpers/static-data"
 import Icon from "../ui/icons"
+import { Transaction } from "@/types/transaction"
 
 const TransactionFilter = () => {
     const { dictionary } = useContext(DictionaryContext)
-    const { isLoading }: any = useTransactions()
+    const {
+        isLoading,
+        data: { data: transactions },
+    } = useTransactions()
     const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
-    const { actions, type, categories } = useFilterStore((state) => state)
+    const { actions, type, tags, categories } = useFilterStore((state) => state)
     const typeTabValues = [
         {
             value: "all",
@@ -36,10 +40,24 @@ const TransactionFilter = () => {
         setQuery("")
     }
 
+    const currentCategories = useMemo(() => {
+        const categories = new Set<string>()
+        ;(transactions ?? []).forEach((transaction: Transaction) => {
+            categories.add(transaction.category)
+        })
+        return Array.from(categories)
+    }, [transactions])
+
+    const currentTags = useMemo(() => {
+        const tags = new Set<string>()
+        ;(transactions ?? []).forEach((transaction: Transaction) => {
+            transaction.tags.forEach((tag) => tags.add(tag))
+        })
+        return Array.from(tags)
+    }, [transactions])
+
     const categoryArray =
-        type === "all"
-            ? Array.from(new Set([...Object.keys(CATEGORIES.expense), ...Object.keys(CATEGORIES.income)]))
-            : Object.keys(CATEGORIES[type])
+        type === "all" ? currentCategories : currentCategories.filter((i) => Boolean(CATEGORIES[type][i]))
 
     return (
         <form onSubmit={applyFilter} className="flex flex-col gap-3">
@@ -50,16 +68,18 @@ const TransactionFilter = () => {
                 onOptionChange={actions.setType}
                 values={typeTabValues}
             />
-            {/* !TODO add category filter here */}
+
             <div className="flex justify-between items-center">
                 <span>{dictionary.details.category}</span>
-                <span className="text-sm text-gray-500">{categories.length} {dictionary.general.selected}</span>
+                <span className="text-sm text-gray-500">
+                    {categories.length} {dictionary.general.selected}
+                </span>
             </div>
-            <div className="flex flex-wrap gap-2 p-4 h-80 overflow-y-auto border border-gray-400 rounded-lg ">
+            <div className="flex flex-wrap gap-2 p-4 h-max max-h-80 overflow-y-auto border border-gray-400 rounded-lg ">
                 {categoryArray.map((category: any, index) => (
                     <div
                         key={category + index}
-                        className={`flex self-start gap-2 items-center relative p-2 border rounded-lg ${
+                        className={`flex self-start gap-2 items-center relative p-2 border rounded-lg cursor-pointer select-none ${
                             categories.includes(category) && "border-primary bg-white"
                         }`}
                         onClick={() => actions.toggleCategories(category)}
@@ -69,6 +89,30 @@ const TransactionFilter = () => {
                     </div>
                 ))}
             </div>
+
+            {Boolean(currentTags.length) && (
+                <>
+                    <div className="flex justify-between items-center">
+                        <span>{dictionary.details.tag}</span>
+                        <span className="text-sm text-gray-500">
+                            {tags.length} {dictionary.general.selected}
+                        </span>
+                    </div>
+                    <div className="flex flex-wrap gap-2 p-4 h-max max-h-80 overflow-y-auto border border-gray-400 rounded-lg ">
+                        {currentTags.map((tag: any, index) => (
+                            <div
+                                key={tag + index}
+                                className={`flex self-start gap-2 items-center relative p-2 border rounded-lg cursor-pointer select-none ${
+                                    tags.includes(tag) && "border-primary bg-white"
+                                }`}
+                                onClick={() => actions.toggleTags(tag)}
+                            >
+                                {tag}
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
             <Button>{dictionary.general["apply-filter"]}</Button>
         </form>
     )
