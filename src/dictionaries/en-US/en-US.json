@@ -14,6 +14,7 @@
     "error": "Error happened",
     "all": "All",
     "apply-filter": "Apply filters",
+    "filters": "Filters",
     "type": "Type",
     "selected": "Selected",
     "form": {
@@ -37,7 +38,9 @@
     "expense": "Expense",
     "income": "Income",
     "updated-at": "Last edit at",
-    "tag": "Tag"
+    "tag": "Tag",
+    "no-tags":"no tag here!",
+    "no-description": "no description here!"
   },
   "pages": {
     "go-to":"Go to",

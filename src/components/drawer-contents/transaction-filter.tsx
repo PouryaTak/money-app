@@ -9,6 +9,7 @@ import useDrawerStore from "@/store/useDrawerStore"
 import { categories as CATEGORIES } from "@/helpers/static-data"
 import Icon from "../ui/icons"
 import { Transaction } from "@/types/transaction"
+import { TrashIcon } from "lucide-react"
 
 const TransactionFilter = () => {
     const { dictionary } = useContext(DictionaryContext)
@@ -47,6 +48,9 @@ const TransactionFilter = () => {
         })
         return Array.from(categories)
     }, [transactions])
+    
+    const categoryArray =
+        type === "all" ? currentCategories : currentCategories.filter((i) => Boolean(CATEGORIES[type][i]))
 
     const currentTags = useMemo(() => {
         const tags = new Set<string>()
@@ -55,9 +59,6 @@ const TransactionFilter = () => {
         })
         return Array.from(tags)
     }, [transactions])
-
-    const categoryArray =
-        type === "all" ? currentCategories : currentCategories.filter((i) => Boolean(CATEGORIES[type][i]))
 
     return (
         <form onSubmit={applyFilter} className="flex flex-col gap-3">
@@ -71,7 +72,17 @@ const TransactionFilter = () => {
 
             <div className="flex justify-between items-center">
                 <span>{dictionary.details.category}</span>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-500 flex items-center">
+                    {Boolean(categories.length) && (
+                        <Button
+                            variant={"ghost"}
+                            size={"icon"}
+                            onClick={() => actions.toggleCategories(null)}
+                            className="text-red-500"
+                        >
+                            <TrashIcon size={16} />
+                        </Button>
+                    )}
                     {categories.length} {dictionary.general.selected}
                 </span>
             </div>
@@ -94,9 +105,19 @@ const TransactionFilter = () => {
                 <>
                     <div className="flex justify-between items-center">
                         <span>{dictionary.details.tag}</span>
-                        <span className="text-sm text-gray-500">
-                            {tags.length} {dictionary.general.selected}
-                        </span>
+                        <span className="text-sm text-gray-500 flex items-center">
+                    {Boolean(tags.length) && (
+                        <Button
+                            variant={"ghost"}
+                            size={"icon"}
+                            onClick={() => actions.toggleTags(null)}
+                            className="text-red-500"
+                        >
+                            <TrashIcon size={16} />
+                        </Button>
+                    )}
+                    {tags.length} {dictionary.general.selected}
+                </span>
                     </div>
                     <div className="flex flex-wrap gap-2 p-4 h-max max-h-80 overflow-y-auto border border-gray-400 rounded-lg ">
                         {currentTags.map((tag: any, index) => (

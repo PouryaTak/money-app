@@ -6,19 +6,20 @@ type State = {
     tags: string[]
     actions: {
         setType: (value: string) => void
-        toggleCategories: (category: string) => void
-        toggleTags: (tag: string) => void
+        toggleCategories: (category: string | null) => void
+        toggleTags: (tag: string | null) => void
     }
 }
 
 const useFilterStore = create<State>((set) => ({
     type: "all",
     categories: [],
-    tags:[],
+    tags: [],
     actions: {
         setType: (value) => set(() => ({ type: value })),
         toggleCategories: (category) =>
             set((state) => {
+                if (category === null) return { categories: [] }
                 const index = state.categories.indexOf(category)
                 if (index === -1) {
                     return {
@@ -32,6 +33,7 @@ const useFilterStore = create<State>((set) => ({
             }),
         toggleTags: (tag) =>
             set((state) => {
+                if (tag === null) return { tags: [] }
                 const index = state.tags.indexOf(tag)
                 if (index === -1) {
                     return {

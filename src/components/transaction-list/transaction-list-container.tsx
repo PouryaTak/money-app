@@ -52,7 +52,7 @@ export default function TransactionListContainer() {
                         className="bg-primary/15 relative"
                         onClick={handleFilterClick}
                     >
-                        {Boolean(type !== "all" || categories.length) && (
+                        {Boolean(type !== "all" || categories.length || tags.length) && (
                             <div className="w-3 h-3 rounded-full bg-red-400 absolute -top-1 -right-1"></div>
                         )}
                         <Filter className="text-primary" />
