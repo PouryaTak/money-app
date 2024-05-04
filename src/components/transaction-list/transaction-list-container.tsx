@@ -13,7 +13,7 @@ import useFilterStore from "@/store/useFilterStore"
 
 export default function TransactionListContainer() {
     const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
-    const { type, categories } = useFilterStore((state) => state)
+    const { type, categories, tags } = useFilterStore((state) => state)
     const { dictionary } = useContext(DictionaryContext)
     const { settings } = useContext(SettingsContext)
     const { updateTransaction } = useTransactionStore((state) => state.actions)
@@ -21,6 +21,15 @@ export default function TransactionListContainer() {
     const sortedTransactions = useMemo(() => {
         return transactions ? transactions.data.sort((a: any, b: any) => (a.date > b.date ? -1 : 1)) : []
     }, [transactions])
+
+    const filterSortedTransaction = useMemo(() => {
+        return sortedTransactions.filter(
+            (transaction: Transaction) =>
+                (type === "all" ? true : transaction.type === type) &&
+                (categories.length ? categories.includes(transaction.category) : true) &&
+                (tags.length ? tags.every((tag: string) => transaction.tags.includes(tag)) : true)
+        )
+    }, [categories, sortedTransactions, tags, type])
 
     const getTransactionDetails = (id: string) => {
         updateTransaction({ _id: id } as Transaction)
@@ -43,7 +52,7 @@ export default function TransactionListContainer() {
                         className="bg-primary/15 relative"
                         onClick={handleFilterClick}
                     >
-                        {Boolean(type !== "all" || categories.length) && (
+                        {Boolean(type !== "all" || categories.length || tags.length) && (
                             <div className="w-3 h-3 rounded-full bg-red-400 absolute -top-1 -right-1"></div>
                         )}
                         <Filter className="text-primary" />
@@ -54,7 +63,7 @@ export default function TransactionListContainer() {
             <TransactionList
                 isError={isError}
                 isLoading={isLoading}
-                sortedTransactions={sortedTransactions}
+                sortedTransactions={filterSortedTransaction}
                 dictionary={dictionary}
                 settings={settings}
                 getTransactionDetails={getTransactionDetails}

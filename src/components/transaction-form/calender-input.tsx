@@ -19,12 +19,19 @@ const calenderLocal: { [key: string]: any } = {
     },
 }
 
+const calendar = {
+    jalali: persian,
+    gregorian: undefined,
+}
+
 export default function CalenderInput(props: CalenderInputProps) {
     const { isLoading, transactionDate, onOptionChange, dictionary, settings } = props
 
     let maxDate = new Date()
     // Add one day to the current date
     maxDate.setDate(maxDate.getDate() + 1)
+    
+    const locale = calenderLocal[settings.lang][settings.calender]
 
     return (
         <div className="relative">
@@ -33,8 +40,8 @@ export default function CalenderInput(props: CalenderInputProps) {
                 placeholder={dictionary.general.form["select-date"]}
                 disabled={isLoading}
                 maxDate={maxDate}
-                calendar={persian}
-                locale={calenderLocal[settings.lang][settings.calender]}
+                calendar={calendar[settings.calender as keyof typeof calendar]}
+                locale={locale}
                 calendarPosition={"top-center"}
                 required={true}
                 onChange={(e: DateObject) => onOptionChange(e.toDate().toISOString(), "date")}

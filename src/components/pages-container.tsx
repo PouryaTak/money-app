@@ -15,6 +15,10 @@ export default function PagesContainer({ children, settings }: { children: React
     useTransactions()
     useEffect(() => {
         fixHeight()
+        addEventListener("resize", () => {
+            fixHeight()
+        })
+        return () => removeEventListener("resize", () => fixHeight())
     }, [])
     return (
         <>

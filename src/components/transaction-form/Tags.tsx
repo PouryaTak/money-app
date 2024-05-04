@@ -37,6 +37,8 @@ const Tags = ({ onSelectTag, tags }: Props) => {
         }
     }
 
+    // todo: get recent tags from db on start
+
     return (
         <div>
             <div className="mb-2 flex gap-2">
