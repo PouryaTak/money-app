@@ -76,7 +76,7 @@ const TransactionDetails = () => {
                 <h2 className="text-center font-semibold">{data.transaction.title}</h2>
             </div>
             <div
-                className="[&>h2]:font-semibold [&>p]:mb-3 [&>p]:mr-2 bg-slate-100 p-5 rounded-lg"
+                className="[&>h2]:font-semibold [&>p]:mb-3 [&>p]:mx-2 bg-slate-100 p-5 rounded-lg"
                 dir={dictionary.html.dir}
             >
                 <h2>{dictionary.details.amount}</h2>
@@ -95,7 +95,7 @@ const TransactionDetails = () => {
                     {data.transaction.type === "expense" ? dictionary.details.expense : dictionary.details.income}
                 </p>
                 <h2>{dictionary.details.tag}</h2>
-                <div className="mr-3 flex gap-2 mb-3 flex-wrap">
+                <div className="mx-3 flex gap-2 mb-3 flex-wrap">
                     {data.transaction.tags.length ? (
                         data.transaction.tags.map((tag:string) => (
                             <span key={tag} className="px-2 bg-slate-200 text-gray-500 text-sm rounded-md">

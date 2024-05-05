@@ -10,6 +10,7 @@ import useTransactionStore from "@/store/useTransactionStore"
 import { Button } from "@/components/ui/button"
 import { Filter } from "lucide-react"
 import useFilterStore from "@/store/useFilterStore"
+import useFilteredTransactions from "@/hooks/useFilteredTransactions"
 
 export default function TransactionListContainer() {
     const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
@@ -22,14 +23,7 @@ export default function TransactionListContainer() {
         return transactions ? transactions.data.sort((a: any, b: any) => (a.date > b.date ? -1 : 1)) : []
     }, [transactions])
 
-    const filterSortedTransaction = useMemo(() => {
-        return sortedTransactions.filter(
-            (transaction: Transaction) =>
-                (type === "all" ? true : transaction.type === type) &&
-                (categories.length ? categories.includes(transaction.category) : true) &&
-                (tags.length ? tags.every((tag: string) => transaction.tags.includes(tag)) : true)
-        )
-    }, [categories, sortedTransactions, tags, type])
+    const { filteredTransactions } = useFilteredTransactions(sortedTransactions)
 
     const getTransactionDetails = (id: string) => {
         updateTransaction({ _id: id } as Transaction)
@@ -63,7 +57,7 @@ export default function TransactionListContainer() {
             <TransactionList
                 isError={isError}
                 isLoading={isLoading}
-                sortedTransactions={filterSortedTransaction}
+                sortedTransactions={filteredTransactions}
                 dictionary={dictionary}
                 settings={settings}
                 getTransactionDetails={getTransactionDetails}

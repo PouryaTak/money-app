@@ -5,25 +5,27 @@ import React, { useContext, useMemo } from "react"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import BalanceView from "./balance-view"
 import useTransactions from "@/hooks/useTransactions"
+import useFilteredTransactions from "@/hooks/useFilteredTransactions"
 
 export default function Balance() {
     const { selectedDate } = useContext(DateContext)
     const { dictionary } = useContext(DictionaryContext)
     const { data: transactions, isLoading, isError }: any = useTransactions()
+    const { filteredTransactions } = useFilteredTransactions(transactions?.data)
 
     const calcExpenses = useMemo(
         () =>
             transactions
-                ? calculateAmountByType(selectedDate.startDate, selectedDate.endDate, transactions.data, "expense")
+                ? calculateAmountByType(selectedDate.startDate, selectedDate.endDate, filteredTransactions, "expense")
                 : 0,
-        [selectedDate.endDate, selectedDate.startDate, transactions]
+        [filteredTransactions, selectedDate.endDate, selectedDate.startDate, transactions]
     )
     const calcIncomes = useMemo(
         () =>
             transactions
-                ? calculateAmountByType(selectedDate.startDate, selectedDate.endDate, transactions.data, "income")
+                ? calculateAmountByType(selectedDate.startDate, selectedDate.endDate, filteredTransactions, "income")
                 : 0,
-        [selectedDate.endDate, selectedDate.startDate, transactions]
+        [filteredTransactions, selectedDate.endDate, selectedDate.startDate, transactions]
     )
 
     const gradientPosition = useMemo(() => {
