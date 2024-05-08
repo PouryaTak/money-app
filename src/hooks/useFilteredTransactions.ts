@@ -14,7 +14,7 @@ const useFilteredTransactions = (transactions: Transaction[]) => {
         )
     }, [categories, tags, transactions, type])
 
-    return {filteredTransactions}
+    return { filteredTransactions }
 }
 
 export default useFilteredTransactions
