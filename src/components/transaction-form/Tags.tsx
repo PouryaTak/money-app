@@ -19,7 +19,7 @@ const Tags = ({ onSelectTag, tags }: Props) => {
     }
 
     const onTagClick = (tag: string) => {
-        const isolatedTags = tag.toLocaleLowerCase().split(/[ ,]+/)
+        const isolatedTags = tag.toLocaleLowerCase().split(/[ ,]+/).filter(Boolean)
         const tagsToSave = [...tags]
         isolatedTags.forEach((tag) =>
             tags.includes(tag) ? tagsToSave.splice(tags.indexOf(tag), 1) : tagsToSave.push(tag)
