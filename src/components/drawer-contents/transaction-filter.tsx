@@ -5,19 +5,19 @@ import { Button } from "../ui/button"
 import { queryClient } from "@/providers/provider-container"
 import useTransactions from "@/hooks/useTransactions"
 import useFilterStore from "@/store/useFilterStore"
-import useDrawerStore from "@/store/useDrawerStore"
 import { categories as CATEGORIES } from "@/helpers/static-data"
 import Icon from "../ui/icons"
 import { Transaction } from "@/types/transaction"
 import { TrashIcon } from "lucide-react"
+import useRouterHandler from "@/hooks/useRouterHandler"
 
 const TransactionFilter = () => {
     const { dictionary } = useContext(DictionaryContext)
+    const { router } = useRouterHandler()
     const {
         isLoading,
         data: { data: transactions },
     } = useTransactions()
-    const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
     const { actions, type, tags, categories } = useFilterStore((state) => state)
     const typeTabValues = [
         {
@@ -37,8 +37,7 @@ const TransactionFilter = () => {
     const applyFilter = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         queryClient.invalidateQueries("transactions")
-        setIsDrawerOpen(false)
-        setQuery("")
+        router.back()
     }
 
     const currentCategories = useMemo(() => {

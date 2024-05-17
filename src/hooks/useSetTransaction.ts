@@ -5,12 +5,12 @@ import { useContext } from "react"
 import { useMutation, useQueryClient } from "react-query"
 import { initialForm } from "@/helpers/static-data"
 import { prepareNewData } from "@/functions/transactions"
-import useDrawerStore from "@/store/useDrawerStore"
 import useTransactionStore from "@/store/useTransactionStore"
+import useRouterHandler from "./useRouterHandler"
 
 export default function useSetTransaction() {
+    const { router } = useRouterHandler()
     const { selectedDate } = useContext(DateContext)
-    const { setIsDrawerOpen } = useDrawerStore((state) => state.actions)
     const {
         currentTransaction,
         actions: { updateTransaction },
@@ -20,7 +20,7 @@ export default function useSetTransaction() {
     const onSuccess = () => {
         queryClient.invalidateQueries(["transactions", { selectedDate }])
         updateTransaction(initialForm)
-        setIsDrawerOpen(false)
+        router.back()
     }
 
     const mutationFn = (e: React.FormEvent<HTMLFormElement>) => {

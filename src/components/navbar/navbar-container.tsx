@@ -4,23 +4,19 @@ import { initialForm } from "@/helpers/static-data"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import Navbar from "./navbar-view"
 import useRouterHandler from "@/hooks/useRouterHandler"
-import useDrawerStore from "@/store/useDrawerStore"
 import useTransactionStore from "@/store/useTransactionStore"
 
 export default function NavbarContainer() {
     const { dictionary } = useContext(DictionaryContext)
-    const {updateTransaction} = useTransactionStore((state) => state.actions)
-    const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
-    const { pathname} = useRouterHandler()
+    const { updateTransaction } = useTransactionStore((state) => state.actions)
+    const { pathname, handleSearchParams } = useRouterHandler()
 
     const addNewTransaction = () => {
         updateTransaction(initialForm)
-        setQuery("transactionForm")
-        setIsDrawerOpen(true)
+        handleSearchParams("drawer", "transactionForm")
     }
     const openSettings = () => {
-        setQuery("settings")
-        setIsDrawerOpen(true)
+        handleSearchParams("drawer", "settings")
     }
     return (
         <Navbar

@@ -1,26 +1,26 @@
 "use client"
 import React, { Suspense } from "react"
 import { ArrowLeft, X } from "lucide-react"
-import useDrawerStore from "@/store/useDrawerStore"
 import { Button } from "./ui/button"
+import useRouterHandler from "@/hooks/useRouterHandler"
 
 export default function Drawer({ children }: { children: React.ReactNode }) {
-    const { isDrawerOpen, actions } = useDrawerStore((state) => state)
+    const {router, searchParam} = useRouterHandler()
+    const hasDrawerQuery = searchParam.get("drawer")
     const handleClose = () => {
-        actions.setIsDrawerOpen(false)
-        actions.setQuery("")
+        router.back()
     }
 
     return (
         <div
             className={`${
-                isDrawerOpen ? "bg-black/10" : "bg-black/0 pointer-events-none"
+                hasDrawerQuery ? "bg-black/10" : "bg-black/0 pointer-events-none"
             } transition-all absolute inset-0 duration-500 z-30`}
             onClick={handleClose}
         >
             <div
                 className={`absolute bg-slate-50 p-5 pt-20 fixed-h duration-500 w-full md:w-1/2 transition-all top-0 shadow-xl overflow-y-auto ${
-                    isDrawerOpen ? "right-0" : "-right-full"
+                    hasDrawerQuery ? "right-0" : "-right-full"
                 }`}
                 onClick={(e) => e.stopPropagation()}
             >
@@ -29,7 +29,7 @@ export default function Drawer({ children }: { children: React.ReactNode }) {
                     <X size={24} className="text-slate-800 hidden md:block" aria-hidden />
                     <span className="sr-only">close drawer</span>
                 </Button>
-                <Suspense fallback={<span>Loading...</span>}>{isDrawerOpen && children}</Suspense>
+                <Suspense fallback={<span>Loading...</span>}>{Boolean(hasDrawerQuery) && children}</Suspense>
             </div>
         </div>
     )
