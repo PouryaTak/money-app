@@ -4,16 +4,16 @@ import { Transaction } from "@/types/transaction"
 import TransactionList from "@/components/transaction-list/transaction-list"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import useTransactions from "@/hooks/useTransactions"
-import useDrawerStore from "@/store/useDrawerStore"
 import { SettingsContext } from "@/providers/settings-provider"
 import useTransactionStore from "@/store/useTransactionStore"
 import { Button } from "@/components/ui/button"
 import { ArrowDown01, ArrowUp10, Calendar, DollarSign, Filter } from "lucide-react"
 import useFilterStore from "@/store/useFilterStore"
 import useFilteredTransactions from "@/hooks/useFilteredTransactions"
+import useRouterHandler from "@/hooks/useRouterHandler"
 
 export default function TransactionListContainer() {
-    const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
+    const { handleSearchParams } = useRouterHandler()
     const { type, categories, tags } = useFilterStore((state) => state)
     const { dictionary } = useContext(DictionaryContext)
     const { settings } = useContext(SettingsContext)
@@ -44,13 +44,11 @@ export default function TransactionListContainer() {
 
     const getTransactionDetails = (id: string) => {
         updateTransaction({ _id: id } as Transaction)
-        setQuery("transactionDetails")
-        setIsDrawerOpen(true)
+        handleSearchParams("drawer","transactionDetails")
     }
 
     const handleFilterClick = () => {
-        setQuery("transactionFilter")
-        setIsDrawerOpen(true)
+        handleSearchParams("drawer","transactionFilter")
     }
 
     return (

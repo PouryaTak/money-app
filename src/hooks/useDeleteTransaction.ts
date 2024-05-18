@@ -4,18 +4,17 @@ import { deleteTransaction } from "@/functions/api/transactions"
 import { useContext } from "react"
 import { useMutation, useQueryClient } from "react-query"
 import { Transaction } from "@/types/transaction"
-import useDrawerStore from "@/store/useDrawerStore"
+import useRouterHandler from "./useRouterHandler"
 
 export default function useDeleteTransaction() {
     const { selectedDate } = useContext(DateContext)
-    const { setIsDrawerOpen, setQuery } = useDrawerStore((state) => state.actions)
+    const { router } = useRouterHandler()
     const queryClient = useQueryClient()
     let selectedId = ''
 
     const onSuccess = () => {
         queryClient.invalidateQueries(["transactions", { selectedDate }])
-        setQuery("")
-        setIsDrawerOpen(false)
+        router.back()
     }
 
     const mutationFn = (transaction:Transaction) => {

@@ -9,15 +9,15 @@ import { Button } from "../ui/button"
 import { PencilLine, Trash2 } from "lucide-react"
 import useDeleteTransaction from "@/hooks/useDeleteTransaction"
 import { Transaction } from "@/types/transaction"
-import useDrawerStore from "@/store/useDrawerStore"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 import { SettingsContext } from "@/providers/settings-provider"
 import useTransactionStore from "@/store/useTransactionStore"
 import moment from "moment-jalaali"
+import useRouterHandler from "@/hooks/useRouterHandler"
 
 const TransactionDetails = () => {
     const { currentTransaction } = useTransactionForm()
-    const { setQuery } = useDrawerStore((state) => state.actions)
+    const { handleSearchParams } = useRouterHandler()
     const { dictionary } = useContext(DictionaryContext)
     const { settings } = useContext(SettingsContext)
     const { updateTransaction } = useTransactionStore((state) => state.actions)
@@ -31,7 +31,7 @@ const TransactionDetails = () => {
 
     const handleEditTransaction = (transaction: Transaction) => {
         updateTransaction(transaction)
-        setQuery("transactionForm")
+        handleSearchParams("drawer", "transactionForm")
     }
 
     const datePrefix = settings.calender == "jalali" ? "j" : ""
