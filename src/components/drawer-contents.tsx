@@ -2,7 +2,7 @@ import React, { ComponentType } from "react"
 import dynamic from "next/dynamic"
 import useRouterHandler from "@/hooks/useRouterHandler"
 
-type Contents = {
+export type Contents = {
     transactionForm: ComponentType<{}>
     settings: ComponentType<{}>
     transactionDetails: ComponentType<{}>
