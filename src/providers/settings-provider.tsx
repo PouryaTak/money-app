@@ -15,7 +15,10 @@ export default function SettingsProvider({ children }: { children: React.ReactNo
     const { router } = useRouterHandler()
     const { data: session, status } = useSession()
 
-    const initialSettings = cookieSetting ? JSON.parse(decodeURIComponent(cookieSetting)) : initialSettingsState
+    const initialSettings =
+        cookieSetting && cookieSetting !== "undefined"
+            ? JSON.parse(decodeURIComponent(cookieSetting))
+            : initialSettingsState
     const [settings, dispatch] = useReducer(settingsReducer, initialSettings)
 
     useQuery(["getSettings", session?.user?.email], () => getSettings(session?.user?.email || ""), {

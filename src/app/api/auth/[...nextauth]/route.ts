@@ -12,14 +12,19 @@ const authOptions = {
         GithubProvider({
             clientId: process.env.GITHUB_CLIENT_ID!,
             clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+            authorization: {
+                params: {
+                    scope: "read:user user:email",
+                },
+            },
         }),
     ],
     callbacks: {
         async signIn({ user, account }: any) {
-            if (account?.provider) {
+            if (account?.provider === "github" || account?.provider === "google") {
                 return await handleAddUserToDB(user)
             }
-            return user
+            return true
         },
     },
 }

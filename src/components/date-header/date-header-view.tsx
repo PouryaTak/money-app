@@ -5,11 +5,13 @@ import { Minus, Plus } from "lucide-react"
 export default function DateHeaderView({
     goNext,
     goPrev,
+    resetDate,
     date,
     dictionary,
 }: {
     goNext: () => void
     goPrev: () => void
+    resetDate: () => void
     date: string
     dictionary: any
 }) {
@@ -24,7 +26,9 @@ export default function DateHeaderView({
                 <Minus aria-hidden />
                 <span className="sr-only">{dictionary["date-header"]["go-previous-month"]}</span>
             </Button>
-            <span className="text-base font-bold">{date}</span>
+            <span className="text-base font-bold cursor-pointer" title="reset" onClick={resetDate}>
+                {date}
+            </span>
             <Button
                 variant="default"
                 size="icon"

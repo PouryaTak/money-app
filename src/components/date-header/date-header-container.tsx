@@ -6,12 +6,20 @@ import { Settings } from "@/types/settings"
 import { useContext } from "react"
 import { DictionaryContext } from "@/providers/dictionary-provider"
 
-export default function DateHeaderContainer({settings}:{settings:Settings}) {
-    const {dictionary} = useContext(DictionaryContext)
+export default function DateHeaderContainer({ settings }: { settings: Settings }) {
+    const { dictionary } = useContext(DictionaryContext)
     if (settings.lang === "fa-IR") {
         moment.loadPersian({ dialect: "persian-modern" })
     }
-    const {currentListDate,goPreviousDate, goNextDate} = useDateController(settings)
-  
-    return <DateHeaderView goNext={goNextDate} goPrev={goPreviousDate} date={currentListDate} dictionary={dictionary} />
+    const { currentListDate, goPreviousDate, goNextDate, onResetDate } = useDateController(settings)
+
+    return (
+        <DateHeaderView
+            goNext={goNextDate}
+            goPrev={goPreviousDate}
+            date={currentListDate}
+            dictionary={dictionary}
+            resetDate={onResetDate}
+        />
+    )
 }

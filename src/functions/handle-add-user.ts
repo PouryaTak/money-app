@@ -1,4 +1,3 @@
-import { addUser } from "@/functions/api/user"
 import { connectMongoDB } from "@/lib/mongodb"
 import UserModel from "@/models/user"
 
@@ -9,17 +8,17 @@ type User = {
     image: string
 }
 
-export const handleAddUserToDB = async (user: User) => {
+export const handleAddUserToDB = async (user: User): Promise<boolean> => {
     const { email, name } = user
     try {
         await connectMongoDB()
         const userExists = await UserModel.findOne({ email })
         if (!userExists) {
-            const response = await addUser({ name, email })
-            return response.ok ? user : null
+            await UserModel.create({ name, email })
         }
-        return user
+        return true
     } catch (err) {
         console.log(err)
+        return false
     }
 }

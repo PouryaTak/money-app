@@ -11,7 +11,13 @@ export default function useDateController(settings: Settings) {
 
     const isJalaliCalender = useMemo(() => (settings.calender == "jalali" ? "j" : ""), [settings.calender])
 
-    const currentListDate = useMemo(() => date.format(`${isJalaliCalender}MMMM`), [date, isJalaliCalender])
+    const currentListDate = useMemo(() => {
+        const year =
+            date.format(`${isJalaliCalender}YYYY`) !== moment(Date.now()).format(`${isJalaliCalender}YYYY`)
+                ? `${isJalaliCalender}YYYY `
+                : ""
+        return date.format(`${year} ${isJalaliCalender}MMMM`)
+    }, [date, isJalaliCalender])
     //@ts-ignore
     const MonthFormat = useMemo<"jMonth">(() => `${isJalaliCalender}Month`, [isJalaliCalender])
 
@@ -21,6 +27,10 @@ export default function useDateController(settings: Settings) {
 
     const goNextDate = () => {
         handleSearchParams("date", moment(date.format()).add(1, MonthFormat).format("x"))
+    }
+    const onResetDate = () => {
+        setDate(moment(Date.now()))
+        handleSearchParams("date", moment(moment(Date.now()).format()).format("x"))
     }
 
     useEffect(() => {
@@ -38,5 +48,5 @@ export default function useDateController(settings: Settings) {
         }
     }, [searchParam])
 
-    return { currentListDate, goPreviousDate, goNextDate }
+    return { currentListDate, goPreviousDate, goNextDate, onResetDate }
 }
