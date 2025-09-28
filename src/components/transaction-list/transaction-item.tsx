@@ -26,7 +26,7 @@ const TransactionListItem = ({
             onClick={() => getTransactionDetails(transaction._id!)}
         >
             <div
-                className={`w-12 h-16 flex items-center justify-center rounded-lg  ${
+                className={`w-12 h-16 flex items-center justify-center rounded-lg flex-shrink-0 ${
                     transaction.type == "expense" ? "text-red-500 bg-red-100" : "text-green-500 bg-green-100"
                 }`}
             >
@@ -35,23 +35,26 @@ const TransactionListItem = ({
                 </span>
                 <span className="sr-only">{dictionary.general[transaction.type]}</span>
             </div>
-            <div className="grid grid-rows-2 w-full h-auto items-center">
-                <div className="flex justify-between w-full items-center ">
-                    <div className="flex items-center gap-2 col-start-2 col-end-3 row-start-1 row-end-2">
-                        <span className=" text-sm truncate">{transaction.title || "-----"}</span>
-                        {Boolean(transaction.desc) && <TextIcon size={12} className="text-gray-400" />}
-                        {Boolean(transaction.tags.length) && <TagIcon size={12} className="text-gray-400" />}
+            <div className="flex flex-col gap-1 w-full min-w-0 py-1">
+                <div className="flex justify-between items-center w-full gap-2">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                        <span className="text-sm truncate" title={transaction.title || "-----"}>
+                            {transaction.title || "-----"}
+                        </span>
+                        {Boolean(transaction.desc) && <TextIcon size={12} className="text-gray-400 flex-shrink-0" />}
+                        {Boolean(transaction.tags.length) && (
+                            <TagIcon size={12} className="text-gray-400 flex-shrink-0" />
+                        )}
                     </div>
-                    <div className="col-start-3 col-end-4 row-start-1 row-end-2 truncate text-end text-xs">
+                    <div className="text-xs text-slate-500 flex-shrink-0">
                         {moment(transaction.date).format(`${datePrefix}MM/${datePrefix}DD`) || "--/--"}
                     </div>
                 </div>
-                <div className="flex justify-between w-full items-center">
-                    <div className="col-start-2 col-end-3 row-start-2 row-end-3 truncate text-sm flex gap-2 text-slate-500">
+                <div className="flex justify-between items-center w-full mt-auto">
+                    <div className="text-sm flex gap-2 text-slate-500">
                         {numberSeparator(Number(transaction.amount)) || "0"}
-                        <span className="text-slate-300 text-sm leading-6">{currency} </span>
+                        <span className="text-slate-300 text-sm">{currency}</span>
                     </div>
-                    <div className="flex justify-end col-start-3 col-end-4 row-start-2 row-end-3 truncate text-end"></div>
                 </div>
             </div>
         </Card>
