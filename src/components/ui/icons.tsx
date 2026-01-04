@@ -1,4 +1,4 @@
-// import { icons } from "lucide-react";
+// import { icons } from "lucide-react"; update package
 
 import {
     BadgePercent,
